@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<!-- saved from url=(0066)file:///Users/margueritegaynor/Downloads/london_tube_activity.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🚇 London Underground English Adventure</title>
+<link href="./🚇 London Underground English Adventure_files/css2" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --red: #DC241F;
+  --navy: #003688;
+  --yellow: #FFD329;
+  --cream: #F4EFE0;
+  --green: #00853F;
+  --white: #fff;
+}
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--cream);
+  min-height: 100vh;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(220,36,31,0.07) 39px, rgba(220,36,31,0.07) 40px),
+    repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(220,36,31,0.07) 39px, rgba(220,36,31,0.07) 40px);
+}
+.screen { display: none; }
+.screen.active { display: block; }
+
+/* HEADER */
+.tube-header {
+  background: var(--red);
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  box-shadow: 0 3px 0 rgba(0,0,0,0.25);
+}
+.main-title {
+  font-family: 'Baloo 2', sans-serif;
+  font-size: 1.8em;
+  font-weight: 800;
+  text-shadow: 2px 2px 0 rgba(0,0,0,0.2);
+}
+.header-sub { color: rgba(255,255,255,0.85); font-size: 0.88em; margin-top: 2px; }
+
+/* HOME */
+.home-container { max-width: 700px; margin: 36px auto; padding: 20px; text-align: center; }
+.home-intro {
+  background: var(--navy);
+  color: white;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+.home-intro h2 { font-family: 'Baloo 2', sans-serif; font-size: 1.5em; margin-bottom: 10px; color: var(--yellow); }
+.activity-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+.activity-card {
+  background: white;
+  border-radius: 16px;
+  padding: 24px 16px;
+  box-shadow: 0 4px 16px rgba(0,54,136,0.14);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: 3px solid transparent;
+}
+.activity-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,54,136,0.2); border-color: var(--navy); }
+.activity-card .card-emoji { font-size: 2.8em; margin-bottom: 10px; }
+.activity-card h3 { font-family: 'Baloo 2', sans-serif; font-size: 1.15em; color: var(--navy); margin-bottom: 6px; }
+.activity-card p { font-size: 0.88em; color: #555; line-height: 1.5; }
+.line-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.78em; font-weight: 700; margin-top: 10px; color: white; }
+
+/* BUTTONS */
+.btn {
+  display: inline-block;
+  padding: 11px 26px;
+  border: none;
+  border-radius: 30px;
+  font-family: 'Baloo 2', sans-serif;
+  font-weight: 700;
+  font-size: 0.95em;
+  cursor: pointer;
+  transition: all 0.18s;
+  letter-spacing: 0.3px;
+}
+.btn-red { background: var(--red); color: white; box-shadow: 0 4px 0 #8b0000; }
+.btn-red:hover { transform: translateY(-2px); box-shadow: 0 6px 0 #8b0000; }
+.btn-red:active { transform: translateY(2px); box-shadow: 0 2px 0 #8b0000; }
+.btn-navy { background: var(--navy); color: white; box-shadow: 0 4px 0 #001a4f; }
+.btn-navy:hover { transform: translateY(-2px); }
+.btn-yellow { background: var(--yellow); color: var(--navy); box-shadow: 0 4px 0 #c4a200; }
+.btn-yellow:hover { transform: translateY(-2px); }
+.btn-green { background: var(--green); color: white; box-shadow: 0 4px 0 #003d1a; }
+.btn-green:hover { transform: translateY(-2px); }
+
+/* ACTIVITY AREAS */
+.activity-container { max-width: 680px; margin: 22px auto; padding: 0 16px 40px; }
+.progress-bar-wrap { background: rgba(0,54,136,0.14); border-radius: 10px; height: 11px; margin-bottom: 18px; overflow: hidden; }
+.progress-bar-fill { height: 100%; background: var(--navy); border-radius: 10px; transition: width 0.4s ease; }
+.card { background: white; border-radius: 16px; padding: 22px; box-shadow: 0 4px 16px rgba(0,54,136,0.12); margin-bottom: 14px; }
+.question-number { font-family: 'Baloo 2', sans-serif; font-size: 0.88em; color: var(--red); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.score-display { display: flex; align-items: center; gap: 6px; font-family: 'Baloo 2', sans-serif; font-weight: 700; color: var(--navy); font-size: 1.05em; }
+.back-btn { background: none; border: none; color: var(--navy); font-family: 'Nunito', sans-serif; font-weight: 700; cursor: pointer; font-size: 0.93em; display: flex; align-items: center; gap: 5px; margin-bottom: 14px; padding: 4px 0; }
+.back-btn:hover { text-decoration: underline; }
+
+/* ACTIVITY 1 */
+.clue-box {
+  background: var(--navy);
+  color: white;
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin-bottom: 10px;
+  font-size: 0.97em;
+  line-height: 1.55;
+  animation: slideIn 0.3s ease;
+}
+@keyframes slideIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.clue-label { font-family: 'Baloo 2', sans-serif; font-size: 0.8em; color: var(--yellow); font-weight: 700; margin-bottom: 3px; text-transform: uppercase; letter-spacing: 1px; }
+.options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-top: 14px; }
+.option-btn {
+  padding: 11px 14px;
+  background: white;
+  border: 2px solid var(--navy);
+  border-radius: 10px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.92em;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s;
+  color: var(--navy);
+  text-align: left;
+}
+.option-btn:hover:not(:disabled) { background: var(--navy); color: white; transform: scale(1.02); }
+.option-btn.correct { background: #d4edda; border-color: #28a745; color: #155724; }
+.option-btn.wrong { background: #f8d7da; border-color: #dc3545; color: #721c24; }
+.feedback-box { padding: 14px 16px; border-radius: 12px; margin-top: 14px; font-size: 0.95em; font-weight: 600; line-height: 1.5; animation: slideIn 0.3s ease; }
+.feedback-correct { background: #d4edda; color: #155724; border: 2px solid #28a745; }
+.feedback-wrong { background: #f8d7da; color: #721c24; border: 2px solid #dc3545; }
+
+/* STEP DOTS */
+.step-dots { display: flex; gap: 6px; margin-bottom: 14px; align-items: center; }
+.step-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(0,54,136,0.2); transition: background 0.3s; }
+.step-dot.done { background: var(--navy); }
+.step-dot.active { background: var(--red); width: 12px; height: 12px; }
+
+/* ACTIVITY 2 */
+.phrase-preview {
+  background: var(--navy);
+  color: white;
+  border-radius: 12px;
+  padding: 16px 18px;
+  margin-bottom: 16px;
+  font-family: 'Baloo 2', sans-serif;
+  font-size: 1.1em;
+  line-height: 1.65;
+  min-height: 68px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.phrase-adj { color: #90EE90; font-weight: 700; }
+.phrase-noun { color: var(--yellow); font-weight: 800; }
+.phrase-post { color: #ADD8E6; font-style: italic; }
+.adj-bank { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+.adj-chip {
+  padding: 6px 15px;
+  border-radius: 20px;
+  border: 2px solid var(--navy);
+  background: white;
+  color: var(--navy);
+  font-weight: 700;
+  font-family: 'Nunito', sans-serif;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-size: 0.9em;
+  user-select: none;
+}
+.adj-chip:hover { background: #e6eeff; }
+.adj-chip.selected { background: var(--navy); color: white; }
+.post-options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+.post-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 14px;
+  background: #f5f5f5;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-size: 0.92em;
+  font-weight: 600;
+  color: #222;
+  line-height: 1.45;
+}
+.post-option:hover { background: #e8f0ff; border-color: var(--navy); }
+.post-option.selected { background: #d9e8ff; border-color: var(--navy); }
+.post-option input[type=radio] { accent-color: var(--navy); width: 17px; height: 17px; flex-shrink: 0; margin-top: 2px; }
+.section-label { font-weight: 700; color: var(--navy); margin-bottom: 7px; font-size: 0.93em; }
+.hint-text { font-size: 0.83em; color: #777; margin-bottom: 9px; font-style: italic; }
+
+/* END */
+.end-container { max-width: 600px; margin: 36px auto; padding: 20px; text-align: center; }
+.certificate {
+  background: white;
+  border: 5px solid var(--navy);
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: 0 4px 16px rgba(0,54,136,0.14);
+  position: relative;
+  overflow: hidden;
+}
+.certificate::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 8px;
+  background: linear-gradient(90deg, #DC241F 0%, #FFD329 20%, #00853F 40%, #003688 60%, #DC241F 80%, #FFD329 100%);
+}
+.cert-title { font-family: 'Baloo 2', sans-serif; font-size: 1.9em; color: var(--navy); margin: 14px 0 6px; }
+.cert-score { font-family: 'Baloo 2', sans-serif; font-size: 3.2em; color: var(--red); font-weight: 800; margin: 6px 0; }
+.cert-msg { font-size: 0.97em; color: #444; margin-bottom: 22px; line-height: 1.65; }
+.nav-buttons { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 20px; }
+
+@media (max-width: 500px) {
+  .activity-cards { grid-template-columns: 1fr; }
+  .options-grid { grid-template-columns: 1fr; }
+  .main-title { font-size: 1.4em; }
+}
+</style>
+</head>
+<body>
+
+<!-- HOME SCREEN -->
+<div id="home" class="screen">
+  <div class="tube-header">
+    <div class="main-title">🚇 London Underground Adventure</div>
+    <div class="header-sub">Year 4 English Activity</div>
+  </div>
+  <div class="home-container">
+    <div class="home-intro">
+      <h2>🎒 All aboard!</h2>
+      <p>Welcome to the London Underground English Adventure! You'll use your reading skills to work out which station you're at — and then build some seriously impressive expanded noun phrases about what you see.</p>
+    </div>
+    <div class="activity-cards">
+      <div class="activity-card" onclick="startActivity1()">
+        <div class="card-emoji">🔍</div>
+        <h3>Mystery Station</h3>
+        <p>Read the clues carefully and predict which Tube station you've arrived at!</p>
+        <div class="line-badge" style="background: var(--red)">Inference &amp; Prediction</div>
+      </div>
+      <div class="activity-card" onclick="startActivity2()">
+        <div class="card-emoji">✍️</div>
+        <h3>Phrase Builder</h3>
+        <p>Take a boring little phrase and build it into something brilliant using expanded noun phrases!</p>
+        <div class="line-badge" style="background: var(--navy)">Expanded Noun Phrases</div>
+      </div>
+    </div>
+    <p style="color:#777; font-size: 0.88em;">Complete both activities to see your full score! 🏆</p>
+  </div>
+</div>
+
+<!-- ACTIVITY 1: MYSTERY STATION -->
+<div id="act1" class="screen active">
+  <div class="tube-header">
+    <div class="main-title">🔍 Mystery Station</div>
+  </div>
+  <div class="activity-container">
+    <button class="back-btn" onclick="goHome()">← Back to menu</button>
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+      <div id="a1-counter" class="question-number">Station 2 of 4</div>
+      <div class="score-display">⭐ <span id="a1-score">2</span></div>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" id="a1-progress" style="width: 25%;"></div></div>
+    <div class="card">
+      <div class="step-dots" id="a1-dots"><div class="step-dot active"></div><div class="step-dot "></div><div class="step-dot "></div><span style="margin-left:6px; font-size:0.82em; color:#666; font-weight:600;">Clue 1 of 3</span></div>
+      <p style="font-size:0.97em; color:#444; font-weight:600; margin-bottom:14px;">Read the clues. Use them to predict which station you've arrived at! 🗺️</p>
+      <div id="a1-clues"><div class="clue-box"><div class="clue-label">Clue 1</div>🧙 A very famous fictional wizard catches his train from a secret, magical platform at this station — you'll need to run straight at a solid brick wall to get there!</div></div>
+      <div id="a1-reveal-wrap" style="text-align: center; margin: 12px 0px; display: none;">
+        <button class="btn btn-yellow" onclick="revealNextClue()">Reveal next clue 👀</button>
+      </div>
+      <div id="a1-options" class="options-grid"><button class="option-btn " disabled="">Paddington</button><button class="option-btn correct" disabled="">King's Cross St Pancras</button><button class="option-btn " disabled="">Waterloo</button><button class="option-btn " disabled="">Euston</button></div>
+      <div id="a1-feedback"><div class="feedback-box feedback-correct">✅ <strong>Well predicted! You've arrived at King's Cross St Pancras!</strong><br><span style="font-weight:400; font-size:0.88em; display:block; margin-top:6px;">🧠 The famous Platform 9¾ from Harry Potter is based on King's Cross. J.K. Rowling has said she was thinking of this very station when she invented it! 🪄</span></div></div>
+    </div>
+    <div style="text-align:center;" id="a1-next-wrap"><button class="btn btn-navy" onclick="nextStation()">Next station ➡️</button></div>
+  </div>
+</div>
+
+<!-- ACTIVITY 2: PHRASE BUILDER -->
+<div id="act2" class="screen">
+  <div class="tube-header">
+    <div class="main-title">✍️ Phrase Builder</div>
+  </div>
+  <div class="activity-container">
+    <button class="back-btn" onclick="goHome()">← Back to menu</button>
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+      <div id="a2-counter" class="question-number">Phrase 1 of 4</div>
+      <div class="score-display">⭐ <span id="a2-score">0</span></div>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" id="a2-progress" style="width: 0%;"></div></div>
+    <div class="card">
+      <div id="a2-station" style="font-family:&#39;Baloo 2&#39;,sans-serif; font-size:0.95em; color:var(--red); font-weight:700; margin-bottom:6px;">📍 You're at: 🎪 Piccadilly Circus</div>
+      <p style="font-size:0.97em; color:#333; margin-bottom:12px;">Start with the boring phrase below — then <strong>make it amazing!</strong></p>
+      <div style="background:#f0f0f0; border-radius:10px; padding:11px 15px; margin-bottom:16px; font-size:0.93em; color:#555;">
+        Basic phrase: <strong>"I saw <span id="a2-basic" style="color:var(--red)">a bus</span>."</strong>
+      </div>
+
+      <p class="section-label">Step 1 — Add adjectives <span style="font-weight:400; font-style:italic;">(choose 2 or more!)</span></p>
+      <p class="hint-text">Click a word to add it. Click again to remove it.</p>
+      <div id="a2-adj-bank" class="adj-bank"><div class="adj-chip" onclick="toggleAdj(&#39;enormous&#39;)" id="chip-enormous">enormous</div><div class="adj-chip" onclick="toggleAdj(&#39;shiny&#39;)" id="chip-shiny">shiny</div><div class="adj-chip" onclick="toggleAdj(&#39;noisy&#39;)" id="chip-noisy">noisy</div><div class="adj-chip" onclick="toggleAdj(&#39;red&#39;)" id="chip-red">red</div><div class="adj-chip" onclick="toggleAdj(&#39;double-decker&#39;)" id="chip-double-decker">double-decker</div><div class="adj-chip" onclick="toggleAdj(&#39;ancient&#39;)" id="chip-ancient">ancient</div><div class="adj-chip" onclick="toggleAdj(&#39;battered&#39;)" id="chip-battered">battered</div><div class="adj-chip" onclick="toggleAdj(&#39;speedy&#39;)" id="chip-speedy">speedy</div></div>
+
+      <p class="section-label">Step 2 — Add a phrase after the noun</p>
+      <div id="a2-post-options" class="post-options"><label class="post-option" id="postopt-0" onclick="selectPost(0)">
+      <input type="radio" name="postmod" value="0"> that rumbled noisily past the dazzling circus lights
+    </label><label class="post-option" id="postopt-1" onclick="selectPost(1)">
+      <input type="radio" name="postmod" value="1"> which was completely empty inside
+    </label><label class="post-option" id="postopt-2" onclick="selectPost(2)">
+      <input type="radio" name="postmod" value="2"> parked quietly beside a sleeping pigeon
+    </label></div>
+
+      <p class="section-label">Your expanded noun phrase:</p>
+      <div class="phrase-preview" id="a2-preview"><span style="color:rgba(255,255,255,0.4); font-style:italic; font-size:0.95em;">Pick some adjectives above to start building...</span></div>
+
+      <div id="a2-feedback"></div>
+      <div style="text-align:center; margin-top:14px;">
+        <button class="btn btn-red" onclick="checkPhrase()">Check my phrase! ✅</button>
+      </div>
+    </div>
+    <div style="text-align:center; margin-top:6px;" id="a2-next-wrap"></div>
+  </div>
+</div>
+
+<!-- END SCREEN -->
+<div id="end" class="screen">
+  <div class="tube-header">
+    <div class="main-title">🏆 Journey Complete!</div>
+  </div>
+  <div class="end-container">
+    <div class="certificate">
+      <div style="font-size:3.5em;">🎉</div>
+      <div class="cert-title">Well done, traveller!</div>
+      <div class="cert-score" id="end-score"></div>
+      <div class="cert-msg" id="end-msg"></div>
+      <div style="border-top:3px dashed #ddd; padding-top:18px; margin-top:4px;">
+        <p style="font-weight:700; color:var(--navy); margin-bottom:12px; font-size:1em;">💡 Remember:</p>
+        <p style="font-size:0.9em; color:#444; line-height:1.7; text-align:left;">
+          An <strong>expanded noun phrase</strong> makes your writing come alive! Instead of <em>"a bus"</em>, try:<br>
+          <span style="color:var(--navy); font-style:italic;">"the enormous, shiny red double-decker bus that rumbled noisily past the bright circus lights"</span> — readers can really picture it! 🚌✨
+        </p>
+      </div>
+    </div>
+    <div class="nav-buttons">
+      <button class="btn btn-red" onclick="restartAll()">Play again 🔄</button>
+      <button class="btn btn-navy" onclick="goHome()">Menu 🏠</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─────────────────────────────────────────────
+// DATA
+// ─────────────────────────────────────────────
+
+const stations = [
+  {
+    name: "Tower Hill",
+    options: ["King's Cross", "Tower Hill", "London Bridge", "Westminster"],
+    clues: [
+      "🐦‍⬛ Ravens live here and are protected by a very old royal law. Legend says that if the ravens ever leave, the whole kingdom will fall!",
+      "🏰 A famous fortress was built on this spot by William the Conqueror over 900 years ago. It has thick stone walls and was once used as a prison for some very important — and very unlucky — people.",
+      "👑 The sparkling Crown Jewels — including real crowns, gleaming swords, and golden orbs — are kept safely inside under very tight security."
+    ],
+    funFact: "The ravens at the Tower each have their own name. One was even dismissed for bad behaviour! The person in charge of them has the brilliant job title of 'Ravenmaster'. 🐦"
+  },
+  {
+    name: "King's Cross St Pancras",
+    options: ["Paddington", "King's Cross St Pancras", "Waterloo", "Euston"],
+    clues: [
+      "🧙 A very famous fictional wizard catches his train from a secret, magical platform at this station — you'll need to run straight at a solid brick wall to get there!",
+      "🚂 From here, you can board a train and travel all the way to Edinburgh in Scotland — or even catch a service under the sea to Paris in France!",
+      "🛒 Thousands of fans visit every year to pose with a luggage trolley that appears to be vanishing into the wall — just like in a certain series of very famous books and films."
+    ],
+    funFact: "The famous Platform 9¾ from Harry Potter is based on King's Cross. J.K. Rowling has said she was thinking of this very station when she invented it! 🪄"
+  },
+  {
+    name: "Westminster",
+    options: ["Waterloo", "Embankment", "Westminster", "Pimlico"],
+    clues: [
+      "🎡 A giant observation wheel turns very slowly beside the River Thames, right next to this station. On a clear day, you can spot landmarks up to 40 miles away from the top!",
+      "🏛️ Walk upstairs and you'll find yourself standing right outside the building where the laws for the whole of the United Kingdom are debated and decided.",
+      "🕐 A world-famous clock tower looms above, its great bells ringing out over the city every quarter of an hour — just as they have for over 150 years."
+    ],
+    funFact: "Most people call the whole tower 'Big Ben', but Big Ben is actually just the name of the enormous bell inside it! The tower itself was renamed Elizabeth Tower in 2012. 🔔"
+  },
+  {
+    name: "London Bridge",
+    options: ["London Bridge", "Bank", "Southwark", "Monument"],
+    clues: [
+      "🎵 A nursery rhyme that children have been singing for hundreds of years was written about the famous crossing that gives this station its name.",
+      "🏙️ Step outside and you can look up at one of Europe's tallest buildings — a giant pointed skyscraper nicknamed after a piece of broken kitchen crockery!",
+      "🌊 From the bridge itself, you can look down at the mighty River Thames as it flows steadily east towards the sea."
+    ],
+    funFact: "The pointy skyscraper is called The Shard. It's 310 metres tall and has 95 floors. On a clear day, you can see 64 kilometres from the very top! 🔺"
+  }
+];
+
+const phrases = [
+  {
+    noun: "a bus",
+    baseNoun: "bus",
+    station: "🎪 Piccadilly Circus",
+    adjectives: ["enormous", "shiny", "noisy", "red", "double-decker", "ancient", "battered", "speedy"],
+    postModifiers: [
+      "that rumbled noisily past the dazzling circus lights",
+      "which was completely empty inside",
+      "parked quietly beside a sleeping pigeon"
+    ]
+  },
+  {
+    noun: "a tower",
+    baseNoun: "tower",
+    station: "🏰 Tower Hill",
+    adjectives: ["ancient", "towering", "dark", "mighty", "grey", "crumbling", "famous", "stone"],
+    postModifiers: [
+      "that has guarded the city for over a thousand years",
+      "hidden behind a very tall wooden fence",
+      "that had been painted a cheerful shade of yellow"
+    ]
+  },
+  {
+    noun: "a guard",
+    baseNoun: "guard",
+    station: "💂 St James's Park",
+    adjectives: ["tall", "proud", "scarlet", "silent", "magnificent", "stern", "smart", "still"],
+    postModifiers: [
+      "who stood without moving for three whole hours",
+      "who was secretly reading a book under his enormous hat",
+      "riding very slowly past on a small bicycle"
+    ]
+  },
+  {
+    noun: "a clock",
+    baseNoun: "clock",
+    station: "🕐 Westminster",
+    adjectives: ["enormous", "ancient", "golden", "famous", "grand", "gleaming", "towering", "magnificent"],
+    postModifiers: [
+      "whose deep, booming chimes could be heard across the whole city",
+      "that had stopped working on a rainy Tuesday afternoon",
+      "hidden from view behind a cluster of very tall trees"
+    ]
+  }
+];
+
+// ─────────────────────────────────────────────
+// STATE
+// ─────────────────────────────────────────────
+
+let a1 = { q: 0, clue: 0, score: 0, answered: false };
+let a2 = { q: 0, score: 0, adjs: [], post: null, checked: false };
+let completed = [];
+
+// ─────────────────────────────────────────────
+// NAV
+// ─────────────────────────────────────────────
+
+function show(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+function goHome() { show('home'); }
+function restartAll() {
+  a1 = { q: 0, clue: 0, score: 0, answered: false };
+  a2 = { q: 0, score: 0, adjs: [], post: null, checked: false };
+  completed = [];
+  show('home');
+}
+
+// ─────────────────────────────────────────────
+// ACTIVITY 1
+// ─────────────────────────────────────────────
+
+function startActivity1() {
+  a1 = { q: 0, clue: 0, score: 0, answered: false };
+  renderA1();
+  show('act1');
+}
+
+function renderA1() {
+  const q = stations[a1.q];
+  const total = stations.length;
+
+  document.getElementById('a1-counter').textContent = `Station ${a1.q + 1} of ${total}`;
+  document.getElementById('a1-score').textContent = a1.score;
+  document.getElementById('a1-progress').style.width = `${(a1.q / total) * 100}%`;
+
+  // Step dots
+  document.getElementById('a1-dots').innerHTML = q.clues.map((_, i) =>
+    `<div class="step-dot ${i < a1.clue ? 'done' : i === a1.clue ? 'active' : ''}"></div>`
+  ).join('') + `<span style="margin-left:6px; font-size:0.82em; color:#666; font-weight:600;">Clue ${a1.clue + 1} of ${q.clues.length}</span>`;
+
+  // Clues
+  const cluesEl = document.getElementById('a1-clues');
+  cluesEl.innerHTML = '';
+  for (let i = 0; i <= a1.clue; i++) {
+    const d = document.createElement('div');
+    d.className = 'clue-box';
+    d.innerHTML = `<div class="clue-label">Clue ${i + 1}</div>${q.clues[i]}`;
+    cluesEl.appendChild(d);
+  }
+
+  // Reveal button
+  const revWrap = document.getElementById('a1-reveal-wrap');
+  revWrap.style.display = (a1.clue < q.clues.length - 1 && !a1.answered) ? 'block' : 'none';
+
+  // Options — always show them
+  const optsEl = document.getElementById('a1-options');
+  if (!a1.answered) {
+    optsEl.innerHTML = q.options.map(opt =>
+      `<button class="option-btn" onclick="selectStation(\`${opt}\`)">${opt}</button>`
+    ).join('');
+  }
+
+  document.getElementById('a1-feedback').innerHTML = '';
+  document.getElementById('a1-next-wrap').innerHTML = '';
+}
+
+function revealNextClue() {
+  a1.clue++;
+  renderA1();
+}
+
+function selectStation(choice) {
+  if (a1.answered) return;
+  const q = stations[a1.q];
+  a1.answered = true;
+  const correct = choice === q.name;
+  if (correct) a1.score++;
+
+  document.getElementById('a1-score').textContent = a1.score;
+  document.getElementById('a1-reveal-wrap').style.display = 'none';
+
+  document.getElementById('a1-options').innerHTML = q.options.map(opt => {
+    let cls = '';
+    if (opt === q.name) cls = 'correct';
+    else if (opt === choice && !correct) cls = 'wrong';
+    return `<button class="option-btn ${cls}" disabled>${opt}</button>`;
+  }).join('');
+
+  const fb = document.getElementById('a1-feedback');
+  fb.innerHTML = correct
+    ? `<div class="feedback-box feedback-correct">✅ <strong>Well predicted! You've arrived at ${q.name}!</strong><br><span style="font-weight:400; font-size:0.88em; display:block; margin-top:6px;">🧠 ${q.funFact}</span></div>`
+    : `<div class="feedback-box feedback-wrong">❌ <strong>Not quite — this station was ${q.name}.</strong><br><span style="font-weight:400; font-size:0.88em; display:block; margin-top:6px;">🧠 ${q.funFact}</span></div>`;
+
+  const nw = document.getElementById('a1-next-wrap');
+  if (a1.q < stations.length - 1) {
+    nw.innerHTML = `<button class="btn btn-navy" onclick="nextStation()">Next station ➡️</button>`;
+  } else {
+    nw.innerHTML = `<button class="btn btn-green" onclick="finishA1()">Finished! 🎉</button>`;
+  }
+}
+
+function nextStation() {
+  a1.q++;
+  a1.clue = 0;
+  a1.answered = false;
+  renderA1();
+}
+
+function finishA1() {
+  completed.push({ name: 'Mystery Station', score: a1.score, total: stations.length });
+  showEnd();
+}
+
+// ─────────────────────────────────────────────
+// ACTIVITY 2
+// ─────────────────────────────────────────────
+
+function startActivity2() {
+  a2 = { q: 0, score: 0, adjs: [], post: null, checked: false };
+  renderA2();
+  show('act2');
+}
+
+function renderA2() {
+  const q = phrases[a2.q];
+  a2.adjs = []; a2.post = null; a2.checked = false;
+
+  document.getElementById('a2-counter').textContent = `Phrase ${a2.q + 1} of ${phrases.length}`;
+  document.getElementById('a2-score').textContent = a2.score;
+  document.getElementById('a2-progress').style.width = `${(a2.q / phrases.length) * 100}%`;
+  document.getElementById('a2-station').textContent = `📍 You're at: ${q.station}`;
+  document.getElementById('a2-basic').textContent = q.noun;
+  document.getElementById('a2-feedback').innerHTML = '';
+  document.getElementById('a2-next-wrap').innerHTML = '';
+
+  document.getElementById('a2-adj-bank').innerHTML = q.adjectives.map(adj =>
+    `<div class="adj-chip" onclick="toggleAdj('${adj}')" id="chip-${adj}">${adj}</div>`
+  ).join('');
+
+  document.getElementById('a2-post-options').innerHTML = q.postModifiers.map((pm, i) =>
+    `<label class="post-option" id="postopt-${i}" onclick="selectPost(${i})">
+      <input type="radio" name="postmod" value="${i}"> ${pm}
+    </label>`
+  ).join('');
+
+  updatePreview();
+}
+
+function toggleAdj(adj) {
+  if (a2.checked) return;
+  const chip = document.getElementById(`chip-${adj}`);
+  const idx = a2.adjs.indexOf(adj);
+  if (idx === -1) { a2.adjs.push(adj); chip.classList.add('selected'); }
+  else { a2.adjs.splice(idx, 1); chip.classList.remove('selected'); }
+  updatePreview();
+}
+
+function selectPost(i) {
+  if (a2.checked) return;
+  document.querySelectorAll('.post-option').forEach((el, idx) => el.classList.toggle('selected', idx === i));
+  document.querySelectorAll('input[name=postmod]')[i].checked = true;
+  a2.post = i;
+  updatePreview();
+}
+
+function updatePreview() {
+  const q = phrases[a2.q];
+  const p = document.getElementById('a2-preview');
+  if (a2.adjs.length === 0 && a2.post === null) {
+    p.innerHTML = `<span style="color:rgba(255,255,255,0.4); font-style:italic; font-size:0.95em;">Pick some adjectives above to start building...</span>`;
+    return;
+  }
+  let html = 'I saw ';
+  if (a2.adjs.length > 0) html += `<span class="phrase-adj">${a2.adjs.join(', ')}</span>&nbsp;`;
+  html += `<span class="phrase-noun">${q.baseNoun}</span>`;
+  if (a2.post !== null) html += `&nbsp;<span class="phrase-post">${q.postModifiers[a2.post]}</span>`;
+  html += '.';
+  p.innerHTML = html;
+}
+
+function checkPhrase() {
+  if (a2.checked) return;
+  const q = phrases[a2.q];
+  const fb = document.getElementById('a2-feedback');
+
+  if (a2.adjs.length < 2) {
+    fb.innerHTML = `<div class="feedback-box feedback-wrong">⚠️ You need at least <strong>2 adjectives</strong> to make a proper expanded noun phrase — go on, add more!</div>`;
+    return;
+  }
+  if (a2.post === null) {
+    fb.innerHTML = `<div class="feedback-box feedback-wrong">⚠️ Don't forget to choose a phrase to add after the noun (Step 2)!</div>`;
+    return;
+  }
+
+  a2.checked = true;
+  a2.score++;
+  document.getElementById('a2-score').textContent = a2.score;
+
+  const full = `I saw ${a2.adjs.join(', ')} ${q.baseNoun} ${q.postModifiers[a2.post]}.`;
+
+  fb.innerHTML = `<div class="feedback-box feedback-correct">
+    ✅ <strong>Brilliant work!</strong><br>
+    <em style="display:block; margin: 8px 0; font-size:1em; color:#155724;">"${full}"</em>
+    <span style="font-size:0.87em; font-weight:400; color:#2d6a4f;">
+      The adjectives before the noun are called <strong>pre-modifiers</strong>.<br>
+      The phrase after the noun is a <strong>post-modifier</strong>.<br>
+      Together they make a brilliant <strong>expanded noun phrase</strong>! 🌟
+    </span>
+  </div>`;
+
+  document.querySelectorAll('.adj-chip').forEach(c => c.style.pointerEvents = 'none');
+  document.querySelectorAll('.post-option').forEach(c => c.style.pointerEvents = 'none');
+
+  const nw = document.getElementById('a2-next-wrap');
+  if (a2.q < phrases.length - 1) {
+    nw.innerHTML = `<button class="btn btn-navy" onclick="nextPhrase()">Next phrase ➡️</button>`;
+  } else {
+    nw.innerHTML = `<button class="btn btn-green" onclick="finishA2()">Finished! 🎉</button>`;
+  }
+}
+
+function nextPhrase() { a2.q++; renderA2(); }
+
+function finishA2() {
+  completed.push({ name: 'Phrase Builder', score: a2.score, total: phrases.length });
+  showEnd();
+}
+
+// ─────────────────────────────────────────────
+// END
+// ─────────────────────────────────────────────
+
+function showEnd() {
+  const totalC = completed.reduce((s, a) => s + a.score, 0);
+  const totalQ = completed.reduce((s, a) => s + a.total, 0);
+  document.getElementById('end-score').textContent = `${totalC} / ${totalQ}`;
+  const pct = totalQ > 0 ? totalC / totalQ : 0;
+  let star = pct === 1 ? '🌟 Perfect score! You\'re a Tube genius AND an English superstar!'
+    : pct >= 0.75 ? '🎉 Fantastic work! Your inference skills and noun phrases are really impressive!'
+    : pct >= 0.5 ? '👍 Good effort! Keep practising — you\'re really getting there!'
+    : '🚇 Great try! Every journey starts somewhere. Have another go and you\'ll do even better!';
+  const summary = completed.map(a => `<p style="margin:4px 0; font-size:0.9em; color:#444;">• ${a.name}: <strong>${a.score}/${a.total}</strong></p>`).join('');
+  document.getElementById('end-msg').innerHTML = `<p style="margin-bottom:12px;">${star}</p>${summary}`;
+  show('end');
+}
+</script>
+
+
+</body></html>
