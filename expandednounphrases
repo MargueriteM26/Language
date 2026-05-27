@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<!-- saved from url=(0074)file:///Users/margueritegaynor/Downloads/expanded_noun_phrases_tube_1.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Expanded Noun Phrases: London Underground</title>
+<link href="./Expanded Noun Phrases_ London Underground_files/css2" rel="stylesheet">
+<style>
+:root {
+  --det-bg: #F6E4A2; --det-text: #6B4800; --det-border: #d4b84a;
+  --adj-bg: #B4CDEF; --adj-text: #1B3D6E; --adj-border: #7aaad8;
+  --noun-bg: #D2E8F6; --noun-text: #1B3D6E; --noun-border: #8dc4e8;
+  --prep-bg: #B6E2C4; --prep-text: #0B5223; --prep-border: #6abf8a;
+  --wrong-bg: #F8D7DA; --wrong-text: #721c24; --wrong-border: #f5c6cb;
+  --red: #DC241F;
+  --navy: #003688;
+  --section-num: #2563EB;
+  --body-bg: #F0F4FA;
+  --card-bg: #ffffff;
+  --border: #C8D8EC;
+  --text: #1a2a40;
+  --muted: #5a6a7a;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--body-bg);
+  color: var(--text);
+  min-height: 100vh;
+  padding-bottom: 60px;
+}
+
+/* HEADER */
+.tube-header {
+  background: var(--red);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 3px 0 rgba(0,0,0,0.2);
+}
+.roundel {
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  border: 4px solid white;
+  background: var(--red);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 11px; color: white;
+  text-align: center; line-height: 1.1; flex-shrink: 0;
+}
+.header-text { color: white; }
+.header-text h1 { font-size: 1.35em; font-weight: 800; }
+.header-text p { font-size: 0.82em; opacity: 0.88; margin-top: 1px; }
+
+/* PROGRESS STRIP */
+.progress-strip {
+  background: var(--navy);
+  display: flex;
+  justify-content: center;
+  gap: 0;
+}
+.progress-tab {
+  padding: 8px 20px;
+  font-size: 0.82em;
+  font-weight: 700;
+  color: rgba(255,255,255,0.55);
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s;
+  letter-spacing: 0.3px;
+}
+.progress-tab.active { color: white; border-bottom-color: #FFD329; }
+.progress-tab.done { color: rgba(255,255,255,0.8); }
+
+/* PAGE */
+.page { max-width: 760px; margin: 28px auto; padding: 0 16px; }
+
+/* SECTION CARD */
+.section-card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 10px rgba(0,54,136,0.07);
+}
+
+/* SECTION HEADING */
+.section-heading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.section-num {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--section-num);
+  color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 1em;
+  flex-shrink: 0;
+}
+.section-heading h2 {
+  font-size: 1.35em;
+  font-weight: 800;
+  color: var(--navy);
+}
+.section-desc {
+  font-size: 0.95em;
+  color: var(--text);
+  line-height: 1.6;
+  margin-bottom: 18px;
+}
+.section-desc strong { color: var(--navy); }
+
+/* EXAMPLE BOX */
+.example-box {
+  background: linear-gradient(135deg, #FFFBE8 0%, #F4F8FF 100%);
+  border-radius: 12px;
+  border: 1px solid #E0D8B8;
+  padding: 18px 20px;
+  margin-bottom: 18px;
+}
+.example-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.example-row:last-child { margin-bottom: 0; }
+
+/* PILLS */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 16px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 0.95em;
+  cursor: default;
+  user-select: none;
+  transition: transform 0.1s, box-shadow 0.1s;
+  border: 1.5px solid transparent;
+}
+.pill-det  { background: var(--det-bg);  color: var(--det-text);  border-color: var(--det-border); }
+.pill-adj  { background: var(--adj-bg);  color: var(--adj-text);  border-color: var(--adj-border); }
+.pill-noun { background: var(--noun-bg); color: var(--noun-text); border-color: var(--noun-border); }
+.pill-prep { background: var(--prep-bg); color: var(--prep-text); border-color: var(--prep-border); }
+.pill-wrong { background: var(--wrong-bg); color: var(--wrong-text); border-color: var(--wrong-border); }
+.pill-grey  { background: #EEF0F3; color: #445; border-color: #C8D0D8; }
+.pill-selected { box-shadow: 0 0 0 3px var(--navy); transform: scale(1.05); }
+.pill-clickable { cursor: pointer; }
+.pill-clickable:hover { transform: scale(1.04); }
+.pill-classified { opacity: 0.45; pointer-events: none; }
+
+/* LEGEND */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid #E0E8F0;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85em;
+  font-weight: 700;
+  color: var(--muted);
+}
+.legend-dot {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+}
+
+/* ── SORT IT ── */
+.sort-pool {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-bottom: 20px;
+  min-height: 44px;
+  padding: 14px;
+  background: #F4F7FB;
+  border-radius: 10px;
+  border: 1px dashed #B0C4DE;
+}
+.sort-categories {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.sort-bucket {
+  border-radius: 12px;
+  border: 2px solid transparent;
+  padding: 12px;
+  min-height: 60px;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+.sort-bucket:hover { border-color: var(--navy); }
+.sort-bucket.bucket-det  { background: #FEF9EC; border-color: var(--det-border); }
+.sort-bucket.bucket-adj  { background: #EEF5FD; border-color: var(--adj-border); }
+.sort-bucket.bucket-noun { background: #EAF4FB; border-color: var(--noun-border); }
+.sort-bucket.bucket-prep { background: #EDFBF2; border-color: var(--prep-border); }
+.bucket-label {
+  font-size: 0.8em;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 8px;
+}
+.bucket-label.lbl-det  { color: var(--det-text); }
+.bucket-label.lbl-adj  { color: var(--adj-text); }
+.bucket-label.lbl-noun { color: var(--noun-text); }
+.bucket-label.lbl-prep { color: var(--prep-text); }
+.bucket-pills { display: flex; flex-wrap: wrap; gap: 6px; min-height: 32px; }
+.sort-instr {
+  font-size: 0.9em;
+  color: var(--muted);
+  margin-bottom: 12px;
+  font-style: italic;
+  padding: 10px 14px;
+  background: #EEF3FA;
+  border-radius: 8px;
+  border-left: 3px solid var(--section-num);
+}
+
+/* ── BUILD IT ── */
+.round-label {
+  font-size: 0.8em;
+  font-weight: 800;
+  color: var(--red);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+.phrase-preview {
+  background: var(--navy);
+  border-radius: 10px;
+  padding: 13px 18px;
+  margin-bottom: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  min-height: 52px;
+}
+.preview-placeholder {
+  font-size: 0.9em;
+  color: rgba(255,255,255,0.4);
+  font-style: italic;
+}
+.build-row { margin-bottom: 14px; }
+.build-row-label {
+  font-size: 0.8em;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 7px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.build-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+.trap-pill { background: #F0EAF8; color: #5a3a7a; border-color: #c4a8e0; }
+.trap-pill.pill-wrong { background: var(--wrong-bg); color: var(--wrong-text); border-color: var(--wrong-border); }
+
+/* BUTTONS */
+.btn {
+  display: inline-block;
+  padding: 10px 24px;
+  border: none;
+  border-radius: 30px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 0.92em;
+  cursor: pointer;
+  transition: all 0.18s;
+}
+.btn-navy { background: var(--navy); color: white; box-shadow: 0 4px 0 #001a4f; }
+.btn-navy:hover { transform: translateY(-2px); box-shadow: 0 6px 0 #001a4f; }
+.btn-navy:active { transform: translateY(2px); box-shadow: 0 2px 0 #001a4f; }
+.btn-red { background: var(--red); color: white; box-shadow: 0 4px 0 #8b0000; }
+.btn-red:hover { transform: translateY(-2px); }
+.btn-grey { background: #E0E6EE; color: #445; }
+.btn-grey:hover { background: #D0D8E4; }
+
+/* FEEDBACK */
+.feedback {
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 0.93em;
+  font-weight: 600;
+  line-height: 1.55;
+  margin-top: 14px;
+  animation: fadeIn 0.3s ease;
+}
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+.feedback-ok { background: #D4EDDA; color: #155724; border: 1.5px solid #b0dfbd; }
+.feedback-err { background: #F8D7DA; color: #721c24; border: 1.5px solid #f5c6cb; }
+.feedback-warn { background: #FFF3CD; color: #856404; border: 1.5px solid #ffeaa0; }
+
+/* SCORE */
+.score-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid #E0E8F0;
+}
+.score-val { font-weight: 800; color: var(--navy); font-size: 1.05em; }
+
+/* TABS (sections) */
+.section-card { display: none; }
+.section-card.visible { display: block; }
+
+/* RESULTS */
+.result-card {
+  text-align: center;
+  padding: 32px;
+  background: white;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 10px rgba(0,54,136,0.07);
+}
+.result-score { font-size: 3.5em; font-weight: 800; color: var(--red); }
+.result-msg { font-size: 1em; color: #444; margin: 12px 0 24px; line-height: 1.65; }
+
+/* ROUND NAV */
+.round-nav { display: flex; gap: 6px; margin-bottom: 16px; }
+.round-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: #CBD5E0;
+  transition: background 0.2s;
+}
+.round-dot.done { background: var(--navy); }
+.round-dot.current { background: var(--red); width: 12px; height: 12px; }
+
+/* CHALLENGE BADGE */
+.challenge-note {
+  background: #FEF9EC;
+  border: 1.5px solid #F5C842;
+  border-radius: 8px;
+  padding: 9px 13px;
+  font-size: 0.85em;
+  color: #6B4800;
+  font-weight: 600;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+.challenge-icon { font-size: 1.1em; flex-shrink: 0; }
+
+@media (max-width: 500px) {
+  .sort-categories { grid-template-columns: 1fr; }
+  .header-text h1 { font-size: 1.1em; }
+}
+</style>
+</head>
+<body>
+
+<div class="tube-header">
+  <div class="roundel">TfL</div>
+  <div class="header-text">
+    <h1>Expanded Noun Phrases: London Underground</h1>
+    <p>Year 4 English &nbsp;•&nbsp; Three activities</p>
+  </div>
+</div>
+
+<div class="progress-strip" id="tab-bar">
+  <div class="progress-tab" id="tab-1" onclick="goTab(1)">1 · Learn It</div>
+  <div class="progress-tab" id="tab-2" onclick="goTab(2)">2 · Sort It</div>
+  <div class="progress-tab active" id="tab-3" onclick="goTab(3)">3 · Build It</div>
+  <div class="progress-tab" id="tab-4" onclick="goTab(4)">Results</div>
+</div>
+
+<div class="page">
+
+<!-- ═══════════════════════════════════
+     SECTION 1 · LEARN IT
+═══════════════════════════════════ -->
+<div class="section-card" id="sec1">
+  <div class="section-heading">
+    <div class="section-num">1</div>
+    <h2>Learn It ☁️</h2>
+  </div>
+  <p class="section-desc">
+    An <strong>expanded noun phrase</strong> adds detail to a noun. Use a <strong>determiner</strong> (a, the, an), one or more <strong>adjectives</strong>, and sometimes a <strong>prepositional phrase</strong>. Look at these London Underground examples:
+  </p>
+
+  <div class="example-box">
+    <div class="example-row">
+      <span class="pill pill-det">The</span>
+      <span class="pill pill-adj">grey</span>
+      <span class="pill pill-noun">cloud</span>
+    </div>
+    <div class="example-row">
+      <span class="pill pill-det">A</span>
+      <span class="pill pill-adj">heavy</span>
+      <span class="pill pill-adj">cold</span>
+      <span class="pill pill-noun">shower</span>
+      <span class="pill pill-prep">over the Thames</span>
+    </div>
+    <div class="example-row">
+      <span class="pill pill-det">The</span>
+      <span class="pill pill-adj">thick</span>
+      <span class="pill pill-adj">grey</span>
+      <span class="pill pill-noun">fog</span>
+      <span class="pill pill-prep">across Tower Bridge</span>
+    </div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#c4a030;"></div> Determiner</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#4a88cc;"></div> Adjective</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#88b8dc;"></div> Noun</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#3a9a5c;"></div> Prepositional phrase</div>
+  </div>
+
+  <div style="margin-top: 20px;">
+    <p style="font-size: 0.92em; font-weight: 700; color: var(--navy); margin-bottom: 12px;">Let's look at more examples on the Underground:</p>
+    <div class="example-box" style="margin-bottom: 0;">
+      <div class="example-row">
+        <span class="pill pill-det">An</span>
+        <span class="pill pill-adj">ancient</span>
+        <span class="pill pill-adj">dark</span>
+        <span class="pill pill-noun">tunnel</span>
+        <span class="pill pill-prep">beneath the city</span>
+      </div>
+      <div class="example-row" style="margin-top:10px;">
+        <span class="pill pill-det">The</span>
+        <span class="pill pill-adj">overcrowded</span>
+        <span class="pill pill-adj">noisy</span>
+        <span class="pill pill-noun">platform</span>
+        <span class="pill pill-prep">at rush hour</span>
+      </div>
+      <div class="example-row" style="margin-top:10px;">
+        <span class="pill pill-det">A</span>
+        <span class="pill pill-adj">bewildered</span>
+        <span class="pill pill-noun">tourist</span>
+        <span class="pill pill-prep">with a heavy suitcase</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center; margin-top: 22px;">
+    <button class="btn btn-navy" onclick="goTab(2)">Go to Sort It →</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     SECTION 2 · SORT IT
+═══════════════════════════════════ -->
+<div class="section-card" id="sec2">
+  <div class="section-heading">
+    <div class="section-num">2</div>
+    <h2>Sort It 🔀</h2>
+  </div>
+  <p class="section-desc">
+    Below are eight words and phrases from the London Underground. <strong>Click a word</strong> to select it, then <strong>click the correct category box</strong> to sort it. Watch out — some are tricky!
+  </p>
+
+  <div class="sort-instr">💡 A <strong>prepositional phrase</strong> starts with a word that shows place or position: <em>beneath, across, along, beside, through, at…</em></div>
+
+  <div class="sort-pool" id="sort-pool"><span class="pill pill-grey pill-clickable" id="sp-s0">the</span><span class="pill pill-grey pill-clickable" id="sp-s1">gloomy</span><span class="pill pill-grey pill-clickable" id="sp-s2">platform</span><span class="pill pill-grey pill-clickable" id="sp-s3">beneath the city</span><span class="pill pill-grey pill-clickable" id="sp-s4">an</span><span class="pill pill-grey pill-clickable" id="sp-s5">overcrowded</span><span class="pill pill-grey pill-clickable" id="sp-s6">carriage</span><span class="pill pill-grey pill-clickable" id="sp-s7">along the tunnel</span></div>
+
+  <div class="sort-categories">
+    <div class="sort-bucket bucket-det" onclick="assignToBucket(&#39;det&#39;)">
+      <div class="bucket-label lbl-det">Determiner</div>
+      <div class="bucket-pills" id="bucket-det"></div>
+    </div>
+    <div class="sort-bucket bucket-adj" onclick="assignToBucket(&#39;adj&#39;)">
+      <div class="bucket-label lbl-adj">Adjective</div>
+      <div class="bucket-pills" id="bucket-adj"></div>
+    </div>
+    <div class="sort-bucket bucket-noun" onclick="assignToBucket(&#39;noun&#39;)">
+      <div class="bucket-label lbl-noun">Noun</div>
+      <div class="bucket-pills" id="bucket-noun"></div>
+    </div>
+    <div class="sort-bucket bucket-prep" onclick="assignToBucket(&#39;prep&#39;)">
+      <div class="bucket-label lbl-prep">Prepositional phrase</div>
+      <div class="bucket-pills" id="bucket-prep"></div>
+    </div>
+  </div>
+
+  <div id="sort-feedback"></div>
+
+  <div style="text-align:center; margin-top: 16px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap;" id="sort-btn-area">
+    <button class="btn btn-navy" onclick="checkSort()">Check my sorting ✅</button>
+    <button class="btn btn-grey" onclick="resetSort()">Reset 🔄</button>
+  </div>
+
+  <div class="score-bar">
+    <span style="font-size:0.88em; color:var(--muted);">Sort It score</span>
+    <span class="score-val" id="sort-score">—</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     SECTION 3 · BUILD IT
+═══════════════════════════════════ -->
+<div class="section-card visible" id="sec3">
+  <div class="section-heading">
+    <div class="section-num">3</div>
+    <h2>Build It 🔨</h2>
+  </div>
+  <p class="section-desc">
+    Build an <strong>expanded noun phrase</strong> for each scene. Choose <strong>one word or phrase from each row</strong>. Watch out — each row hides one word that is the <strong>wrong word class</strong>. Don't choose it!
+  </p>
+
+  <div class="challenge-note">
+    <span class="challenge-icon">⚠️</span>
+    <span>Each adjective row contains one <strong>trap word</strong> that is NOT an adjective. Can you spot it?</span>
+  </div>
+
+  <div class="round-nav" id="build-dots"><div class="round-dot current"></div><div class="round-dot "></div><div class="round-dot "></div></div>
+  <div class="round-label" id="build-round-label">Round 1 of 3</div>
+
+  <div class="phrase-preview" id="build-preview"><span class="pill pill-det" style="font-size:0.9em;">an</span> <span class="pill pill-adj" style="font-size:0.9em;">ancient</span> <span class="pill pill-adj" style="font-size:0.9em;">overcrowded</span> </div>
+
+  <div id="build-rows"><div class="build-row">
+      <div class="build-row-label">
+        <span class="pill pill-det" style="padding:4px 12px; font-size:0.78em;">Determiner</span>
+      </div>
+      <div class="build-pills" id="build-row-0"><span class="pill pill-grey pill-clickable" id="bp-r0-the">the</span><span class="pill pill-grey pill-clickable" id="bp-r0-a">a</span><span class="pill pill-clickable pill-selected" id="bp-r0-an">an</span></div>
+    </div><div class="build-row">
+      <div class="build-row-label">
+        <span class="pill pill-adj" style="padding:4px 12px; font-size:0.78em;">Adjective</span><span style="font-size:0.75em; font-weight:400; color:#777; font-style:italic; margin-left:6px;">pick one or more — click again to remove</span>
+      </div>
+      <div class="build-pills" id="build-row-1"><span class="pill pill-clickable pill-selected" id="bp-r1-ancient">ancient</span><span class="pill pill-grey pill-clickable" id="bp-r1-sleek">sleek</span><span class="pill pill-clickable pill-selected" id="bp-r1-overcrowded">overcrowded</span><span class="pill pill-grey pill-clickable" id="bp-r1-rusty">rusty</span><span class="pill pill-grey pill-clickable trap-pill" id="bp-r1-rushing">rushing</span><span class="pill pill-grey pill-clickable" id="bp-r1-gloomy">gloomy</span></div>
+    </div><div class="build-row">
+      <div class="build-row-label">
+        <span class="pill pill-noun" style="padding:4px 12px; font-size:0.78em;">Noun</span><span style="font-size:0.75em; font-weight:400; color:#777; font-style:italic; margin-left:6px;">pick one or two to make a compound noun</span>
+      </div>
+      <div class="build-pills" id="build-row-2"><span class="pill pill-grey pill-clickable" id="bp-r2-train">train</span><span class="pill pill-grey pill-clickable" id="bp-r2-carriage">carriage</span><span class="pill pill-grey pill-clickable" id="bp-r2-engine">engine</span><span class="pill pill-grey pill-clickable" id="bp-r2-locomotive">locomotive</span></div>
+    </div><div class="build-row">
+      <div class="build-row-label">
+        <span class="pill pill-prep" style="padding:4px 12px; font-size:0.78em;">Prepositional phrase</span>
+      </div>
+      <div class="build-pills" id="build-row-3"><span class="pill pill-grey pill-clickable" id="bp-r3-through-the-dark-tunnel">through the dark tunnel</span><span class="pill pill-grey pill-clickable" id="bp-r3-at-Paddington-station">at Paddington station</span><span class="pill pill-grey pill-clickable" id="bp-r3-beneath-the-city-streets">beneath the city streets</span><span class="pill pill-grey pill-clickable" id="bp-r3-past-Tower-Bridge">past Tower Bridge</span></div>
+    </div></div>
+  <div id="build-feedback"></div>
+
+  <div style="text-align:center; margin-top:16px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+    <button class="btn btn-navy" onclick="checkBuild()" id="build-check-btn" style="display: inline-block;">Check my phrase ✅</button>
+  </div>
+
+  <div class="score-bar">
+    <span style="font-size:0.88em; color:var(--muted);">Build It score</span>
+    <span class="score-val" id="build-score">0 / 0</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     SECTION 4 · RESULTS
+═══════════════════════════════════ -->
+<div class="section-card" id="sec4">
+  <div class="result-card">
+    <div style="font-size:3.5em; margin-bottom:8px;">🏆</div>
+    <div style="font-family:&#39;Nunito&#39;,sans-serif; font-size:1.6em; font-weight:800; color:var(--navy); margin-bottom:6px;">Activity complete!</div>
+    <div class="result-score" id="res-score"></div>
+    <div class="result-msg" id="res-msg"></div>
+
+    <div style="background:#F0F4FA; border-radius:12px; padding:16px; text-align:left; margin-bottom:24px;">
+      <p style="font-weight:800; color:var(--navy); margin-bottom:8px; font-size:0.95em;">Remember the four parts:</p>
+      <div class="example-row" style="flex-wrap:wrap; gap:8px;">
+        <span class="pill pill-det">determiner</span>
+        <span class="pill pill-adj">adjective</span>
+        <span class="pill pill-adj">adjective</span>
+        <span class="pill pill-noun">noun</span>
+        <span class="pill pill-prep">prepositional phrase</span>
+      </div>
+      <p style="font-size:0.88em; color:var(--muted); margin-top:12px; line-height:1.6;">Not all expanded noun phrases need all four parts — but the more detail you include, the more vivid your writing becomes!</p>
+    </div>
+
+    <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+      <button class="btn btn-red" onclick="restartAll()">Try again 🔄</button>
+      <button class="btn btn-navy" onclick="goTab(1)">Back to Learn It 📖</button>
+    </div>
+  </div>
+</div>
+
+</div><!-- end page -->
+
+<script>
+/* ═══════════════════════════════════════════
+   TAB NAVIGATION
+═══════════════════════════════════════════ */
+
+let currentTab = 1;
+
+function goTab(n) {
+  currentTab = n;
+  document.querySelectorAll('.section-card').forEach(c => c.classList.remove('visible'));
+  document.querySelectorAll('.progress-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('sec' + n).classList.add('visible');
+  document.getElementById('tab-' + n).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+/* ═══════════════════════════════════════════
+   SORT IT DATA & LOGIC
+═══════════════════════════════════════════ */
+
+const sortItems = [
+  { text: "the",              cls: "det",  id: "s0" },
+  { text: "gloomy",           cls: "adj",  id: "s1" },
+  { text: "platform",         cls: "noun", id: "s2" },
+  { text: "beneath the city", cls: "prep", id: "s3" },
+  { text: "an",               cls: "det",  id: "s4" },
+  { text: "overcrowded",      cls: "adj",  id: "s5" },
+  { text: "carriage",         cls: "noun", id: "s6" },
+  { text: "along the tunnel", cls: "prep", id: "s7" },
+];
+
+const clsName = { det: "pill-det", adj: "pill-adj", noun: "pill-noun", prep: "pill-prep" };
+const bucketLabel = { det: "Determiner", adj: "Adjective", noun: "Noun", prep: "Prepositional phrase" };
+
+let sortState = { selected: null, placed: {}, checked: false };
+let sortScore = null;
+
+function initSort() {
+  const pool = document.getElementById('sort-pool');
+  pool.innerHTML = '';
+  sortState = { selected: null, placed: {}, checked: false };
+  ["det","adj","noun","prep"].forEach(b => document.getElementById('bucket-' + b).innerHTML = '');
+  document.getElementById('sort-feedback').innerHTML = '';
+  document.getElementById('sort-score').textContent = '—';
+
+  sortItems.forEach(item => {
+    const p = document.createElement('span');
+    p.className = 'pill pill-grey pill-clickable';
+    p.id = 'sp-' + item.id;
+    p.textContent = item.text;
+    p.onclick = () => selectSortPill(item.id);
+    pool.appendChild(p);
+  });
+}
+
+function selectSortPill(id) {
+  if (sortState.checked) return;
+  if (sortState.placed[id]) return;
+  const prev = sortState.selected;
+  if (prev) document.getElementById('sp-' + prev)?.classList.remove('pill-selected');
+  sortState.selected = (prev === id) ? null : id;
+  if (sortState.selected) document.getElementById('sp-' + id).classList.add('pill-selected');
+}
+
+function assignToBucket(bucket) {
+  if (sortState.checked || !sortState.selected) return;
+  const id = sortState.selected;
+  const item = sortItems.find(i => i.id === id);
+  if (!item) return;
+
+  sortState.placed[id] = bucket;
+  sortState.selected = null;
+
+  const pill = document.getElementById('sp-' + id);
+  pill.classList.remove('pill-selected', 'pill-grey', 'pill-clickable');
+  pill.classList.add('pill-classified');
+
+  const bucketPills = document.getElementById('bucket-' + bucket);
+  const newPill = document.createElement('span');
+  newPill.className = 'pill pill-grey';
+  newPill.textContent = item.text;
+  newPill.id = 'bp-' + id;
+  newPill.style.cursor = 'pointer';
+  newPill.onclick = () => {
+    if (sortState.checked) return;
+    bucketPills.removeChild(newPill);
+    pill.classList.remove('pill-classified');
+    pill.classList.add('pill-grey', 'pill-clickable');
+    delete sortState.placed[id];
+  };
+  bucketPills.appendChild(newPill);
+}
+
+function checkSort() {
+  const allPlaced = Object.keys(sortState.placed).length === sortItems.length;
+  if (!allPlaced) {
+    document.getElementById('sort-feedback').innerHTML =
+      '<div class="feedback feedback-warn">⚠️ Place all 8 words into a category first!</div>';
+    return;
+  }
+  sortState.checked = true;
+  let correct = 0;
+
+  sortItems.forEach(item => {
+    const placed = sortState.placed[item.id];
+    const bucketPill = document.getElementById('bp-' + item.id);
+    if (!bucketPill) return;
+    bucketPill.classList.remove('pill-grey');
+    if (placed === item.cls) {
+      correct++;
+      bucketPill.classList.add(clsName[item.cls]);
+    } else {
+      bucketPill.classList.add('pill-wrong');
+      bucketPill.title = '→ ' + bucketLabel[item.cls];
+    }
+  });
+
+  sortScore = correct;
+  document.getElementById('sort-score').textContent = correct + ' / ' + sortItems.length;
+
+  const pct = correct / sortItems.length;
+  let msg = '';
+  if (pct === 1) msg = '✅ Perfect! You sorted every single word correctly. Excellent work!';
+  else if (pct >= 0.75) msg = '✅ Really good — ' + correct + ' out of ' + sortItems.length + ' correct! Check the highlighted words to see which ones need another look.';
+  else msg = '🔍 ' + correct + ' out of ' + sortItems.length + '. Look at the words marked in red — which category should they be in?';
+
+  document.getElementById('sort-feedback').innerHTML =
+    `<div class="feedback ${pct >= 0.75 ? 'feedback-ok' : 'feedback-err'}">${msg}</div>`;
+
+  if (pct === 1) {
+    document.getElementById('sort-feedback').innerHTML +=
+      '<div style="text-align:center; margin-top:14px;"><button class="btn btn-navy" onclick="goTab(3)">Go to Build It →</button></div>';
+  }
+}
+
+function resetSort() { initSort(); }
+
+/* ═══════════════════════════════════════════
+   BUILD IT DATA & LOGIC
+═══════════════════════════════════════════ */
+
+const buildRounds = [
+  {
+    scene: "🚂 Scene: A train on the Underground",
+    rows: [
+      { label: "Determiner", cls: "det", multi: false,
+        options: ["the", "a", "an"], trap: null },
+      { label: "Adjective", cls: "adj", multi: true,
+        hint: "pick one or more — click again to remove",
+        options: ["ancient", "sleek", "overcrowded", "rusty", "rushing", "gloomy"],
+        trap: "rushing",
+        trapHint: '"rushing" is a verb, not an adjective!' },
+      { label: "Noun", cls: "noun", multi: true,
+        hint: "pick one or two to make a compound noun",
+        options: ["train", "carriage", "engine", "locomotive"], trap: null },
+      { label: "Prepositional phrase", cls: "prep", multi: false,
+        options: ["through the dark tunnel", "at Paddington station", "beneath the city streets", "past Tower Bridge"],
+        trap: null }
+    ]
+  },
+  {
+    scene: "💂 Scene: A passenger on the Tube",
+    rows: [
+      { label: "Determiner", cls: "det", multi: false,
+        options: ["the", "a", "an"], trap: null },
+      { label: "Adjective", cls: "adj", multi: true,
+        hint: "pick one or more — click again to remove",
+        options: ["tired", "bewildered", "smartly-dressed", "hurried", "quickly", "cheerful"],
+        trap: "quickly",
+        trapHint: '"quickly" is an adverb, not an adjective!' },
+      { label: "Noun", cls: "noun", multi: true,
+        hint: "pick one or two to make a compound noun",
+        options: ["passenger", "commuter", "tourist", "traveller"], trap: null },
+      { label: "Prepositional phrase", cls: "prep", multi: false,
+        options: ["on the Jubilee line", "with a heavy suitcase", "near the exit", "beside the Tube map"],
+        trap: null }
+    ]
+  },
+  {
+    scene: "🏛️ Scene: A station on the London Underground",
+    rows: [
+      { label: "Determiner", cls: "det", multi: false,
+        options: ["the", "a", "an"], trap: null },
+      { label: "Adjective", cls: "adj", multi: true,
+        hint: "pick one or more — click again to remove",
+        options: ["enormous", "echoing", "dimly-lit", "bustling", "walked", "grand"],
+        trap: "walked",
+        trapHint: '"walked" is a verb (past tense), not an adjective!' },
+      { label: "Noun", cls: "noun", multi: true,
+        hint: "pick one or two to make a compound noun",
+        options: ["station", "platform", "entrance", "corridor", "tunnel"], trap: null },
+      { label: "Prepositional phrase", cls: "prep", multi: false,
+        options: ["beneath the streets of London", "at rush hour", "on the Central line", "near Piccadilly Circus"],
+        trap: null }
+    ]
+  }
+];
+
+let buildState = {
+  round: 0,
+  selected: {},   /* ri → single: {opt,el} | multi: [{opt,el}] */
+  score: 0,
+  checked: false,
+  results: []
+};
+
+function initBuild() {
+  buildState.round = 0;
+  buildState.score = 0;
+  buildState.results = [];
+  renderBuildRound();
+}
+
+function renderBuildRound() {
+  buildState.selected = {};
+  buildState.checked = false;
+
+  const round = buildRounds[buildState.round];
+
+  document.getElementById('build-round-label').textContent =
+    `Round ${buildState.round + 1} of ${buildRounds.length}`;
+  document.getElementById('build-score').textContent =
+    buildState.score + ' / ' + buildState.results.length;
+
+  const dots = document.getElementById('build-dots');
+  dots.innerHTML = buildRounds.map((_, i) =>
+    `<div class="round-dot ${i < buildState.round ? 'done' : i === buildState.round ? 'current' : ''}"></div>`
+  ).join('');
+
+  updateBuildPreview();
+
+  const rowsEl = document.getElementById('build-rows');
+  rowsEl.innerHTML = '';
+  round.rows.forEach((row, ri) => {
+    buildState.selected[ri] = row.multi ? [] : null;
+
+    const div = document.createElement('div');
+    div.className = 'build-row';
+    const hintHtml = row.hint
+      ? `<span style="font-size:0.75em; font-weight:400; color:#777; font-style:italic; margin-left:6px;">${row.hint}</span>`
+      : '';
+    div.innerHTML = `
+      <div class="build-row-label">
+        <span class="pill pill-${row.cls}" style="padding:4px 12px; font-size:0.78em;">${row.label}</span>${hintHtml}
+      </div>
+      <div class="build-pills" id="build-row-${ri}"></div>
+    `;
+    rowsEl.appendChild(div);
+
+    const pillsEl = div.querySelector('.build-pills');
+    row.options.forEach(opt => {
+      const p = document.createElement('span');
+      p.className = `pill pill-grey pill-clickable${row.trap === opt ? ' trap-pill' : ''}`;
+      p.id = `bp-r${ri}-${opt.replace(/[\s']+/g,'-')}`;
+      p.textContent = opt;
+      p.onclick = () => selectBuildPill(ri, opt, p);
+      pillsEl.appendChild(p);
+    });
+  });
+
+  document.getElementById('build-feedback').innerHTML = '';
+  document.getElementById('build-check-btn').style.display = 'inline-block';
+}
+
+function selectBuildPill(rowIdx, opt, el) {
+  if (buildState.checked) return;
+  const row = buildRounds[buildState.round].rows[rowIdx];
+
+  if (row.multi) {
+    const arr = buildState.selected[rowIdx];
+    const idx = arr.findIndex(s => s.opt === opt);
+    if (idx === -1) {
+      arr.push({ opt, el });
+      el.classList.remove('pill-grey', 'trap-pill');
+      el.classList.add('pill-selected');
+    } else {
+      arr.splice(idx, 1);
+      el.classList.remove('pill-selected');
+      el.classList.add('pill-grey');
+      if (row.trap === opt) el.classList.add('trap-pill');
+    }
+  } else {
+    document.querySelectorAll(`#build-row-${rowIdx} .pill`).forEach(p => {
+      p.classList.remove('pill-selected');
+      p.classList.add('pill-grey');
+      if (row.trap && p.textContent === row.trap) p.classList.add('trap-pill');
+    });
+    buildState.selected[rowIdx] = { opt, el };
+    el.classList.remove('pill-grey', 'trap-pill');
+    el.classList.add('pill-selected');
+  }
+  updateBuildPreview();
+}
+
+function updateBuildPreview() {
+  const round = buildRounds[buildState.round];
+  const preview = document.getElementById('build-preview');
+  const anySelected = round.rows.some((row, ri) => {
+    const s = buildState.selected[ri];
+    return row.multi ? (s && s.length > 0) : s !== null;
+  });
+
+  if (!anySelected) {
+    preview.innerHTML = '<span class="preview-placeholder">Choose from each row below to build your phrase...</span>';
+    return;
+  }
+
+  let html = '';
+  round.rows.forEach((row, ri) => {
+    const sel = buildState.selected[ri];
+    if (!sel) return;
+    if (row.multi) {
+      sel.forEach(s => {
+        html += `<span class="pill pill-${row.cls}" style="font-size:0.9em;">${s.opt}</span> `;
+      });
+    } else {
+      html += `<span class="pill pill-${row.cls}" style="font-size:0.9em;">${sel.opt}</span> `;
+    }
+  });
+
+  preview.innerHTML = html || '<span class="preview-placeholder">Choose from each row below to build your phrase...</span>';
+}
+
+function checkBuild() {
+  const round = buildRounds[buildState.round];
+
+  const allSelected = round.rows.every((row, ri) => {
+    const s = buildState.selected[ri];
+    return row.multi ? (s && s.length > 0) : s !== null;
+  });
+
+  if (!allSelected) {
+    document.getElementById('build-feedback').innerHTML =
+      '<div class="feedback feedback-warn">⚠️ Choose at least one option from every row first!</div>';
+    return;
+  }
+
+  buildState.checked = true;
+  document.getElementById('build-check-btn').style.display = 'none';
+
+  let trapError = false, trapWord = '', trapHint = '';
+
+  round.rows.forEach((row, ri) => {
+    const sel = buildState.selected[ri];
+    if (row.trap) {
+      const gotTrap = row.multi
+        ? sel.some(s => s.opt === row.trap)
+        : sel && sel.opt === row.trap;
+      if (gotTrap) { trapError = true; trapWord = row.trap; trapHint = row.trapHint; }
+    }
+
+    document.querySelectorAll(`#build-row-${ri} .pill`).forEach(p => {
+      p.classList.remove('pill-selected', 'pill-grey', 'trap-pill');
+      if (row.trap && p.textContent === row.trap) p.classList.add('pill-wrong');
+      else p.classList.add(`pill-${row.cls}`);
+    });
+  });
+
+  const pointEarned = !trapError;
+  if (pointEarned) buildState.score++;
+  buildState.results.push(pointEarned);
+
+  document.getElementById('build-score').textContent =
+    buildState.score + ' / ' + buildRounds.length;
+
+  const adjCount = (() => {
+    const adjRow = round.rows.findIndex(r => r.cls === 'adj');
+    return buildState.selected[adjRow]?.length || 0;
+  })();
+  const nounCount = (() => {
+    const nounRow = round.rows.findIndex(r => r.cls === 'noun');
+    return buildState.selected[nounRow]?.length || 0;
+  })();
+  const extras = [];
+  if (adjCount >= 2) extras.push(`${adjCount} adjectives — great expanded phrase!`);
+  if (nounCount >= 2) extras.push('compound noun — brilliant!');
+
+  let fb = '';
+  if (trapError) {
+    fb = `<div class="feedback feedback-err">❌ <strong>Trap word!</strong> You chose "<strong>${trapWord}</strong>" — but ${trapHint} It's highlighted in red above.</div>`;
+  } else {
+    const bonus = extras.length ? ` You used ${extras.join(' and ')} 🌟` : '';
+    fb = `<div class="feedback feedback-ok">✅ <strong>Brilliant phrase!</strong> You avoided the trap word.${bonus}</div>`;
+  }
+
+  const isLast = buildState.round >= buildRounds.length - 1;
+  const nxtBtn = isLast
+    ? `<button class="btn btn-navy" onclick="finishBuild()" style="margin-top:10px;">See my results 🏆</button>`
+    : `<button class="btn btn-navy" onclick="nextBuildRound()" style="margin-top:10px;">Next round →</button>`;
+
+  document.getElementById('build-feedback').innerHTML = fb + `<div style="text-align:center;">${nxtBtn}</div>`;
+}
+
+function nextBuildRound() {
+  buildState.round++;
+  renderBuildRound();
+}
+
+function finishBuild() {
+  const sortPts = sortScore !== null ? sortScore : 0;
+  const sortMax = sortItems.length;
+  const buildPts = buildState.score;
+  const buildMax = buildRounds.length;
+  const total = sortPts + buildPts;
+  const max = sortMax + buildMax;
+
+  document.getElementById('res-score').textContent = `${total} / ${max}`;
+
+  const pct = total / max;
+  let msg = pct === 1
+    ? '🌟 Perfect score! You know your determiners from your prepositional phrases — really impressive!'
+    : pct >= 0.75
+    ? '🎉 Excellent work! You have a strong understanding of expanded noun phrases. Keep an eye on those trap words!'
+    : pct >= 0.5
+    ? '👍 Good effort! Review the Sort It section to check your word classes, and try again — you can do it!'
+    : '🚇 Keep practising! Go back to Learn It and look at the colour-coded examples again before having another go.';
+
+  document.getElementById('res-msg').innerHTML =
+    `<p style="margin-bottom:10px;">${msg}</p>
+    <p style="font-size:0.9em; color:#555;">Sort It: <strong>${sortPts}/${sortMax}</strong> &nbsp;&nbsp; Build It: <strong>${buildPts}/${buildMax}</strong></p>`;
+
+  goTab(4);
+  document.getElementById('tab-4').classList.add('done');
+}
+
+function restartAll() {
+  sortScore = null;
+  initSort();
+  initBuild();
+  document.querySelectorAll('.progress-tab').forEach(t => t.classList.remove('done'));
+  goTab(1);
+}
+
+/* ═══ INIT ═══ */
+initSort();
+initBuild();
+</script>
+
+
+</body></html>
