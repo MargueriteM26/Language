@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<!-- saved from url=(0240)file:///Users/margueritegaynor/Library/Application%20Support/Claude/local-agent-mode-sessions/2edd45a5-bf79-40bd-8dab-fc9d31465c1a/949456c0-caeb-4a8c-963b-b983d46eb394/local_0d8a88a1-fe7e-45df-abc2-8822ef0382ad/outputs/adam_underground.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adam and the Underground Adventure</title>
+<style>
+  :root {
+    --tube-red: #dc241f;
+    --tube-blue: #003688;
+    --tube-yellow: #ffd329;
+    --tube-green: #00782a;
+    --bg: #f5f0e8;
+    --card: #ffffff;
+    --text: #1a1a2e;
+    --muted: #5a5a7a;
+    --correct: #00782a;
+    --wrong: #dc241f;
+    --highlight: #fffbe6;
+    --highlight-border: #ffd329;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* ── Header ── */
+  header {
+    background: var(--tube-blue);
+    color: white;
+    padding: 18px 24px 14px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .roundel {
+    width: 56px; height: 56px;
+    background: var(--tube-red);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 900; font-size: 22px; color: white;
+    border: 4px solid white;
+    flex-shrink: 0;
+  }
+  header h1 { font-size: 1.35rem; line-height: 1.3; }
+  header p  { font-size: 0.85rem; opacity: 0.85; margin-top: 2px; }
+
+  /* ── Tab bar ── */
+  .tabs {
+    display: flex;
+    background: var(--tube-blue);
+    padding: 0 16px;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+  .tab-btn {
+    padding: 10px 18px;
+    border: none;
+    background: transparent;
+    color: rgba(255,255,255,0.7);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .tab-btn:hover { color: white; }
+  .tab-btn.active {
+    color: var(--tube-yellow);
+    border-bottom-color: var(--tube-yellow);
+  }
+
+  /* ── Panels ── */
+  .panel { display: none; padding: 24px 20px; max-width: 860px; margin: 0 auto; }
+  .panel.active { display: block; }
+
+  /* ── Story panel ── */
+  .story-card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 28px 30px;
+    line-height: 1.85;
+    font-size: 1.05rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: relative;
+  }
+  .story-card h2 {
+    font-size: 1.4rem;
+    color: var(--tube-blue);
+    margin-bottom: 4px;
+  }
+  .story-meta {
+    font-size: 0.82rem;
+    color: var(--muted);
+    margin-bottom: 18px;
+    font-style: italic;
+  }
+  .vocab-word {
+    background: var(--tube-yellow);
+    border-radius: 4px;
+    padding: 0 4px;
+    cursor: pointer;
+    font-weight: 600;
+    position: relative;
+    transition: background 0.15s;
+  }
+  .vocab-word:hover { background: #f5c800; }
+  .vocab-tip {
+    display: none;
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--tube-blue);
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 400;
+    padding: 7px 12px;
+    border-radius: 8px;
+    width: 220px;
+    text-align: center;
+    z-index: 10;
+    line-height: 1.4;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  }
+  .vocab-tip::after {
+    content: '';
+    position: absolute;
+    top: 100%; left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: var(--tube-blue);
+  }
+  .vocab-word:hover .vocab-tip,
+  .vocab-word:focus .vocab-tip { display: block; }
+
+  .story-hint {
+    margin-top: 16px;
+    font-size: 0.82rem;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .story-hint span { background: var(--tube-yellow); padding: 1px 6px; border-radius: 3px; font-weight: 700; color: #333; }
+
+  /* station dots along bottom */
+  .station-strip {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+  .station-dot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+  .dot-circle {
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    border: 3px solid var(--tube-red);
+    background: white;
+  }
+  .dot-name {
+    font-size: 0.65rem;
+    color: var(--tube-blue);
+    font-weight: 700;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+    letter-spacing: 0.3px;
+  }
+  .station-line {
+    height: 4px;
+    width: 36px;
+    background: var(--tube-red);
+    flex-shrink: 0;
+    margin-bottom: 20px;
+  }
+
+  /* ── Vocabulary panel ── */
+  .vocab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+    margin-top: 8px;
+  }
+  .vocab-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 16px 18px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border-left: 5px solid var(--tube-red);
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .vocab-card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.12); }
+  .vocab-card .word { font-size: 1.05rem; font-weight: 800; color: var(--tube-blue); }
+  .vocab-card .pos  { font-size: 0.75rem; color: var(--muted); font-style: italic; margin: 2px 0 6px; }
+  .vocab-card .def  { font-size: 0.88rem; line-height: 1.5; }
+  .vocab-card .example { font-size: 0.82rem; color: var(--muted); margin-top: 8px; font-style: italic; border-top: 1px solid #eee; padding-top: 8px; }
+
+  .vocab-quiz-btn {
+    margin-top: 24px;
+    background: var(--tube-red);
+    color: white;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .vocab-quiz-btn:hover { background: #b51c19; }
+
+  /* vocab quiz */
+  #vocab-quiz { margin-top: 28px; display: none; }
+  #vocab-quiz h3 { font-size: 1.1rem; color: var(--tube-blue); margin-bottom: 14px; }
+  .vq-question {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin-bottom: 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  }
+  .vq-question p { font-weight: 600; margin-bottom: 10px; }
+  .vq-options { display: flex; flex-direction: column; gap: 7px; }
+  .vq-opt {
+    background: #f0f0f8;
+    border: 2px solid transparent;
+    border-radius: 7px;
+    padding: 9px 14px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.15s;
+    text-align: left;
+  }
+  .vq-opt:hover:not(:disabled) { border-color: var(--tube-blue); background: #e8e8f8; }
+  .vq-opt.correct { background: #e6f7ed; border-color: var(--correct); color: var(--correct); font-weight: 700; }
+  .vq-opt.wrong   { background: #fdecea; border-color: var(--wrong);  color: var(--wrong);  font-weight: 700; }
+  .vq-opt:disabled { cursor: default; }
+
+  /* ── Comprehension panel ── */
+  .section-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--tube-red);
+    margin-bottom: 10px;
+  }
+  .q-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  }
+  .q-card .q-type {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-bottom: 8px;
+  }
+  .q-type.retrieval  { background: #dbeafe; color: #1e40af; }
+  .q-type.inference  { background: #fce7f3; color: #9d174d; }
+  .q-type.vocab-q    { background: #fef3c7; color: #92400e; }
+
+  .q-card p.question { font-weight: 600; font-size: 0.97rem; margin-bottom: 10px; }
+  .mc-options { display: flex; flex-direction: column; gap: 7px; }
+  .mc-opt {
+    background: #f0f0f8;
+    border: 2px solid transparent;
+    border-radius: 7px;
+    padding: 9px 14px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.15s;
+    text-align: left;
+  }
+  .mc-opt:hover:not(:disabled) { border-color: var(--tube-blue); background: #e8e8f8; }
+  .mc-opt.correct { background: #e6f7ed; border-color: var(--correct); color: var(--correct); font-weight: 700; }
+  .mc-opt.wrong   { background: #fdecea; border-color: var(--wrong);  color: var(--wrong);  font-weight: 700; }
+  .mc-opt:disabled { cursor: default; }
+
+  .open-q textarea {
+    width: 100%;
+    border: 2px solid #ddd;
+    border-radius: 7px;
+    padding: 10px 12px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    resize: vertical;
+    min-height: 80px;
+    transition: border-color 0.2s;
+  }
+  .open-q textarea:focus { outline: none; border-color: var(--tube-blue); }
+  .reveal-btn {
+    margin-top: 10px;
+    background: var(--tube-blue);
+    color: white;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .reveal-btn:hover { background: #002266; }
+  .model-answer {
+    display: none;
+    margin-top: 10px;
+    background: var(--highlight);
+    border-left: 4px solid var(--highlight-border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 0.88rem;
+    line-height: 1.55;
+  }
+
+  .score-bar {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .score-circle {
+    width: 58px; height: 58px;
+    border-radius: 50%;
+    background: var(--tube-blue);
+    color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 900;
+    flex-shrink: 0;
+  }
+  .score-bar p { font-size: 0.88rem; color: var(--muted); }
+  .score-bar strong { font-size: 1rem; }
+
+  /* ── Retell panel ── */
+  .retell-intro {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    font-size: 0.92rem;
+    line-height: 1.6;
+    border-left: 5px solid var(--tube-green);
+  }
+  .retell-intro h3 { color: var(--tube-green); margin-bottom: 6px; }
+
+  .retell-section {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  }
+  .retell-section h4 {
+    font-size: 0.95rem;
+    color: var(--tube-blue);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .retell-badge {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+  .b-begin  { background: #dbeafe; color: #1e40af; }
+  .b-mid    { background: #fce7f3; color: #9d174d; }
+  .b-end    { background: #dcfce7; color: #166534; }
+  .b-star   { background: #fef3c7; color: #92400e; }
+
+  .retell-section .prompt {
+    font-size: 0.82rem;
+    color: var(--muted);
+    margin-bottom: 10px;
+    font-style: italic;
+  }
+  .retell-section textarea {
+    width: 100%;
+    border: 2px solid #ddd;
+    border-radius: 7px;
+    padding: 10px 12px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    resize: vertical;
+    min-height: 90px;
+    transition: border-color 0.2s;
+  }
+  .retell-section textarea:focus { outline: none; border-color: var(--tube-green); }
+
+  .word-bank {
+    margin-top: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .word-chip {
+    background: var(--tube-yellow);
+    color: #333;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s;
+  }
+  .word-chip:hover { background: #f5c800; }
+
+  .retell-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+  }
+  .btn-green {
+    background: var(--tube-green);
+    color: white;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .btn-green:hover { background: #005a1f; }
+  .btn-outline {
+    background: transparent;
+    color: var(--tube-blue);
+    border: 2px solid var(--tube-blue);
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-outline:hover { background: var(--tube-blue); color: white; }
+
+  /* checklist */
+  .checklist { list-style: none; margin-top: 16px; }
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 6px 0;
+    font-size: 0.88rem;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .checklist input[type="checkbox"] {
+    width: 18px; height: 18px;
+    margin-top: 1px;
+    accent-color: var(--tube-green);
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+
+  @media (max-width: 500px) {
+    header h1 { font-size: 1.1rem; }
+    .story-card { padding: 18px 16px; }
+    .panel { padding: 16px 12px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="roundel">U</div>
+  <div>
+    <h1>Adam and the Underground Adventure</h1>
+    <p>A reading activity for Year 5 · Fiction</p>
+  </div>
+</header>
+
+<nav class="tabs">
+  <button class="tab-btn active" onclick="showTab(&#39;story&#39;,this)">📖 Story</button>
+  <button class="tab-btn" onclick="showTab(&#39;vocab&#39;,this)">🔤 Vocabulary</button>
+  <button class="tab-btn" onclick="showTab(&#39;comprehension&#39;,this)">💬 Questions</button>
+  <button class="tab-btn" onclick="showTab(&#39;retell&#39;,this)">✏️ Story Retell</button>
+</nav>
+
+<!-- ══════════════════════════════════════════════
+     STORY PANEL
+════════════════════════════════════════════════ -->
+<div id="panel-story" class="panel active">
+  <div class="story-card">
+    <h2>Adam and the Underground Adventure</h2>
+    <p class="story-meta">A short story · approx. 450 words</p>
+
+    <p>Adam pressed his Oyster card against the yellow reader and heard the familiar <em>beep</em>. The heavy barriers swung open and he stepped onto the
+    <span class="vocab-word" tabindex="0">bustling<span class="vocab-tip">Bustling – full of busy, noisy activity</span></span>
+    concourse of King's Cross station. He took a deep breath. Today was the day he would travel alone on the London Underground for the very first time.</p>
+
+    <p>His mum had given him strict instructions: take the Piccadilly line westbound, change at Green Park, then ride the Jubilee line two stops to Westminster. Simple enough — on paper. But the Underground felt anything but simple. Enormous maps covered the walls, each coloured line
+    <span class="vocab-word" tabindex="0">snaking<span class="vocab-tip">Snaking – twisting and winding like a snake</span></span>
+    across the city like a tangle of wool.</p>
+
+    <p>Adam found the correct platform and squeezed onto a packed train. He
+    <span class="vocab-word" tabindex="0">navigated<span class="vocab-tip">Navigated – planned and found the right way to travel</span></span>
+    his way to a small gap near the doors, gripping a silver pole as the carriage swayed and rattled through the dark tunnel. The automated voice announced each station in a calm, clear tone: <em>"The next station is Russell Square."</em></p>
+
+    <p>Three stops later, Green Park. Adam stepped onto the platform and paused. A long,
+    <span class="vocab-word" tabindex="0">labyrinthine<span class="vocab-tip">Labyrinthine – extremely complicated, like a maze (labyrinth)</span></span>
+    corridor stretched ahead. Signs pointed left and right. For a moment, his stomach twisted with
+    <span class="vocab-word" tabindex="0">apprehension<span class="vocab-tip">Apprehension – a feeling of worry or slight fear about what might happen</span></span>.
+    What if he took the wrong exit? What if he missed his stop?</p>
+
+    <p>He closed his eyes, took a slow breath, and thought about what his mum always said: <em>"When in doubt, look up."</em> He looked up. A bold blue sign read: <strong>Jubilee Line →</strong>. He followed it.</p>
+
+    <p>The Jubilee line train arrived with a
+    <span class="vocab-word" tabindex="0">cavernous<span class="vocab-tip">Cavernous – huge and hollow inside, like a great cave (cavern)</span></span>
+    whoosh of warm air. Adam stepped on, found a seat, and watched the map above the doors. One stop — Waterloo. Two stops — Westminster. He was ready. As the train pulled in, he stood, walked calmly to the doors, and stepped out onto the platform.</p>
+
+    <p>Outside, the pale stone towers of the Palace of Westminster rose against the grey sky. Adam grinned so widely his cheeks ached. He pulled out his phone and typed a message to his mum: <em>"I made it! Tube = brilliant."</em></p>
+
+    <p>He pressed send, popped his earphones in, and set off towards the river — a seasoned
+    <span class="vocab-word" tabindex="0">commuter<span class="vocab-tip">Commuter – someone who travels regularly, usually to school or work</span></span>
+    already.</p>
+
+    <div class="story-hint">
+      💡 Tap any <span>highlighted word</span> to see its meaning.
+    </div>
+  </div>
+
+  <!-- Route strip -->
+  <div class="station-strip" style="margin-top:20px;">
+    <div class="station-dot"><div class="dot-circle"></div><div class="dot-name">King's Cross</div></div>
+    <div class="station-line"></div>
+    <div class="station-dot"><div class="dot-circle"></div><div class="dot-name">Russell Square</div></div>
+    <div class="station-line"></div>
+    <div class="station-dot"><div class="dot-circle" style="border-color:#003688"></div><div class="dot-name">Green Park</div></div>
+    <div class="station-line" style="background:var(--tube-blue)"></div>
+    <div class="station-dot"><div class="dot-circle" style="border-color:#003688"></div><div class="dot-name">Waterloo</div></div>
+    <div class="station-line" style="background:var(--tube-blue)"></div>
+    <div class="station-dot"><div class="dot-circle" style="border-color:#003688; background: var(--tube-yellow)"></div><div class="dot-name">Westminster ⭐</div></div>
+  </div>
+  <p style="font-size:0.72rem;color:var(--muted);margin-top:6px;">🔴 Piccadilly Line &nbsp;·&nbsp; 🔵 Jubilee Line</p>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     VOCABULARY PANEL
+════════════════════════════════════════════════ -->
+<div id="panel-vocab" class="panel">
+  <div class="section-label">Story Vocabulary — 7 key words</div>
+
+  <div class="vocab-grid">
+    <div class="vocab-card">
+      <div class="word">bustling</div>
+      <div class="pos">adjective</div>
+      <div class="def">Full of busy, energetic activity and noise.</div>
+      <div class="example">"The bustling market was full of people shouting and laughing."</div>
+    </div>
+    <div class="vocab-card">
+      <div class="word">snaking</div>
+      <div class="pos">verb (present participle)</div>
+      <div class="def">Moving in a winding, twisting path, like a snake.</div>
+      <div class="example">"The queue was snaking all the way around the corner."</div>
+    </div>
+    <div class="vocab-card">
+      <div class="word">navigated</div>
+      <div class="pos">verb (past tense)</div>
+      <div class="def">Found the correct route through a place, especially a complicated one.</div>
+      <div class="example">"She navigated through the city using a map on her phone."</div>
+    </div>
+    <div class="vocab-card">
+      <div class="word">labyrinthine</div>
+      <div class="pos">adjective</div>
+      <div class="def">Extremely complicated and confusing, like a labyrinth (maze).</div>
+      <div class="example">"The labyrinthine rules of the game confused every new player."</div>
+    </div>
+    <div class="vocab-card">
+      <div class="word">apprehension</div>
+      <div class="pos">noun</div>
+      <div class="def">A feeling of worry or mild fear about something that might happen.</div>
+      <div class="example">"He felt a wave of apprehension before stepping onto the stage."</div>
+    </div>
+    <div class="vocab-card">
+      <div class="word">cavernous</div>
+      <div class="pos">adjective</div>
+      <div class="def">Very large and hollow inside, like a huge cave (cavern).</div>
+      <div class="example">"The cavernous sports hall echoed with every footstep."</div>
+    </div>
+    <div class="vocab-card">
+      <div class="word">commuter</div>
+      <div class="pos">noun</div>
+      <div class="def">A person who travels regularly between home and school or work.</div>
+      <div class="example">"The train platform was packed with tired commuters."</div>
+    </div>
+  </div>
+
+  <button class="vocab-quiz-btn" onclick="startVocabQuiz()">🎯 Test Yourself — Vocab Quiz</button>
+
+  <div id="vocab-quiz" style="display: block;">
+    <h3>Vocabulary Quiz — choose the best definition</h3>
+    <div id="vq-container"><div class="vq-question" id="vq-0"><p>1. Which word means "very large and hollow inside, like a cave"?</p><div class="vq-options"><button class="vq-opt" onclick="checkVQ(this,0,&#39;labyrinthine&#39;,&#39;cavernous&#39;)" disabled="">  labyrinthine</button><button class="vq-opt" onclick="checkVQ(this,0,&#39;bustling&#39;,&#39;cavernous&#39;)" disabled="">  bustling</button><button class="vq-opt correct" onclick="checkVQ(this,0,&#39;cavernous&#39;,&#39;cavernous&#39;)" disabled="">✓ cavernous</button><button class="vq-opt" onclick="checkVQ(this,0,&#39;snaking&#39;,&#39;cavernous&#39;)" disabled="">  snaking</button></div></div><div class="vq-question" id="vq-1"><p>2. A feeling of worry or slight fear about what might happen is called…</p><div class="vq-options"><button class="vq-opt" onclick="checkVQ(this,1,&#39;navigation&#39;,&#39;apprehension&#39;)" disabled="">  navigation</button><button class="vq-opt correct" onclick="checkVQ(this,1,&#39;apprehension&#39;,&#39;apprehension&#39;)" disabled="">✓ apprehension</button><button class="vq-opt" onclick="checkVQ(this,1,&#39;commuting&#39;,&#39;apprehension&#39;)" disabled="">  commuting</button><button class="vq-opt" onclick="checkVQ(this,1,&#39;a roundel&#39;,&#39;apprehension&#39;)" disabled="">  a roundel</button></div></div><div class="vq-question" id="vq-2"><p>3. Which word best describes something that twists and winds like a snake?</p><div class="vq-options"><button class="vq-opt" onclick="checkVQ(this,2,&#39;bustling&#39;,&#39;snaking&#39;)" disabled="">  bustling</button><button class="vq-opt" onclick="checkVQ(this,2,&#39;seasoned&#39;,&#39;snaking&#39;)" disabled="">  seasoned</button><button class="vq-opt correct" onclick="checkVQ(this,2,&#39;snaking&#39;,&#39;snaking&#39;)" disabled="">✓ snaking</button><button class="vq-opt" onclick="checkVQ(this,2,&#39;cavernous&#39;,&#39;snaking&#39;)" disabled="">  cavernous</button></div></div><div class="vq-question" id="vq-3"><p>4. What does "navigated" mean?</p><div class="vq-options"><button class="vq-opt" onclick="checkVQ(this,3,&#39;Got lost in a tunnel&#39;,&#39;Found the correct route through somewhere&#39;)" disabled="">  Got lost in a tunnel</button><button class="vq-opt correct" onclick="checkVQ(this,3,&#39;Found the correct route through somewhere&#39;,&#39;Found the correct route through somewhere&#39;)" disabled="">✓ Found the correct route through somewhere</button><button class="vq-opt" onclick="checkVQ(this,3,&#39;Ran quickly along a platform&#39;,&#39;Found the correct route through somewhere&#39;)" disabled="">  Ran quickly along a platform</button><button class="vq-opt" onclick="checkVQ(this,3,&#39;Announced the next station&#39;,&#39;Found the correct route through somewhere&#39;)" disabled="">  Announced the next station</button></div></div><div class="vq-question" id="vq-4"><p>5. Someone who travels regularly between home and school or work is called a…</p><div class="vq-options"><button class="vq-opt" onclick="checkVQ(this,4,&#39;labyrinth&#39;,&#39;commuter&#39;)" disabled="">  labyrinth</button><button class="vq-opt" onclick="checkVQ(this,4,&#39;navigator&#39;,&#39;commuter&#39;)" disabled="">  navigator</button><button class="vq-opt correct" onclick="checkVQ(this,4,&#39;commuter&#39;,&#39;commuter&#39;)" disabled="">✓ commuter</button><button class="vq-opt" onclick="checkVQ(this,4,&#39;conductor&#39;,&#39;commuter&#39;)" disabled="">  conductor</button></div></div></div>
+    <div id="vq-score" style="display: block; margin-top: 10px; font-weight: 700; font-size: 1rem; color: var(--tube-blue);">Your score: 5 / 5 — 🌟 Excellent!</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     COMPREHENSION PANEL
+════════════════════════════════════════════════ -->
+<div id="panel-comprehension" class="panel">
+
+  <div class="score-bar" id="score-display">
+    <div class="score-circle" id="score-circle">5/5</div>
+    <div>
+      <strong id="score-text">🌟 Perfect score on multiple choice! Well done!</strong>
+      <p>Multiple choice questions mark themselves. Use the model answers to check your written responses.</p>
+    </div>
+  </div>
+
+  <!-- Section A: Retrieval -->
+  <div class="section-label">Section A — Retrieval (find it in the text)</div>
+
+  <div class="q-card" id="q1">
+    <span class="q-type retrieval">Retrieval</span>
+    <p class="question">1. Which two Underground lines did Adam travel on?</p>
+    <div class="mc-options">
+      <button class="mc-opt" onclick="checkMC(this,&#39;q1&#39;,false)" disabled="">Central and Jubilee</button>
+      <button class="mc-opt correct" onclick="checkMC(this,&#39;q1&#39;,true)" disabled="">✓ Piccadilly and Jubilee</button>
+      <button class="mc-opt" onclick="checkMC(this,&#39;q1&#39;,false)" disabled="">Northern and Piccadilly</button>
+      <button class="mc-opt" onclick="checkMC(this,&#39;q1&#39;,false)" disabled="">Victoria and District</button>
+    </div>
+  </div>
+
+  <div class="q-card" id="q2">
+    <span class="q-type retrieval">Retrieval</span>
+    <p class="question">2. What was Adam's final destination?</p>
+    <div class="mc-options">
+      <button class="mc-opt" onclick="checkMC(this,&#39;q2&#39;,false)" disabled="">Green Park</button>
+      <button class="mc-opt" onclick="checkMC(this,&#39;q2&#39;,false)" disabled="">Waterloo</button>
+      <button class="mc-opt correct" onclick="checkMC(this,&#39;q2&#39;,true)" disabled="">✓ Westminster</button>
+      <button class="mc-opt" onclick="checkMC(this,&#39;q2&#39;,false)" disabled="">King's Cross</button>
+    </div>
+  </div>
+
+  <div class="q-card" id="q3">
+    <span class="q-type retrieval">Retrieval</span>
+    <p class="question">3. What advice did Adam's mum always give him?</p>
+    <div class="mc-options">
+      <button class="mc-opt" onclick="checkMC(this,&#39;q3&#39;,false)" disabled="">"Take your time and be patient."</button>
+      <button class="mc-opt correct" onclick="checkMC(this,&#39;q3&#39;,true)" disabled="">✓ "When in doubt, look up."</button>
+      <button class="mc-opt" onclick="checkMC(this,&#39;q3&#39;,false)" disabled="">"Always ask a member of staff."</button>
+      <button class="mc-opt" onclick="checkMC(this,&#39;q3&#39;,false)" disabled="">"Check the map before you travel."</button>
+    </div>
+  </div>
+
+  <!-- Section B: Inference -->
+  <div class="section-label" style="margin-top:24px;">Section B — Inference (read between the lines)</div>
+
+  <div class="q-card" id="q4">
+    <span class="q-type inference">Inference</span>
+    <p class="question">4. How do we know Adam was nervous at Green Park station? Use evidence from the text.</p>
+    <div class="open-q">
+      <textarea id="ta-q4" placeholder="Write your answer here…"></textarea>
+      <button class="reveal-btn" onclick="revealAnswer(&#39;q4&#39;)">See model answer</button>
+      <div class="model-answer" id="ma-q4">
+        We know Adam was nervous because the text says <em>"his stomach twisted with apprehension"</em> — this physical reaction (twisting stomach) shows fear. He also <em>"closed his eyes"</em> and <em>"took a slow breath"</em>, which are things people do to calm themselves down. The word <strong>apprehension</strong> itself means worry or mild fear.
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" id="q5">
+    <span class="q-type inference">Inference</span>
+    <p class="question">5. Why do you think the author describes Adam as "a seasoned commuter already" at the end of the story? What does this tell us?</p>
+    <div class="open-q">
+      <textarea id="ta-q5" placeholder="Write your answer here…"></textarea>
+      <button class="reveal-btn" onclick="revealAnswer(&#39;q5&#39;)">See model answer</button>
+      <div class="model-answer" id="ma-q5">
+        The word <strong>seasoned</strong> means experienced and confident. At the start Adam was nervous and uncertain. By the end, he walked calmly off the train and even sent a cheerful message to his mum. The author uses this phrase to show how much Adam has grown in confidence during the journey — even though it was only one trip, he feels like a pro.
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card" id="q6">
+    <span class="q-type inference">Inference</span>
+    <p class="question">6. What does the phrase <em>"he grinned so widely his cheeks ached"</em> tell us about how Adam felt when he arrived?</p>
+    <div class="mc-options">
+      <button class="mc-opt" onclick="checkMC(this,&#39;q6&#39;,false)" disabled="">He was in pain and wanted to go home.</button>
+      <button class="mc-opt correct" onclick="checkMC(this,&#39;q6&#39;,true)" disabled="">✓ He was extremely proud and happy.</button>
+      <button class="mc-opt" onclick="checkMC(this,&#39;q6&#39;,false)" disabled="">He was surprised that he had ended up at Westminster.</button>
+      <button class="mc-opt" onclick="checkMC(this,&#39;q6&#39;,false)" disabled="">He was bored and ready for the next challenge.</button>
+    </div>
+  </div>
+
+  <!-- Section C: Vocabulary in context -->
+  <div class="section-label" style="margin-top:24px;">Section C — Vocabulary in Context</div>
+
+  <div class="q-card" id="q7">
+    <span class="q-type vocab-q">Vocabulary</span>
+    <p class="question">7. In the sentence <em>"A long, labyrinthine corridor stretched ahead,"</em> what does <strong>labyrinthine</strong> suggest about the corridor?</p>
+    <div class="mc-options">
+      <button class="mc-opt" onclick="checkMC(this,&#39;q7&#39;,false)" disabled="">It was very short and easy to walk down.</button>
+      <button class="mc-opt" onclick="checkMC(this,&#39;q7&#39;,false)" disabled="">It was brightly lit and welcoming.</button>
+      <button class="mc-opt correct" onclick="checkMC(this,&#39;q7&#39;,true)" disabled="">✓ It was confusing and maze-like, making it hard to know which way to go.</button>
+      <button class="mc-opt" onclick="checkMC(this,&#39;q7&#39;,false)" disabled="">It was too narrow for more than one person.</button>
+    </div>
+  </div>
+
+  <div class="q-card" id="q8">
+    <span class="q-type vocab-q">Vocabulary</span>
+    <p class="question">8. The author says the train arrived with a <em>"cavernous whoosh of warm air."</em> Why is the word <strong>cavernous</strong> a good choice here?</p>
+    <div class="open-q">
+      <textarea id="ta-q8" placeholder="Write your answer here…"></textarea>
+      <button class="reveal-btn" onclick="revealAnswer(&#39;q8&#39;)">See model answer</button>
+      <div class="model-answer" id="ma-q8">
+        <strong>Cavernous</strong> means huge and hollow, like a cave. Underground tunnels are long, dark, and hollow — very cave-like. The word helps the reader picture the enormous rush of air that pushes through the tunnel as the train arrives, and reminds us of just how big and deep the Underground really is.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════════
+     RETELL PANEL
+════════════════════════════════════════════════ -->
+<div id="panel-retell" class="panel">
+
+  <div class="retell-intro">
+    <h3>🗺️ Story Retell Template</h3>
+    <p>A <strong>story retell</strong> means telling the story again in your own words — not copying sentences from the text. Use the prompts and word bank below to help you. Try to use at least <strong>3 vocabulary words</strong> from the story!</p>
+  </div>
+
+  <div class="retell-section">
+    <h4><span class="retell-badge b-begin">Beginning</span> &nbsp;Setting the scene</h4>
+    <p class="prompt">Who is the story about? Where does it begin? What is Adam doing? How might he be feeling?</p>
+    <textarea id="rt-begin" placeholder="Start with: &#39;This story is about a boy called Adam who…&#39;"></textarea>
+    <div class="word-bank">
+      <span class="word-chip" onclick="insertWord(&#39;rt-begin&#39;,&#39;bustling&#39;)">bustling</span>
+      <span class="word-chip" onclick="insertWord(&#39;rt-begin&#39;,&#39;apprehension&#39;)">apprehension</span>
+      <span class="word-chip" onclick="insertWord(&#39;rt-begin&#39;,&#39;Piccadilly line&#39;)">Piccadilly line</span>
+      <span class="word-chip" onclick="insertWord(&#39;rt-begin&#39;,&#39;King\&#39;s Cross&#39;)">King's Cross</span>
+      <span class="word-chip" onclick="insertWord(&#39;rt-begin&#39;,&#39;first time&#39;)">first time</span>
+    </div>
+  </div>
+
+  <div class="retell-section">
+    <h4><span class="retell-badge b-mid">Middle</span> &nbsp;The problem / challenge</h4>
+    <p class="prompt">What challenge did Adam face? What did the station look like? How did he solve the problem?</p>
+    <textarea id="rt-mid" placeholder="Start with: &#39;When Adam reached Green Park, he…&#39;"></textarea>
+    <div class="word-bank">
+      <span class="word-chip" onclick="insertWord(&#39;rt-mid&#39;,&#39;labyrinthine&#39;)">labyrinthine</span>
+      <span class="word-chip" onclick="insertWord(&#39;rt-mid&#39;,&#39;navigated&#39;)">navigated</span>
+      <span class="word-chip" onclick="insertWord(&#39;rt-mid&#39;,&#39;snaking&#39;)">snaking</span>
+      <span class="word-chip" onclick="insertWord(&#39;rt-mid&#39;,&#39;\" when="" in="" doubt,="" look="" up\"')"="">Mum's advice</span>
+      <span class="word-chip" onclick="insertWord(&#39;rt-mid&#39;,&#39;Jubilee line&#39;)">Jubilee line</span>
+    </div>
+  </div>
+
+  <div class="retell-section">
+    <h4><span class="retell-badge b-end">End</span> &nbsp;The resolution</h4>
+    <p class="prompt">How did the story end? How did Adam feel? What did he do when he arrived?</p>
+    <textarea id="rt-end" placeholder="Start with: &#39;Finally, Adam arrived at…&#39;"></textarea>
+    <div class="word-bank">
+      <span class="word-chip" onclick="insertWord(&#39;rt-end&#39;,&#39;cavernous&#39;)">cavernous</span>
+      <span class="word-chip" onclick="insertWord(&#39;rt-end&#39;,&#39;commuter&#39;)">commuter</span>
+      <span class="word-chip" onclick="insertWord(&#39;rt-end&#39;,&#39;Westminster&#39;)">Westminster</span>
+      <span class="word-chip" onclick="insertWord(&#39;rt-end&#39;,&#39;proud&#39;)">proud</span>
+      <span class="word-chip" onclick="insertWord(&#39;rt-end&#39;,&#39;confident&#39;)">confident</span>
+    </div>
+  </div>
+
+  <div class="retell-section">
+    <h4><span class="retell-badge b-star">⭐ Star Opinion</span> &nbsp;Your thoughts</h4>
+    <p class="prompt">What did you think of the story? Which part was most exciting? What would you have done differently?</p>
+    <textarea id="rt-opinion" placeholder="Start with: &#39;I think this story is interesting because…&#39; or &#39;My favourite part was…&#39;"></textarea>
+  </div>
+
+  <div class="retell-actions">
+    <button class="btn-green" onclick="printRetell()">🖨️ Print / Save</button>
+    <button class="btn-outline" onclick="clearRetell()">🗑️ Clear All</button>
+  </div>
+
+  <!-- Self-assessment checklist -->
+  <div class="retell-section" style="margin-top:24px;">
+    <h4>✅ Self-Assessment Checklist</h4>
+    <p class="prompt">Tick each box when you are happy you have done it!</p>
+    <ul class="checklist">
+      <li><input type="checkbox" id="c1"><label for="c1">I wrote about the beginning, middle, and end of the story.</label></li>
+      <li><input type="checkbox" id="c2"><label for="c2">I used my own words instead of copying from the text.</label></li>
+      <li><input type="checkbox" id="c3"><label for="c3">I used at least 3 vocabulary words from the story.</label></li>
+      <li><input type="checkbox" id="c4"><label for="c4">I explained how Adam felt and why.</label></li>
+      <li><input type="checkbox" id="c5"><label for="c5">I used time connectives (first, then, next, finally).</label></li>
+      <li><input type="checkbox" id="c6"><label for="c6">I shared my own opinion about the story.</label></li>
+    </ul>
+  </div>
+
+</div>
+
+<script>
+// ── Tab switching ──────────────────────────────
+function showTab(id, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ── MC Questions ──────────────────────────────
+const mcScores = {};
+
+function checkMC(btn, qId, isCorrect) {
+  const card = document.getElementById(qId);
+  const allBtns = card.querySelectorAll('.mc-opt');
+  allBtns.forEach(b => b.disabled = true);
+  if (isCorrect) {
+    btn.classList.add('correct');
+    btn.textContent = '✓ ' + btn.textContent;
+    mcScores[qId] = 1;
+  } else {
+    btn.classList.add('wrong');
+    btn.textContent = '✗ ' + btn.textContent;
+    mcScores[qId] = 0;
+    // highlight correct
+    allBtns.forEach(b => {
+      if (b.onclick && b.onclick.toString().includes('true')) {
+        b.classList.add('correct');
+      }
+    });
+  }
+  updateScore();
+}
+
+function updateScore() {
+  const total = Object.keys(mcScores).length;
+  const correct = Object.values(mcScores).filter(v => v === 1).length;
+  document.getElementById('score-circle').textContent = correct + '/' + total;
+  document.getElementById('score-text').textContent =
+    total === 0 ? 'Answer some questions to see your score!' :
+    correct === total ? '🌟 Perfect score on multiple choice! Well done!' :
+    correct >= total * 0.6 ? '👍 Good effort — check the ones you missed.' :
+    'Keep going — re-read the story and try again!';
+}
+
+// ── Open Q reveal ─────────────────────────────
+function revealAnswer(qId) {
+  document.getElementById('ma-' + qId).style.display = 'block';
+}
+
+// ── Vocab Quiz ────────────────────────────────
+const vqData = [
+  {
+    q: 'Which word means "very large and hollow inside, like a cave"?',
+    opts: ['labyrinthine','bustling','cavernous','snaking'],
+    ans: 'cavernous'
+  },
+  {
+    q: 'A feeling of worry or slight fear about what might happen is called…',
+    opts: ['navigation','apprehension','commuting','a roundel'],
+    ans: 'apprehension'
+  },
+  {
+    q: 'Which word best describes something that twists and winds like a snake?',
+    opts: ['bustling','seasoned','snaking','cavernous'],
+    ans: 'snaking'
+  },
+  {
+    q: 'What does "navigated" mean?',
+    opts: ['Got lost in a tunnel','Found the correct route through somewhere','Ran quickly along a platform','Announced the next station'],
+    ans: 'Found the correct route through somewhere'
+  },
+  {
+    q: 'Someone who travels regularly between home and school or work is called a…',
+    opts: ['labyrinth','navigator','commuter','conductor'],
+    ans: 'commuter'
+  }
+];
+
+let vqStarted = false;
+
+function startVocabQuiz() {
+  if (vqStarted) return;
+  vqStarted = true;
+  const box = document.getElementById('vocab-quiz');
+  const container = document.getElementById('vq-container');
+  box.style.display = 'block';
+  container.innerHTML = '';
+  vqData.forEach((item, i) => {
+    const div = document.createElement('div');
+    div.className = 'vq-question';
+    div.id = 'vq-' + i;
+    div.innerHTML = `<p>${i+1}. ${item.q}</p><div class="vq-options">${
+      item.opts.map(o => `<button class="vq-opt" onclick="checkVQ(this,${i},'${o.replace(/'/g,"\\'")}','${item.ans.replace(/'/g,"\\'")}')">  ${o}</button>`).join('')
+    }</div>`;
+    container.appendChild(div);
+  });
+  box.scrollIntoView({behavior:'smooth'});
+}
+
+let vqScores = {};
+
+function checkVQ(btn, idx, chosen, correct) {
+  const card = document.getElementById('vq-' + idx);
+  card.querySelectorAll('.vq-opt').forEach(b => b.disabled = true);
+  if (chosen === correct) {
+    btn.classList.add('correct');
+    btn.textContent = '✓ ' + btn.textContent.trim();
+    vqScores[idx] = 1;
+  } else {
+    btn.classList.add('wrong');
+    btn.textContent = '✗ ' + btn.textContent.trim();
+    vqScores[idx] = 0;
+    card.querySelectorAll('.vq-opt').forEach(b => {
+      if (b.textContent.trim() === correct) b.classList.add('correct');
+    });
+  }
+  if (Object.keys(vqScores).length === vqData.length) {
+    const s = Object.values(vqScores).reduce((a,b)=>a+b,0);
+    document.getElementById('vq-score').style.display = 'block';
+    document.getElementById('vq-score').textContent =
+      `Your score: ${s} / ${vqData.length} — ${s===vqData.length?'🌟 Excellent!':s>=3?'👍 Great work!':'Keep practising!'}`;
+  }
+}
+
+// ── Retell word chips ─────────────────────────
+function insertWord(taId, word) {
+  const ta = document.getElementById(taId);
+  const start = ta.selectionStart;
+  const val = ta.value;
+  ta.value = val.slice(0, start) + word + ' ' + val.slice(start);
+  ta.focus();
+  ta.selectionStart = ta.selectionEnd = start + word.length + 1;
+}
+
+function clearRetell() {
+  ['rt-begin','rt-mid','rt-end','rt-opinion'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  document.querySelectorAll('.checklist input').forEach(c => c.checked = false);
+}
+
+function printRetell() {
+  const b = document.getElementById('rt-begin').value || '(not filled in)';
+  const m = document.getElementById('rt-mid').value || '(not filled in)';
+  const e = document.getElementById('rt-end').value || '(not filled in)';
+  const o = document.getElementById('rt-opinion').value || '(not filled in)';
+  const win = window.open('','_blank');
+  win.document.write(`
+    <html><head><title>My Story Retell — Adam and the Underground</title>
+    <style>
+      body{font-family:Arial,sans-serif;max-width:700px;margin:40px auto;padding:0 20px;line-height:1.7;color:#1a1a2e;}
+      h1{color:#003688;} h2{color:#dc241f;margin-top:24px;font-size:1rem;}
+      p{white-space:pre-wrap;background:#f9f9f9;padding:14px;border-radius:6px;margin-top:6px;}
+      .footer{margin-top:40px;font-size:0.8rem;color:#888;}
+    </style></head><body>
+    <h1>My Story Retell</h1>
+    <em>Adam and the Underground Adventure</em>
+    <h2>Beginning</h2><p>${b}</p>
+    <h2>Middle</h2><p>${m}</p>
+    <h2>End</h2><p>${e}</p>
+    <h2>My Opinion ⭐</h2><p>${o}</p>
+    <div class="footer">Created with the Adam Underground Activity · ${new Date().toLocaleDateString('en-GB')}</div>
+    </body></html>
+  `);
+  win.document.close();
+  win.print();
+}
+</script>
+
+
+</body></html>
