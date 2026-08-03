@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<!-- saved from url=(0236)file:///Users/margueritegaynor/Library/Application%20Support/Claude/local-agent-mode-sessions/2edd45a5-bf79-40bd-8dab-fc9d31465c1a/949456c0-caeb-4a8c-963b-b983d46eb394/local_0d8a88a1-fe7e-45df-abc2-8822ef0382ad/outputs/adam_weather.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adam and the Storm Chasers — Weather Activity Pack</title>
+<style>
+  :root {
+    --sky: #0369a1;
+    --sky-dark: #0c4a6e;
+    --sky-light: #e0f2fe;
+    --storm: #475569;
+    --sun: #f59e0b;
+    --rain: #38bdf8;
+    --green: #16a34a;
+    --red: #dc2626;
+    --bg: #f0f7ff;
+    --card: #ffffff;
+    --text: #1e293b;
+    --muted: #64748b;
+    --correct: #16a34a;
+    --wrong: #dc2626;
+    --highlight: #fefce8;
+    --highlight-border: #f59e0b;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+  /* ── Header ── */
+  header {
+    background: linear-gradient(135deg, var(--sky-dark) 0%, var(--sky) 60%, #0284c7 100%);
+    color: white; padding: 18px 24px 14px;
+    display: flex; align-items: center; gap: 16px;
+    position: relative; overflow: hidden;
+  }
+  header::before {
+    content: '🌦️';
+    position: absolute; right: 24px; top: 50%; transform: translateY(-50%);
+    font-size: 3.5rem; opacity: 0.25;
+  }
+  .weather-icon { font-size: 2.6rem; flex-shrink: 0; }
+  header h1 { font-size: 1.3rem; line-height: 1.3; }
+  header p  { font-size: 0.82rem; opacity: 0.85; margin-top: 2px; }
+
+  /* ── Tabs ── */
+  .tabs {
+    display: flex; background: var(--sky-dark);
+    padding: 0 12px; gap: 2px; flex-wrap: wrap;
+  }
+  .tab-btn {
+    padding: 10px 16px; border: none; background: transparent;
+    color: rgba(255,255,255,0.65); font-size: 0.85rem; font-weight: 600;
+    cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.2s; white-space: nowrap;
+  }
+  .tab-btn:hover { color: white; }
+  .tab-btn.active { color: var(--sun); border-bottom-color: var(--sun); }
+
+  /* ── Panels ── */
+  .panel { display: none; padding: 22px 18px; max-width: 880px; margin: 0 auto; }
+  .panel.active { display: block; }
+
+  /* ── Cards ── */
+  .text-card {
+    background: var(--card); border-radius: 12px;
+    padding: 26px 28px; line-height: 1.85; font-size: 1.03rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+  .text-card h2 { font-size: 1.35rem; color: var(--sky); margin-bottom: 3px; }
+  .text-meta { font-size: 0.8rem; color: var(--muted); font-style: italic; margin-bottom: 16px; }
+  .text-card p { margin-bottom: 10px; }
+
+  /* nonfiction specific */
+  .nf-label {
+    display: inline-block; background: var(--sun); color: #1e293b;
+    font-size: 0.68rem; font-weight: 800; letter-spacing: 1px;
+    text-transform: uppercase; padding: 2px 8px; border-radius: 4px; margin-bottom: 10px;
+  }
+  .nf-subhead {
+    font-size: 1rem; font-weight: 700; color: var(--sky-dark);
+    margin: 14px 0 5px; border-left: 4px solid var(--rain); padding-left: 10px;
+  }
+  .did-you-know {
+    background: var(--sky-light); border-left: 4px solid var(--sky);
+    border-radius: 0 8px 8px 0; padding: 10px 14px; margin: 14px 0;
+    font-size: 0.88rem; line-height: 1.6;
+  }
+  .did-you-know strong { color: var(--sky-dark); }
+
+  /* vocab words */
+  .vw {
+    background: var(--sun); border-radius: 3px; padding: 0 3px;
+    cursor: pointer; font-weight: 600; position: relative; transition: background 0.15s;
+  }
+  .vw:hover { background: #d97706; color: white; }
+  .vw-tip {
+    display: none; position: absolute; bottom: calc(100% + 6px); left: 50%;
+    transform: translateX(-50%); background: var(--sky-dark); color: white;
+    font-size: 0.78rem; font-weight: 400; padding: 7px 11px; border-radius: 7px;
+    width: 220px; text-align: center; z-index: 10; line-height: 1.4;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  }
+  .vw-tip::after {
+    content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+    border: 6px solid transparent; border-top-color: var(--sky-dark);
+  }
+  .vw:hover .vw-tip, .vw:focus .vw-tip { display: block; }
+
+  .hint-bar {
+    margin-top: 14px; font-size: 0.8rem; color: var(--muted);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .hint-bar span { background: var(--sun); padding: 1px 6px; border-radius: 3px; font-weight: 700; color: #333; }
+
+  /* text type badge */
+  .type-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--sky-light); border: 1.5px solid var(--rain);
+    border-radius: 20px; padding: 4px 12px; margin-bottom: 14px;
+    font-size: 0.78rem; font-weight: 700; color: var(--sky-dark);
+  }
+
+  /* ── Vocabulary panel ── */
+  .section-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--sky); margin-bottom: 10px; }
+  .vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; margin-top: 6px; }
+  .vc {
+    background: var(--card); border-radius: 10px; padding: 14px 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07); border-left: 5px solid var(--sky);
+    transition: transform 0.15s, box-shadow 0.15s; cursor: default;
+  }
+  .vc:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.11); }
+  .vc .word { font-size: 1.05rem; font-weight: 800; color: var(--sky-dark); }
+  .vc .pos  { font-size: 0.73rem; color: var(--muted); font-style: italic; margin: 2px 0 5px; }
+  .vc .def  { font-size: 0.87rem; line-height: 1.5; }
+  .vc .ex   { font-size: 0.8rem; color: var(--muted); margin-top: 7px; font-style: italic; border-top: 1px solid #eee; padding-top: 7px; }
+
+  .vocab-quiz-btn {
+    margin-top: 22px; background: var(--sky); color: white; border: none;
+    padding: 11px 26px; border-radius: 8px; font-size: 0.95rem; font-weight: 700;
+    cursor: pointer; transition: background 0.2s;
+  }
+  .vocab-quiz-btn:hover { background: var(--sky-dark); }
+  #vocab-quiz { margin-top: 26px; display: none; }
+  #vocab-quiz h3 { font-size: 1.05rem; color: var(--sky-dark); margin-bottom: 12px; }
+  .vq-q { background: var(--card); border-radius: 10px; padding: 16px 18px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+  .vq-q p { font-weight: 600; margin-bottom: 9px; font-size: 0.95rem; }
+  .vq-opts { display: flex; flex-direction: column; gap: 6px; }
+  .vq-opt { background: #f1f5f9; border: 2px solid transparent; border-radius: 7px; padding: 8px 13px; cursor: pointer; font-size: 0.88rem; transition: all 0.15s; text-align: left; }
+  .vq-opt:hover:not(:disabled) { border-color: var(--sky); background: #e0f2fe; }
+  .vq-opt.correct { background: #dcfce7; border-color: var(--correct); color: var(--correct); font-weight: 700; }
+  .vq-opt.wrong   { background: #fee2e2; border-color: var(--wrong);   color: var(--wrong);   font-weight: 700; }
+  .vq-opt:disabled { cursor: default; }
+
+  /* ── Questions panel ── */
+  .score-bar { background: var(--card); border-radius: 10px; padding: 14px 18px; margin-bottom: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); display: flex; align-items: center; gap: 14px; }
+  .score-circle { width: 56px; height: 56px; border-radius: 50%; background: var(--sky); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.15rem; font-weight: 900; flex-shrink: 0; }
+
+  .q-block { background: var(--card); border-radius: 10px; padding: 16px 18px; margin-bottom: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+  .q-type-badge { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; display: inline-block; margin-bottom: 7px; }
+  .qt-retrieval { background: #dbeafe; color: #1e40af; }
+  .qt-inference  { background: #fce7f3; color: #9d174d; }
+  .qt-vocab      { background: #fef3c7; color: #92400e; }
+  .qt-nonfiction { background: #dcfce7; color: #166534; }
+
+  .q-src { font-size: 0.7rem; color: var(--muted); margin-bottom: 6px; font-style: italic; }
+  .q-text { font-weight: 600; font-size: 0.96rem; margin-bottom: 9px; }
+  .mc-opts { display: flex; flex-direction: column; gap: 6px; }
+  .mc-opt { background: #f1f5f9; border: 2px solid transparent; border-radius: 7px; padding: 8px 13px; cursor: pointer; font-size: 0.9rem; transition: all 0.15s; text-align: left; }
+  .mc-opt:hover:not(:disabled) { border-color: var(--sky); background: #e0f2fe; }
+  .mc-opt.correct { background: #dcfce7; border-color: var(--correct); color: var(--correct); font-weight: 700; }
+  .mc-opt.wrong   { background: #fee2e2; border-color: var(--wrong);   color: var(--wrong);   font-weight: 700; }
+  .mc-opt:disabled { cursor: default; }
+
+  .open-ta textarea { width: 100%; border: 2px solid #ddd; border-radius: 7px; padding: 9px 11px; font-family: inherit; font-size: 0.9rem; resize: vertical; min-height: 80px; transition: border-color 0.2s; }
+  .open-ta textarea:focus { outline: none; border-color: var(--sky); }
+  .reveal-btn { margin-top: 8px; background: var(--sky); color: white; border: none; padding: 7px 16px; border-radius: 6px; font-size: 0.83rem; font-weight: 600; cursor: pointer; }
+  .reveal-btn:hover { background: var(--sky-dark); }
+  .model-ans { display: none; margin-top: 8px; background: var(--highlight); border-left: 4px solid var(--highlight-border); border-radius: 6px; padding: 9px 13px; font-size: 0.86rem; line-height: 1.55; }
+
+  /* ── Retell panel ── */
+  .retell-intro { background: var(--card); border-radius: 10px; padding: 16px 18px; margin-bottom: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); border-left: 5px solid var(--green); font-size: 0.92rem; line-height: 1.6; }
+  .retell-intro h3 { color: var(--green); margin-bottom: 5px; }
+
+  .rs { background: var(--card); border-radius: 10px; padding: 16px 18px; margin-bottom: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+  .rs h4 { font-size: 0.92rem; color: var(--sky-dark); margin-bottom: 5px; display: flex; align-items: center; gap: 7px; }
+  .rs-badge { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; }
+  .rb-begin { background: #dbeafe; color: #1e40af; }
+  .rb-mid   { background: #fce7f3; color: #9d174d; }
+  .rb-end   { background: #dcfce7; color: #166534; }
+  .rb-star  { background: #fef3c7; color: #92400e; }
+  .rs .prompt { font-size: 0.8rem; color: var(--muted); margin-bottom: 9px; font-style: italic; }
+  .rs textarea { width: 100%; border: 2px solid #ddd; border-radius: 7px; padding: 9px 11px; font-family: inherit; font-size: 0.9rem; resize: vertical; min-height: 90px; transition: border-color 0.2s; }
+  .rs textarea:focus { outline: none; border-color: var(--green); }
+  .word-bank { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 5px; }
+  .chip { background: var(--sun); color: #1e293b; font-size: 0.76rem; font-weight: 700; padding: 3px 10px; border-radius: 20px; cursor: pointer; user-select: none; }
+  .chip:hover { background: #d97706; color: white; }
+
+  .retell-actions { display: flex; gap: 9px; margin-top: 6px; flex-wrap: wrap; }
+  .btn-green   { background: var(--green); color: white; border: none; padding: 10px 20px; border-radius: 8px; font-size: 0.88rem; font-weight: 700; cursor: pointer; }
+  .btn-green:hover { background: #15803d; }
+  .btn-outline { background: transparent; color: var(--sky); border: 2px solid var(--sky); padding: 10px 20px; border-radius: 8px; font-size: 0.88rem; font-weight: 700; cursor: pointer; }
+  .btn-outline:hover { background: var(--sky); color: white; }
+
+  .checklist { list-style: none; margin-top: 14px; }
+  .checklist li { display: flex; align-items: flex-start; gap: 9px; padding: 6px 0; font-size: 0.87rem; border-bottom: 1px solid #f0f0f5; }
+  .checklist li:last-child { border-bottom: none; }
+  .checklist input[type="checkbox"] { width: 17px; height: 17px; margin-top: 1px; accent-color: var(--green); flex-shrink: 0; cursor: pointer; }
+
+  @media (max-width: 500px) {
+    .text-card { padding: 16px 14px; }
+    .panel { padding: 14px 10px; }
+    header h1 { font-size: 1.1rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="weather-icon">⛈️</div>
+  <div>
+    <h1>Adam and the Storm Chasers</h1>
+    <p>A dual-text activity pack · Fiction &amp; Non-Fiction · Year 5</p>
+  </div>
+</header>
+
+<nav class="tabs">
+  <button class="tab-btn active" onclick="showTab(&#39;fiction&#39;,this)">📖 Fiction</button>
+  <button class="tab-btn" onclick="showTab(&#39;nonfiction&#39;,this)">🔬 Non-Fiction</button>
+  <button class="tab-btn" onclick="showTab(&#39;vocab&#39;,this)">🔤 Vocabulary</button>
+  <button class="tab-btn" onclick="showTab(&#39;questions&#39;,this)">💬 Questions</button>
+  <button class="tab-btn" onclick="showTab(&#39;retell&#39;,this)">✏️ Story Retell</button>
+</nav>
+
+<!-- ══════════════════════════════════════════════
+     FICTION
+════════════════════════════════════════════════ -->
+<div id="panel-fiction" class="panel active">
+  <div class="text-card">
+    <div class="type-badge">📖 Fiction — Short Story</div>
+    <h2>Adam and the Storm Chasers</h2>
+    <p class="text-meta">approx. 450 words · Year 5</p>
+
+    <p>The minibus pulled up outside a low, grey building on the edge of Reading, and Adam pressed his nose against the rain-streaked window. A sign above the entrance read: <strong>National Weather Forecasting Centre</strong>. This was no ordinary school trip.</p>
+
+    <p>Inside, a <span class="vw" tabindex="0">meteorologist<span class="vw-tip">Meteorologist — a scientist who studies and predicts the weather</span></span> named Dr Patel was waiting for them. She wore a lanyard covered in tiny cloud badges and spoke at the speed of a storm.</p>
+
+    <p>"Welcome, everyone. Today you'll see exactly how we predict the weather — from the first raindrop falling somewhere over the Atlantic, all the way to the forecast on your phone tomorrow morning."</p>
+
+    <p>Adam followed the group into a vast control room. Enormous screens covered every wall, each one showing swirling patterns of white and grey — satellite images of the <span class="vw" tabindex="0">atmosphere<span class="vw-tip">Atmosphere — the layers of air and gas surrounding the Earth</span></span> from space. The room hummed with the sound of computers and quiet, urgent voices.</p>
+
+    <p>"Those white spirals," whispered Adam's friend Priya, pointing at the largest screen, "they look like they're alive."</p>
+
+    <p>"That's because they nearly are," said Dr Patel, who had appeared silently beside them. "That's a <span class="vw" tabindex="0">turbulent<span class="vw-tip">Turbulent — moving in an irregular, disturbed way; rough and unpredictable</span></span> low-pressure system heading towards Scotland. We're <span class="vw" tabindex="0">forecasting<span class="vw-tip">Forecasting — predicting future events using data and patterns</span></span> winds of up to seventy miles per hour by Thursday."</p>
+
+    <p>Adam stared at the screen. The swirling mass of cloud looked enormous. He thought about the people in Scotland going about their Tuesday, with no idea what was spinning towards them across the sea.</p>
+
+    <p>Later, Dr Patel showed them a room where <span class="vw" tabindex="0">precipitation<span class="vw-tip">Precipitation — water falling from clouds in any form: rain, snow, sleet or hail</span></span> levels were measured using radar. On a map covered in <span class="vw" tabindex="0">isobars<span class="vw-tip">Isobars — lines on a weather map that connect places with the same air pressure</span></span> — curved lines linking areas of equal air pressure — a deep yellow and orange blob sat like a bruise over the west of England.</p>
+
+    <p>"Rain," said Dr Patel simply. "Lots of it. By tomorrow, that yellow blob will be sitting right over London."</p>
+
+    <p>Then came the moment Adam hadn't expected. Dr Patel turned to him.</p>
+
+    <p>"Would you like to present the forecast?"</p>
+
+    <p>Adam's mouth went dry. But he walked to the green screen, took the script Dr Patel handed him, and looked straight into the camera. He read each line clearly, pointing to the map as he went.</p>
+
+    <p>When he finished, the control room gave a small round of applause. Priya grinned at him. Adam grinned back. He had just predicted — with some help — tomorrow's weather for the whole of the United Kingdom. That, he decided, was a <span class="vw" tabindex="0">phenomenon<span class="vw-tip">Phenomenon — a remarkable or extraordinary event or thing that can be observed</span></span>.</p>
+
+    <div class="hint-bar">💡 Tap any <span>highlighted word</span> to see its meaning.
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     NON-FICTION
+════════════════════════════════════════════════ -->
+<div id="panel-nonfiction" class="panel">
+  <div class="text-card">
+    <div class="type-badge">🔬 Non-Fiction — Informational Text</div>
+    <span class="nf-label">Weather Forecasting</span>
+    <h2>How Do We Know What Tomorrow's Weather Will Be?</h2>
+    <p class="text-meta">approx. 370 words · Informational · Year 5</p>
+
+    <p>Have you ever wondered how the weather presenter on television knows it will rain on Thursday — three days before a single cloud appears in the sky? The answer lies in an extraordinary mix of science, technology, and mathematics.</p>
+
+    <p class="nf-subhead">Watching from Space</p>
+    <p>The first clue comes from satellites orbiting the Earth far above the <span class="vw" tabindex="0">atmosphere<span class="vw-tip">Atmosphere — the layers of air and gas surrounding the Earth</span></span>. These spacecraft send back thousands of images every hour, allowing <span class="vw" tabindex="0">meteorologists<span class="vw-tip">Meteorologist — a scientist who studies and predicts the weather</span></span> — scientists who study the weather — to watch weather systems developing across entire oceans.</p>
+
+    <p class="nf-subhead">Measuring from the Ground</p>
+    <p>At the same time, thousands of weather stations dotted across the globe measure air temperature, wind speed, and <span class="vw" tabindex="0">precipitation<span class="vw-tip">Precipitation — water falling from clouds: rain, snow, sleet or hail</span></span> — the collective name for all forms of water falling from clouds, including rain, snow, sleet, and hail. Radar systems detect where precipitation is falling right now and how heavy it is. Balloons carrying sensors are released twice a day from stations all over the world to measure the upper <span class="vw" tabindex="0">atmosphere<span class="vw-tip">Atmosphere — the layers of air and gas surrounding the Earth</span></span>.</p>
+
+    <div class="did-you-know">
+      <strong>☁️ Did you know?</strong> The UK alone has over 200 automated weather stations collecting data every single minute of the day and night.
+    </div>
+
+    <p class="nf-subhead">Reading the Maps</p>
+    <p>All this data is plotted onto weather maps using <span class="vw" tabindex="0">isobars<span class="vw-tip">Isobars — lines on a weather map connecting places of equal air pressure</span></span> — curved lines that connect places sharing the same air pressure. Where isobars are packed closely together, the air pressure is changing rapidly, meaning <span class="vw" tabindex="0">turbulent<span class="vw-tip">Turbulent — moving in an irregular, disturbed way; rough and unpredictable</span></span>, stormy weather is likely. Where they are spread apart, conditions are calm.</p>
+
+    <p class="nf-subhead">Supercomputers Do the Maths</p>
+    <p>No human brain could process all this data alone. The <span class="vw" tabindex="0">forecasting<span class="vw-tip">Forecasting — predicting future events using data and patterns</span></span> is done by some of the most powerful supercomputers on the planet. The Met Office computer in Exeter performs around 16,000 trillion calculations every second, running a model of the Earth's entire atmosphere to predict how weather patterns will move and change.</p>
+
+    <p class="nf-subhead">Why It Matters</p>
+    <p>Accurate weather <span class="vw" tabindex="0">forecasting<span class="vw-tip">Forecasting — predicting future events using data and patterns</span></span> saves lives. It helps farmers decide when to plant crops, allows airlines to plan safe routes, and gives emergency services time to prepare for dangerous conditions. A severe storm is a powerful natural <span class="vw" tabindex="0">phenomenon<span class="vw-tip">Phenomenon — a remarkable or extraordinary event or thing that can be observed</span></span> — but with modern science, we can see it coming days in advance.</p>
+
+    <div class="did-you-know">
+      <strong>🌍 Did you know?</strong> A modern five-day weather forecast is as accurate today as a one-day forecast was in the 1980s. Technology has made us much better at predicting the weather!
+    </div>
+
+    <div class="hint-bar">💡 Tap any <span>highlighted word</span> to see its meaning.</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     VOCABULARY
+════════════════════════════════════════════════ -->
+<div id="panel-vocab" class="panel">
+  <div class="section-label">Key Vocabulary — 7 words from both texts</div>
+
+  <div class="vocab-grid">
+    <div class="vc"><div class="word">meteorologist</div><div class="pos">noun</div><div class="def">A scientist who studies the weather and makes predictions about it.</div><div class="ex">"The meteorologist warned that the storm would arrive by nightfall."</div></div>
+    <div class="vc"><div class="word">atmosphere</div><div class="pos">noun</div><div class="def">The layers of gases surrounding the Earth, including the air we breathe.</div><div class="ex">"Satellites photograph the atmosphere from hundreds of miles above the Earth."</div></div>
+    <div class="vc"><div class="word">precipitation</div><div class="pos">noun</div><div class="def">Any form of water that falls from clouds: rain, snow, sleet, or hail.</div><div class="ex">"The forecast showed heavy precipitation across the north of England."</div></div>
+    <div class="vc"><div class="word">isobars</div><div class="pos">noun (plural)</div><div class="def">Lines on a weather map connecting places that have the same air pressure.</div><div class="ex">"The closely packed isobars showed that a powerful storm was approaching."</div></div>
+    <div class="vc"><div class="word">turbulent</div><div class="pos">adjective</div><div class="def">Moving in an irregular, rough, or disturbed way.</div><div class="ex">"The turbulent air made the flight very bumpy."</div></div>
+    <div class="vc"><div class="word">forecasting</div><div class="pos">verb / noun</div><div class="def">Predicting what will happen in the future based on patterns and data.</div><div class="ex">"Forecasting the weather five days ahead requires a supercomputer."</div></div>
+    <div class="vc"><div class="word">phenomenon</div><div class="pos">noun</div><div class="def">A remarkable or extraordinary event or fact that can be observed.</div><div class="ex">"A rainbow is a beautiful natural phenomenon caused by light and water droplets."</div></div>
+  </div>
+
+  <button class="vocab-quiz-btn" onclick="startVocabQuiz()">🎯 Test Yourself — Vocab Quiz</button>
+  <div id="vocab-quiz">
+    <h3>Vocabulary Quiz</h3>
+    <div id="vq-container"></div>
+    <div id="vq-score" style="display:none;margin-top:10px;font-weight:700;color:var(--sky-dark);font-size:1rem;"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     QUESTIONS
+════════════════════════════════════════════════ -->
+<div id="panel-questions" class="panel">
+
+  <div class="score-bar">
+    <div class="score-circle" id="score-circle">—</div>
+    <div>
+      <strong id="score-text">Answer some questions to see your score!</strong>
+      <p style="font-size:0.82rem;color:var(--muted);margin-top:2px;">Multiple choice marks itself. Use model answers to check written responses.</p>
+    </div>
+  </div>
+
+  <!-- FICTION RETRIEVAL -->
+  <div class="section-label">Fiction — Section A: Retrieval</div>
+
+  <div class="q-block" id="q1">
+    <span class="q-type-badge qt-retrieval">Retrieval</span>
+    <p class="q-src">📖 From the fiction text</p>
+    <p class="q-text">1. Where did Adam's class go on their school trip?</p>
+    <div class="mc-opts">
+      <button class="mc-opt" onclick="checkMC(this,&#39;q1&#39;,false)">The London Underground control room</button>
+      <button class="mc-opt" onclick="checkMC(this,&#39;q1&#39;,true)">The National Weather Forecasting Centre in Reading</button>
+      <button class="mc-opt" onclick="checkMC(this,&#39;q1&#39;,false)">The Met Office in Exeter</button>
+      <button class="mc-opt" onclick="checkMC(this,&#39;q1&#39;,false)">A weather station in Scotland</button>
+    </div>
+  </div>
+
+  <div class="q-block" id="q2">
+    <span class="q-type-badge qt-retrieval">Retrieval</span>
+    <p class="q-src">📖 From the fiction text</p>
+    <p class="q-text">2. What did Dr Patel ask Adam to do at the end of the visit?</p>
+    <div class="mc-opts">
+      <button class="mc-opt" onclick="checkMC(this,&#39;q2&#39;,false)">Draw a weather map</button>
+      <button class="mc-opt" onclick="checkMC(this,&#39;q2&#39;,false)">Name all the isobars on the map</button>
+      <button class="mc-opt" onclick="checkMC(this,&#39;q2&#39;,true)">Present the weather forecast in front of the green screen</button>
+      <button class="mc-opt" onclick="checkMC(this,&#39;q2&#39;,false)">Measure the precipitation levels</button>
+    </div>
+  </div>
+
+  <!-- FICTION INFERENCE -->
+  <div class="section-label" style="margin-top:20px;">Fiction — Section B: Inference</div>
+
+  <div class="q-block" id="q3">
+    <span class="q-type-badge qt-inference">Inference</span>
+    <p class="q-src">📖 From the fiction text</p>
+    <p class="q-text">3. How do we know Adam was nervous when Dr Patel asked him to present the forecast? Use evidence from the text.</p>
+    <div class="open-ta">
+      <textarea id="ta-q3" placeholder="Write your answer here…"></textarea>
+      <button class="reveal-btn" onclick="revealAns(&#39;q3&#39;)">See model answer</button>
+      <div class="model-ans" id="ma-q3">The text says Adam's "mouth went dry" — this physical reaction shows he was nervous or scared. The word "but" before "he walked to the green screen" also suggests he overcame his nerves to do it anyway, which tells us he was hesitant at first.</div>
+    </div>
+  </div>
+
+  <div class="q-block" id="q4">
+    <span class="q-type-badge qt-inference">Inference</span>
+    <p class="q-src">📖 From the fiction text</p>
+    <p class="q-text">4. Why do you think Adam thought about "the people in Scotland going about their Tuesday"? What does this tell us about him?</p>
+    <div class="open-ta">
+      <textarea id="ta-q4" placeholder="Write your answer here…"></textarea>
+      <button class="reveal-btn" onclick="revealAns(&#39;q4&#39;)">See model answer</button>
+      <div class="model-ans" id="ma-q4">This suggests Adam is a thoughtful, empathetic person. Seeing the storm on the screen made him think about real people who would be affected — he connected the science to human lives. It shows he understands that weather forecasting is important for people's safety, not just interesting data.</div>
+    </div>
+  </div>
+
+  <!-- NON-FICTION RETRIEVAL -->
+  <div class="section-label" style="margin-top:20px;">Non-Fiction — Section C: Retrieval</div>
+
+  <div class="q-block" id="q5">
+    <span class="q-type-badge qt-nonfiction">Non-Fiction</span>
+    <p class="q-src">🔬 From the non-fiction text</p>
+    <p class="q-text">5. Name TWO ways that weather data is collected on the ground.</p>
+    <div class="open-ta">
+      <textarea id="ta-q5" placeholder="Write your answer here…"></textarea>
+      <button class="reveal-btn" onclick="revealAns(&#39;q5&#39;)">See model answer</button>
+      <div class="model-ans" id="ma-q5">Any two from: (1) weather stations that measure air temperature, wind speed, and precipitation; (2) radar systems that detect where precipitation is falling; (3) balloons carrying sensors released to measure the upper atmosphere.</div>
+    </div>
+  </div>
+
+  <div class="q-block" id="q6">
+    <span class="q-type-badge qt-nonfiction">Non-Fiction</span>
+    <p class="q-src">🔬 From the non-fiction text</p>
+    <p class="q-text">6. According to the non-fiction text, how many calculations does the Met Office computer perform every second?</p>
+    <div class="mc-opts">
+      <button class="mc-opt" onclick="checkMC(this,&#39;q6&#39;,false)">16,000 billion</button>
+      <button class="mc-opt" onclick="checkMC(this,&#39;q6&#39;,true)">16,000 trillion</button>
+      <button class="mc-opt" onclick="checkMC(this,&#39;q6&#39;,false)">16 million</button>
+      <button class="mc-opt" onclick="checkMC(this,&#39;q6&#39;,false)">1,600 billion</button>
+    </div>
+  </div>
+
+  <!-- NON-FICTION INFERENCE -->
+  <div class="section-label" style="margin-top:20px;">Non-Fiction — Section D: Inference &amp; Opinion</div>
+
+  <div class="q-block" id="q7">
+    <span class="q-type-badge qt-inference">Inference</span>
+    <p class="q-src">🔬 From the non-fiction text</p>
+    <p class="q-text">7. The non-fiction text says weather forecasting "saves lives." What evidence does the author give to support this claim?</p>
+    <div class="open-ta">
+      <textarea id="ta-q7" placeholder="Write your answer here…"></textarea>
+      <button class="reveal-btn" onclick="revealAns(&#39;q7&#39;)">See model answer</button>
+      <div class="model-ans" id="ma-q7">The author gives three examples: it helps farmers plan when to plant crops; it allows airlines to plan safe routes; and it gives emergency services time to prepare for dangerous conditions. All three show how forecasting prevents harm to people.</div>
+    </div>
+  </div>
+
+  <!-- VOCABULARY IN CONTEXT -->
+  <div class="section-label" style="margin-top:20px;">Section E: Vocabulary in Context</div>
+
+  <div class="q-block" id="q8">
+    <span class="q-type-badge qt-vocab">Vocabulary</span>
+    <p class="q-src">📖🔬 Both texts</p>
+    <p class="q-text">8. The word "turbulent" is used in both texts. In the fiction, it describes a weather system; in the non-fiction, it describes stormy weather. What does "turbulent" suggest in both cases?</p>
+    <div class="open-ta">
+      <textarea id="ta-q8" placeholder="Write your answer here…"></textarea>
+      <button class="reveal-btn" onclick="revealAns(&#39;q8&#39;)">See model answer</button>
+      <div class="model-ans" id="ma-q8">"Turbulent" suggests something that is wild, rough, and unpredictable — moving in a disturbed way. In both contexts it implies danger or instability. The author uses it to make the weather sound powerful and difficult to control.</div>
+    </div>
+  </div>
+
+  <div class="q-block" id="q9">
+    <span class="q-type-badge qt-vocab">Vocabulary</span>
+    <p class="q-src">📖 From the fiction text</p>
+    <p class="q-text">9. At the end of the fiction story, Adam calls his experience "a phenomenon." Is this the correct use of the word? Explain your answer.</p>
+    <div class="mc-opts">
+      <button class="mc-opt" onclick="checkMC(this,&#39;q9&#39;,true)">Yes — presenting a real weather forecast was a remarkable and extraordinary experience for a ten-year-old.</button>
+      <button class="mc-opt" onclick="checkMC(this,&#39;q9&#39;,false)">No — a phenomenon must be something in nature, like a storm or rainbow.</button>
+      <button class="mc-opt" onclick="checkMC(this,&#39;q9&#39;,false)">No — it was an ordinary event that happens every day.</button>
+      <button class="mc-opt" onclick="checkMC(this,&#39;q9&#39;,false)">Yes — because the weather itself is a phenomenon.</button>
+    </div>
+  </div>
+
+  <!-- COMPARE -->
+  <div class="section-label" style="margin-top:20px;">Section F: Comparing the Two Texts</div>
+
+  <div class="q-block" id="q10">
+    <span class="q-type-badge qt-inference">Inference</span>
+    <p class="q-src">📖🔬 Both texts</p>
+    <p class="q-text">10. Both texts are about weather forecasting, but they are written very differently. Write one way they are similar and one way they are different.</p>
+    <div class="open-ta">
+      <textarea id="ta-q10" placeholder="Write your answer here…"></textarea>
+      <button class="reveal-btn" onclick="revealAns(&#39;q10&#39;)">See model answer</button>
+      <div class="model-ans" id="ma-q10"><b>Similar:</b> Both use the same vocabulary (e.g. meteorologist, isobars, precipitation) and both explain how weather forecasting works. <b>Different:</b> The fiction text tells a story with characters, feelings, and dialogue; the non-fiction text uses facts, statistics, subheadings, and "did you know" boxes to inform the reader. The fiction is written to entertain; the non-fiction is written to explain.</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════════
+     RETELL
+════════════════════════════════════════════════ -->
+<div id="panel-retell" class="panel">
+  <div class="retell-intro">
+    <h3>🌦️ Story Retell Template</h3>
+    <p>Retell the <strong>fiction story</strong> in your own words using the prompts below. Try to use at least <strong>3 vocabulary words</strong> from the story. Remember: use your own words — don't copy sentences from the text!</p>
+  </div>
+
+  <div class="rs">
+    <h4><span class="rs-badge rb-begin">Beginning</span> &nbsp;Setting the scene</h4>
+    <p class="prompt">Who is Adam? Where did he go? Who did he meet? How might he have felt arriving?</p>
+    <textarea id="rt-begin" placeholder="Start with: &#39;This story is about a boy called Adam who…&#39;"></textarea>
+    <div class="word-bank">
+      <span class="chip" onclick="insertWord(&#39;rt-begin&#39;,&#39;meteorologist&#39;)">meteorologist</span>
+      <span class="chip" onclick="insertWord(&#39;rt-begin&#39;,&#39;atmosphere&#39;)">atmosphere</span>
+      <span class="chip" onclick="insertWord(&#39;rt-begin&#39;,&#39;school trip&#39;)">school trip</span>
+      <span class="chip" onclick="insertWord(&#39;rt-begin&#39;,&#39;Dr Patel&#39;)">Dr Patel</span>
+      <span class="chip" onclick="insertWord(&#39;rt-begin&#39;,&#39;excited&#39;)">excited</span>
+    </div>
+  </div>
+
+  <div class="rs">
+    <h4><span class="rs-badge rb-mid">Middle</span> &nbsp;What Adam discovered</h4>
+    <p class="prompt">What did Adam see in the control room? What did Dr Patel explain about the maps and the storm? What new things did he learn?</p>
+    <textarea id="rt-mid" placeholder="Start with: &#39;Inside the control room, Adam saw…&#39;"></textarea>
+    <div class="word-bank">
+      <span class="chip" onclick="insertWord(&#39;rt-mid&#39;,&#39;turbulent&#39;)">turbulent</span>
+      <span class="chip" onclick="insertWord(&#39;rt-mid&#39;,&#39;isobars&#39;)">isobars</span>
+      <span class="chip" onclick="insertWord(&#39;rt-mid&#39;,&#39;precipitation&#39;)">precipitation</span>
+      <span class="chip" onclick="insertWord(&#39;rt-mid&#39;,&#39;forecasting&#39;)">forecasting</span>
+      <span class="chip" onclick="insertWord(&#39;rt-mid&#39;,&#39;low-pressure system&#39;)">low-pressure system</span>
+    </div>
+  </div>
+
+  <div class="rs">
+    <h4><span class="rs-badge rb-end">End</span> &nbsp;The resolution</h4>
+    <p class="prompt">What did Dr Patel ask Adam to do? How did he feel? What happened when he finished? How did the story end?</p>
+    <textarea id="rt-end" placeholder="Start with: &#39;At the end of the visit…&#39;"></textarea>
+    <div class="word-bank">
+      <span class="chip" onclick="insertWord(&#39;rt-end&#39;,&#39;phenomenon&#39;)">phenomenon</span>
+      <span class="chip" onclick="insertWord(&#39;rt-end&#39;,&#39;nervous&#39;)">nervous</span>
+      <span class="chip" onclick="insertWord(&#39;rt-end&#39;,&#39;proud&#39;)">proud</span>
+      <span class="chip" onclick="insertWord(&#39;rt-end&#39;,&#39;green screen&#39;)">green screen</span>
+      <span class="chip" onclick="insertWord(&#39;rt-end&#39;,&#39;applause&#39;)">applause</span>
+    </div>
+  </div>
+
+  <div class="rs">
+    <h4><span class="rs-badge rb-star">⭐ My Opinion</span> &nbsp;Your thoughts</h4>
+    <p class="prompt">Did you enjoy the story? What was the most interesting part? Would you like to visit a weather forecasting centre? Why?</p>
+    <textarea id="rt-opinion" placeholder="Start with: &#39;I think this story is…&#39; or &#39;The most interesting part was…&#39;"></textarea>
+  </div>
+
+  <div class="retell-actions">
+    <button class="btn-green" onclick="printRetell()">🖨️ Print / Save</button>
+    <button class="btn-outline" onclick="clearRetell()">🗑️ Clear All</button>
+  </div>
+
+  <div class="rs" style="margin-top:20px;">
+    <h4>✅ Self-Assessment Checklist</h4>
+    <p class="prompt">Tick each box when you are happy you have done it!</p>
+    <ul class="checklist">
+      <li><input type="checkbox" id="c1"><label for="c1">I wrote about the beginning, middle, and end of the story.</label></li>
+      <li><input type="checkbox" id="c2"><label for="c2">I used my own words instead of copying from the text.</label></li>
+      <li><input type="checkbox" id="c3"><label for="c3">I used at least 3 vocabulary words from the story.</label></li>
+      <li><input type="checkbox" id="c4"><label for="c4">I explained how Adam felt at different points in the story.</label></li>
+      <li><input type="checkbox" id="c5"><label for="c5">I used time connectives (first, then, next, finally, afterwards).</label></li>
+      <li><input type="checkbox" id="c6"><label for="c6">I shared my own opinion about the story.</label></li>
+    </ul>
+  </div>
+</div>
+
+<script>
+// ── Tabs ──────────────────────────────────────
+function showTab(id, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ── MC Questions ──────────────────────────────
+const mcScores = {};
+function checkMC(btn, qId, isCorrect) {
+  const card = document.getElementById(qId);
+  const allBtns = card.querySelectorAll('.mc-opt');
+  allBtns.forEach(b => b.disabled = true);
+  if (isCorrect) {
+    btn.classList.add('correct');
+    btn.textContent = '✓ ' + btn.textContent;
+    mcScores[qId] = 1;
+  } else {
+    btn.classList.add('wrong');
+    btn.textContent = '✗ ' + btn.textContent;
+    mcScores[qId] = 0;
+    allBtns.forEach(b => {
+      if (b.onclick && b.onclick.toString().includes('true')) b.classList.add('correct');
+    });
+  }
+  updateScore();
+}
+function updateScore() {
+  const total = Object.keys(mcScores).length;
+  const correct = Object.values(mcScores).filter(v => v === 1).length;
+  document.getElementById('score-circle').textContent = correct + '/' + total;
+  document.getElementById('score-text').textContent =
+    total === 0 ? 'Answer some questions to see your score!' :
+    correct === total ? '🌟 Perfect on multiple choice! Well done!' :
+    correct >= total * 0.6 ? '👍 Good effort — check the ones you missed.' :
+    'Keep going — re-read the texts and try again!';
+}
+function revealAns(qId) {
+  document.getElementById('ma-' + qId).style.display = 'block';
+}
+
+// ── Vocab Quiz ────────────────────────────────
+const vqData = [
+  { q: 'Which word means "a scientist who studies and predicts the weather"?', opts: ['phenomenon','meteorologist','isobar','turbulent'], ans: 'meteorologist' },
+  { q: 'What is "precipitation"?', opts: ['A type of cloud','The air around the Earth','Water falling from clouds (rain, snow, sleet, hail)','Lines on a weather map'], ans: 'Water falling from clouds (rain, snow, sleet, hail)' },
+  { q: 'What are "isobars"?', opts: ['Weather satellites','Lines on a weather map connecting places with the same air pressure','Instruments that measure wind speed','Types of clouds'], ans: 'Lines on a weather map connecting places with the same air pressure' },
+  { q: '"Turbulent" best describes something that is…', opts: ['Calm and peaceful','Slow and steady','Moving in a rough, disturbed, unpredictable way','Very cold and frozen'], ans: 'Moving in a rough, disturbed, unpredictable way' },
+  { q: 'A "phenomenon" is best described as…', opts: ['A type of storm','A remarkable or extraordinary event or thing that can be observed','A weather prediction','The layers of air around the Earth'], ans: 'A remarkable or extraordinary event or thing that can be observed' },
+];
+let vqStarted = false, vqScores = {};
+function startVocabQuiz() {
+  if (vqStarted) return;
+  vqStarted = true;
+  const box = document.getElementById('vocab-quiz');
+  const container = document.getElementById('vq-container');
+  box.style.display = 'block';
+  container.innerHTML = '';
+  vqData.forEach((item, i) => {
+    const div = document.createElement('div');
+    div.className = 'vq-q';
+    div.id = 'vq-' + i;
+    div.innerHTML = `<p>${i+1}. ${item.q}</p><div class="vq-opts">${
+      item.opts.map(o => `<button class="vq-opt" onclick="checkVQ(this,${i},'${o.replace(/'/g,"\\'")}','${item.ans.replace(/'/g,"\\'")}')"> ${o}</button>`).join('')
+    }</div>`;
+    container.appendChild(div);
+  });
+  box.scrollIntoView({behavior:'smooth'});
+}
+function checkVQ(btn, idx, chosen, correct) {
+  const card = document.getElementById('vq-' + idx);
+  card.querySelectorAll('.vq-opt').forEach(b => b.disabled = true);
+  if (chosen === correct) {
+    btn.classList.add('correct'); btn.textContent = '✓ ' + btn.textContent.trim(); vqScores[idx] = 1;
+  } else {
+    btn.classList.add('wrong'); btn.textContent = '✗ ' + btn.textContent.trim(); vqScores[idx] = 0;
+    card.querySelectorAll('.vq-opt').forEach(b => { if (b.textContent.trim() === correct) b.classList.add('correct'); });
+  }
+  if (Object.keys(vqScores).length === vqData.length) {
+    const s = Object.values(vqScores).reduce((a,b)=>a+b,0);
+    document.getElementById('vq-score').style.display = 'block';
+    document.getElementById('vq-score').textContent = `Score: ${s}/${vqData.length} — ${s===vqData.length?'🌟 Excellent!':s>=3?'👍 Great work!':'Keep practising!'}`;
+  }
+}
+
+// ── Retell ────────────────────────────────────
+function insertWord(taId, word) {
+  const ta = document.getElementById(taId);
+  const s = ta.selectionStart;
+  ta.value = ta.value.slice(0,s) + word + ' ' + ta.value.slice(s);
+  ta.focus(); ta.selectionStart = ta.selectionEnd = s + word.length + 1;
+}
+function clearRetell() {
+  ['rt-begin','rt-mid','rt-end','rt-opinion'].forEach(id => document.getElementById(id).value = '');
+  document.querySelectorAll('.checklist input').forEach(c => c.checked = false);
+}
+function printRetell() {
+  const b = document.getElementById('rt-begin').value || '(not filled in)';
+  const m = document.getElementById('rt-mid').value || '(not filled in)';
+  const e = document.getElementById('rt-end').value || '(not filled in)';
+  const o = document.getElementById('rt-opinion').value || '(not filled in)';
+  const win = window.open('','_blank');
+  win.document.write(`<html><head><title>My Story Retell — Adam and the Storm Chasers</title>
+  <style>body{font-family:Arial,sans-serif;max-width:700px;margin:40px auto;padding:0 20px;line-height:1.7;color:#1e293b;}
+  h1{color:#0369a1;}h2{color:#dc2626;margin-top:24px;font-size:1rem;}p{white-space:pre-wrap;background:#f9f9f9;padding:14px;border-radius:6px;margin-top:6px;}
+  .footer{margin-top:40px;font-size:0.8rem;color:#888;}</style></head><body>
+  <h1>My Story Retell</h1><em>Adam and the Storm Chasers</em>
+  <h2>Beginning</h2><p>${b}</p><h2>Middle</h2><p>${m}</p>
+  <h2>End</h2><p>${e}</p><h2>My Opinion ⭐</h2><p>${o}</p>
+  <div class="footer">Created with the Weather Activity Pack · ${new Date().toLocaleDateString('en-GB')}</div>
+  </body></html>`);
+  win.document.close(); win.print();
+}
+</script>
+
+
+</body></html>
