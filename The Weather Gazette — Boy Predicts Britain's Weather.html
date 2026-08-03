@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<!-- saved from url=(0246)file:///Users/margueritegaynor/Library/Application%20Support/Claude/local-agent-mode-sessions/2edd45a5-bf79-40bd-8dab-fc9d31465c1a/949456c0-caeb-4a8c-963b-b983d46eb394/local_0d8a88a1-fe7e-45df-abc2-8822ef0382ad/outputs/adam_weather_newspaper.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Weather Gazette — Boy Predicts Britain's Weather</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #c8bfa8; font-family: 'Source Serif 4', Georgia, serif; color: #1a1208; min-height: 100vh; padding: 20px; }
+  .page { max-width: 900px; margin: 0 auto; background: #fdf8ee; box-shadow: 4px 4px 30px rgba(0,0,0,0.35); border: 1px solid #c8b98a; position: relative; }
+  .page::before { content:''; position:absolute; inset:0; background-image: radial-gradient(ellipse at 20% 10%, rgba(180,150,90,0.06) 0%, transparent 60%); pointer-events:none; z-index:0; }
+
+  /* MASTHEAD */
+  .masthead { border-bottom: 4px double #1a1208; padding: 18px 24px 12px; text-align: center; }
+  .masthead-top { display:flex; justify-content:space-between; align-items:center; font-size:0.68rem; letter-spacing:1px; text-transform:uppercase; color:#4a3a1a; margin-bottom:6px; flex-wrap:wrap; gap:4px; }
+  .paper-name { font-family:'UnifrakturMaguntia',cursive; font-size:clamp(2rem,7vw,3.8rem); line-height:1; letter-spacing:2px; }
+  .tagline { font-style:italic; font-size:0.73rem; color:#5a4a2a; margin-top:4px; }
+  .edition-bar { display:flex; justify-content:space-between; border-top:1px solid #1a1208; border-bottom:1px solid #1a1208; margin-top:8px; padding:3px 0; font-size:0.63rem; letter-spacing:0.8px; text-transform:uppercase; color:#3a2a0a; }
+
+  /* WEATHER STRIP */
+  .weather-strip { display:flex; justify-content:space-around; border-bottom:2px solid #1a1208; padding:6px 20px; background:#f5eedc; font-size:0.7rem; flex-wrap:wrap; gap:4px; }
+  .w-city { text-align:center; }
+  .w-city strong { display:block; font-size:0.75rem; }
+  .w-icon { font-size:1.1rem; }
+
+  /* CONTENT */
+  .content { padding: 20px 24px 28px; position:relative; z-index:1; }
+  .headline { text-align:center; border-bottom:2px solid #1a1208; padding-bottom:12px; margin-bottom:12px; }
+  .kicker { font-size:0.68rem; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:#8b1a1a; margin-bottom:5px; }
+  .headline h1 { font-family:'Playfair Display',serif; font-size:clamp(1.5rem,5vw,2.5rem); font-weight:900; line-height:1.1; }
+  .subheadline { font-family:'Playfair Display',serif; font-size:clamp(0.85rem,2.5vw,1.1rem); font-style:italic; color:#3a2a0a; margin-top:7px; line-height:1.4; }
+  .byline { margin-top:9px; font-size:0.7rem; letter-spacing:1px; text-transform:uppercase; color:#5a4a2a; }
+  .byline strong { color:#1a1208; }
+
+  /* COLUMNS */
+  .columns { display:grid; grid-template-columns:1fr 1fr 1fr; gap:0; border-top:1px solid #9a8a6a; }
+  .col { padding:14px 13px; border-right:1px solid #c8b98a; font-size:0.87rem; line-height:1.75; text-align:justify; }
+  .col:last-child { border-right:none; }
+  .col p { margin-bottom:9px; }
+  .col p:first-child::first-letter { font-family:'Playfair Display',serif; font-size:3.1rem; font-weight:900; float:left; line-height:0.75; margin:4px 6px 0 0; color:#1a1208; }
+
+  /* PULL QUOTE */
+  .pull-quote { border-top:3px solid #1a1208; border-bottom:3px solid #1a1208; padding:9px 14px; margin:12px 0; text-align:center; }
+  .pull-quote p { font-family:'Playfair Display',serif; font-size:0.98rem; font-style:italic; line-height:1.5; margin:0 !important; }
+  .pull-quote p::first-letter { font-size:inherit; font-weight:inherit; float:none; line-height:inherit; margin:0; }
+
+  /* VOCAB inline */
+  .vw { border-bottom:2px dotted #8b1a1a; cursor:pointer; font-style:italic; color:#5a0a0a; position:relative; }
+  .vw-tip { display:none; position:absolute; bottom:calc(100% + 6px); left:50%; transform:translateX(-50%); background:#1a1208; color:#fdf8ee; font-size:0.72rem; font-style:normal; padding:6px 10px; border-radius:4px; width:200px; text-align:center; z-index:20; line-height:1.4; }
+  .vw-tip::after { content:''; position:absolute; top:100%; left:50%; transform:translateX(-50%); border:5px solid transparent; border-top-color:#1a1208; }
+  .vw:hover .vw-tip, .vw:focus .vw-tip { display:block; }
+
+  /* IMAGE */
+  .img-block { background:#e8dfc8; border:1px solid #c8b98a; text-align:center; position:relative; overflow:hidden; }
+  .img-block svg { display:block; width:100%; }
+  .img-caption { font-size:0.67rem; font-style:italic; color:#5a4a2a; padding:4px 9px 7px; border-top:1px solid #c8b98a; text-align:left; background:#f0e8d4; }
+
+  /* SIDEBAR */
+  .sidebar-box { background:#f0e8d4; border:2px solid #1a1208; padding:11px 13px; margin:0 0 13px 0; font-size:0.77rem; line-height:1.6; }
+  .sidebar-box h4 { font-family:'Playfair Display',serif; font-size:0.83rem; font-weight:700; text-transform:uppercase; letter-spacing:1px; border-bottom:1px solid #1a1208; padding-bottom:4px; margin-bottom:7px; }
+  .sidebar-box ul { padding-left:15px; }
+  .sidebar-box ul li { margin-bottom:3px; }
+
+  /* FOOTER */
+  .footer-strip { border-top:4px double #1a1208; padding:7px 24px; display:flex; justify-content:space-between; font-size:0.63rem; letter-spacing:0.8px; text-transform:uppercase; color:#5a4a2a; flex-wrap:wrap; gap:4px; }
+  .vocab-hint { text-align:center; font-size:0.68rem; font-style:italic; color:#8b6a2a; padding:5px; border-bottom:1px solid #c8b98a; }
+  .print-btn { display:block; margin:14px auto 0; background:#1a1208; color:#fdf8ee; border:none; padding:10px 26px; font-family:'Source Serif 4',serif; font-size:0.83rem; letter-spacing:1px; text-transform:uppercase; cursor:pointer; }
+  .print-btn:hover { background:#3a2a0a; }
+
+  @media (max-width:600px) {
+    .columns { grid-template-columns:1fr; }
+    .col { border-right:none; border-bottom:1px solid #c8b98a; }
+    .col:last-child { border-bottom:none; }
+    body { padding:8px; }
+    .content { padding:12px 12px 18px; }
+  }
+  @media print {
+    body { background:white; padding:0; }
+    .page { box-shadow:none; border:none; }
+    .print-btn, .vocab-hint { display:none; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- MASTHEAD -->
+  <div class="masthead">
+    <div class="masthead-top">
+      <span>Est. 2024 &nbsp;·&nbsp; London, England</span>
+      <span>Price: Free to read!</span>
+      <span>Young Readers' Edition</span>
+    </div>
+    <div class="paper-name">The Weather Gazette</div>
+    <div class="tagline">"All the news from above the clouds — and below them"</div>
+    <div class="edition-bar">
+      <span>Vol. 2 &nbsp;·&nbsp; No. 17</span>
+      <span>Thursday, 30th July 2026</span>
+      <span>National Edition</span>
+    </div>
+  </div>
+
+  <!-- WEATHER STRIP -->
+  <div class="weather-strip">
+    <div class="w-city"><span class="w-icon">☀️</span><strong>London</strong>22°C · Sunny</div>
+    <div class="w-city"><span class="w-icon">🌧️</span><strong>Manchester</strong>14°C · Rain</div>
+    <div class="w-city"><span class="w-icon">⛈️</span><strong>Edinburgh</strong>11°C · Storms</div>
+    <div class="w-city"><span class="w-icon">🌤️</span><strong>Cardiff</strong>18°C · Cloudy</div>
+    <div class="w-city"><span class="w-icon">🌬️</span><strong>Belfast</strong>13°C · Windy</div>
+  </div>
+
+  <div class="vocab-hint">💡 Hover over <span style="border-bottom:2px dotted #8b1a1a;font-style:italic;color:#5a0a0a;">underlined words</span> to see their meanings</div>
+
+  <!-- CONTENT -->
+  <div class="content">
+    <div class="headline">
+      <div class="kicker">Exclusive &nbsp;·&nbsp; Science &amp; Education</div>
+      <h1>BOY, 10, PREDICTS<br>BRITAIN'S WEATHER</h1>
+      <div class="subheadline">Adam steps in front of the green screen at the National Forecasting Centre —<br>and delivers a flawless forecast for the whole United Kingdom</div>
+      <div class="byline">By <strong>Our Science Correspondent</strong> &nbsp;·&nbsp; Thursday, 30th July 2026</div>
+    </div>
+
+    <!-- THREE COLUMNS -->
+    <div class="columns">
+
+      <!-- COL 1 -->
+      <div class="col">
+        <p>A ten-year-old schoolboy from London has done what few adults ever get the chance to do: stand in front of a professional green screen at the National Weather Forecasting Centre and deliver a live forecast for the entire United Kingdom.</p>
+
+        <p>Adam — whose surname is being withheld — was visiting the centre in Reading as part of a school trip when senior <span class="vw" tabindex="0">meteorologist<span class="vw-tip">Meteorologist — a scientist who studies and predicts the weather</span></span> Dr Anita Patel invited him to present the day's <span class="vw" tabindex="0">forecasting<span class="vw-tip">Forecasting — predicting future events using data and patterns</span></span>.</p>
+
+        <p>"He read every line clearly and confidently," Dr Patel told <em>The Weather Gazette</em>. "He pointed to the right places on the map, named the pressure systems correctly, and didn't hesitate once. Frankly, he was better than some of our interns."</p>
+
+        <p>Adam's class had spent the morning exploring the centre's vast control room — a space lined wall-to-wall with screens showing satellite images of the Earth's <span class="vw" tabindex="0">atmosphere<span class="vw-tip">Atmosphere — the layers of air and gas surrounding the Earth</span></span> from orbit.</p>
+
+        <p>It was here that Adam first came face to face with a <span class="vw" tabindex="0">turbulent<span class="vw-tip">Turbulent — moving in an irregular, disturbed, unpredictable way</span></span> low-pressure system swirling over the North Atlantic — a mass of cloud large enough to cover the entirety of Scotland.</p>
+      </div>
+
+      <!-- COL 2 -->
+      <div class="col">
+
+        <div class="img-block">
+          <svg viewBox="0 0 280 170" xmlns="http://www.w3.org/2000/svg">
+            <rect width="280" height="170" fill="#e8dfc8"></rect>
+            <!-- green screen background -->
+            <rect x="20" y="20" width="240" height="120" rx="6" fill="#2d8a4e"></rect>
+            <!-- weather map on screen -->
+            <ellipse cx="140" cy="80" rx="100" ry="55" fill="#4a9fd4" opacity="0.7"></ellipse>
+            <!-- landmass UK shape simplified -->
+            <ellipse cx="130" cy="65" rx="22" ry="35" fill="#c8d89a" opacity="0.9"></ellipse>
+            <ellipse cx="118" cy="95" rx="14" ry="18" fill="#b8c88a" opacity="0.9"></ellipse>
+            <!-- isobar lines -->
+            <ellipse cx="140" cy="80" rx="60" ry="38" fill="none" stroke="white" stroke-width="1" opacity="0.5" stroke-dasharray="3,3"></ellipse>
+            <ellipse cx="140" cy="80" rx="80" ry="50" fill="none" stroke="white" stroke-width="1" opacity="0.4" stroke-dasharray="3,3"></ellipse>
+            <!-- storm swirl -->
+            <path d="M 95 50 Q 110 35 130 45 Q 150 55 145 72 Q 140 89 125 85 Q 110 81 108 68 Q 106 55 115 52" fill="none" stroke="white" stroke-width="2" opacity="0.7"></path>
+            <!-- rain cloud -->
+            <ellipse cx="100" cy="42" rx="18" ry="10" fill="white" opacity="0.8"></ellipse>
+            <ellipse cx="115" cy="38" rx="14" ry="9" fill="white" opacity="0.8"></ellipse>
+            <!-- Adam figure -->
+            <circle cx="210" cy="72" r="11" fill="#f5cba7"></circle>
+            <rect x="201" y="83" width="18" height="22" rx="4" fill="#1a3a8a"></rect>
+            <circle cx="210" cy="69" r="6" fill="#3a2010"></circle>
+            <!-- smile -->
+            <path d="M207 74 Q210 78 213 74" stroke="#3a2010" stroke-width="1.2" fill="none" stroke-linecap="round"></path>
+            <!-- pointing arm -->
+            <line x1="201" y1="90" x2="180" y2="78" stroke="#f5cba7" stroke-width="3" stroke-linecap="round"></line>
+            <!-- speech pointer dot -->
+            <circle cx="178" cy="77" r="3" fill="#dc241f"></circle>
+            <!-- screen frame -->
+            <rect x="20" y="20" width="240" height="120" rx="6" fill="none" stroke="#8b7355" stroke-width="3"></rect>
+            <!-- camera on tripod -->
+            <rect x="248" y="55" width="18" height="12" rx="2" fill="#3a3020"></rect>
+            <circle cx="252" cy="61" r="3" fill="#1a1a1a"></circle>
+            <line x1="257" y1="67" x2="257" y2="120" stroke="#3a3020" stroke-width="2"></line>
+            <line x1="248" y1="118" x2="266" y2="118" stroke="#3a3020" stroke-width="2"></line>
+            <!-- floor -->
+            <rect x="0" y="148" width="280" height="22" fill="#c8b490"></rect>
+          </svg>
+          <div class="img-caption">Illustration: Adam presents the UK weather forecast in front of the green screen at the National Forecasting Centre, Reading.</div>
+        </div>
+
+        <div class="pull-quote">
+          <p>"He was better than some of our interns," said Dr Patel. "He didn't hesitate once."</p>
+        </div>
+
+        <p>The highlight of the trip — for Adam at least — was a radar room where <span class="vw" tabindex="0">precipitation<span class="vw-tip">Precipitation — water falling from clouds: rain, snow, sleet or hail</span></span> levels across the country are tracked in real time. A vivid yellow and orange blob on the screen indicated heavy rainfall moving slowly towards London.</p>
+      </div>
+
+      <!-- COL 3 -->
+      <div class="col">
+
+        <div class="sidebar-box">
+          <h4>☁️ What Are Isobars?</h4>
+          <p><span class="vw" tabindex="0">Isobars<span class="vw-tip">Isobars — lines on a weather map connecting places with the same air pressure</span></span> are curved lines drawn on weather maps that connect places sharing the same air pressure. When isobars are packed closely together, expect stormy, turbulent weather. When they are spread apart, conditions are likely to be calm and settled.</p>
+        </div>
+
+        <p>Adam described the experience to our reporter as "completely unlike anything I expected." He said that seeing the swirling storm system on the screen — a living, moving mass of cloud and energy — made him think about all the ordinary people going about their lives who had no idea what was coming.</p>
+
+        <p>"That's the whole point," Dr Patel explained. "We exist so that people <em>do</em> know what's coming. A warning issued twenty-four hours early can save lives."</p>
+
+        <p>The Met Office supercomputer — one of the most powerful in the world — performs trillions of calculations every second to model the entire Earth's <span class="vw" tabindex="0">atmosphere<span class="vw-tip">Atmosphere — the layers of air and gas surrounding the Earth</span></span> and predict how weather patterns will evolve.</p>
+
+        <div class="sidebar-box" style="margin-top:13px;">
+          <h4>⚡ Fast Facts</h4>
+          <ul>
+            <li>The UK has over <strong>200</strong> automated weather stations</li>
+            <li>Weather balloons are released <strong>twice daily</strong> worldwide</li>
+            <li>Modern 5-day forecasts are as accurate as 1-day forecasts were in the 1980s</li>
+            <li>The Met Office computer does <strong>16,000 trillion</strong> calculations per second</li>
+          </ul>
+        </div>
+
+        <p>For Adam, the visit ended with what he called — choosing his words with care — "a bit of a <span class="vw" tabindex="0">phenomenon<span class="vw-tip">Phenomenon — a remarkable or extraordinary event or thing that can be observed</span></span>." His classmate Priya, who watched from the control room, was rather more direct: <em>"He was absolutely brilliant. I was so jealous."</em></p>
+
+        <p style="font-size:0.78rem;font-style:italic;color:#5a4a2a;margin-top:8px;">Adam's school has since been invited back for a full day's work experience at the centre next term. Dr Patel says she hopes he will consider a career in meteorology. Adam, however, says he is still deciding between weather forecasting and driving trains.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-strip">
+    <span>The Weather Gazette &nbsp;·&nbsp; Young Readers' Edition</span>
+    <span>Page 1</span>
+    <span>© 2026 &nbsp;·&nbsp; London, England</span>
+  </div>
+</div>
+
+<button class="print-btn" onclick="window.print()">🖨️ Print this Article</button>
+
+
+
+</body></html>
