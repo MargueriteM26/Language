@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<!-- saved from url=(0238)file:///Users/margueritegaynor/Library/Application%20Support/Claude/local-agent-mode-sessions/2edd45a5-bf79-40bd-8dab-fc9d31465c1a/949456c0-caeb-4a8c-963b-b983d46eb394/local_0d8a88a1-fe7e-45df-abc2-8822ef0382ad/outputs/adam_newspaper.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Underground Times — Adam's Big Journey</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #d6c9a8;
+    font-family: 'Source Serif 4', Georgia, serif;
+    color: #1a1208;
+    min-height: 100vh;
+    padding: 20px;
+  }
+
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #fdf8ee;
+    box-shadow: 4px 4px 30px rgba(0,0,0,0.35), -2px -2px 10px rgba(0,0,0,0.1);
+    border: 1px solid #c8b98a;
+    position: relative;
+  }
+
+  /* aged paper texture effect */
+  .page::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(ellipse at 20% 10%, rgba(180,150,90,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 90%, rgba(140,110,60,0.08) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead {
+    border-bottom: 4px double #1a1208;
+    padding: 18px 24px 12px;
+    text-align: center;
+    position: relative;
+  }
+  .masthead-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #4a3a1a;
+    margin-bottom: 6px;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .paper-name {
+    font-family: 'UnifrakturMaguntia', cursive;
+    font-size: clamp(2.2rem, 7vw, 4rem);
+    line-height: 1;
+    letter-spacing: 2px;
+    color: #1a1208;
+  }
+  .tagline {
+    font-style: italic;
+    font-size: 0.75rem;
+    color: #5a4a2a;
+    margin-top: 4px;
+    letter-spacing: 0.5px;
+  }
+  .edition-bar {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #1a1208;
+    border-bottom: 1px solid #1a1208;
+    margin-top: 8px;
+    padding: 3px 0;
+    font-size: 0.65rem;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: #3a2a0a;
+  }
+
+  /* ── MAIN CONTENT ── */
+  .content {
+    padding: 20px 24px 28px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── HEADLINE ── */
+  .headline {
+    text-align: center;
+    border-bottom: 2px solid #1a1208;
+    padding-bottom: 14px;
+    margin-bottom: 14px;
+  }
+  .kicker {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #8b1a1a;
+    margin-bottom: 6px;
+  }
+  .headline h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 5vw, 2.6rem);
+    font-weight: 900;
+    line-height: 1.1;
+    color: #1a1208;
+  }
+  .subheadline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(0.9rem, 2.5vw, 1.15rem);
+    font-style: italic;
+    font-weight: 400;
+    color: #3a2a0a;
+    margin-top: 8px;
+    line-height: 1.4;
+  }
+  .byline {
+    margin-top: 10px;
+    font-size: 0.72rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #5a4a2a;
+  }
+  .byline strong { color: #1a1208; }
+
+  /* ── COLUMNS ── */
+  .columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+    border-top: 1px solid #9a8a6a;
+  }
+
+  .col {
+    padding: 16px 14px;
+    border-right: 1px solid #c8b98a;
+    font-size: 0.875rem;
+    line-height: 1.75;
+    text-align: justify;
+  }
+  .col:last-child { border-right: none; }
+
+  .col p { margin-bottom: 10px; }
+  .col p:first-child::first-letter {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.2rem;
+    font-weight: 900;
+    float: left;
+    line-height: 0.75;
+    margin: 4px 6px 0 0;
+    color: #1a1208;
+  }
+
+  /* ── PULL QUOTE ── */
+  .pull-quote {
+    border-top: 3px solid #1a1208;
+    border-bottom: 3px solid #1a1208;
+    padding: 10px 16px;
+    margin: 14px 0;
+    text-align: center;
+  }
+  .pull-quote p {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-style: italic;
+    line-height: 1.5;
+    color: #1a1208;
+    margin: 0 !important;
+  }
+  .pull-quote p::first-letter { /* override drop cap */ font-size: inherit; font-weight: inherit; float: none; line-height: inherit; margin: 0; color: inherit; }
+
+  /* ── IMAGE PLACEHOLDER ── */
+  .img-block {
+    background: #e8dfc8;
+    border: 1px solid #c8b98a;
+    margin: 14px 0;
+    padding: 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .img-block svg { display: block; width: 100%; }
+  .img-caption {
+    font-size: 0.68rem;
+    font-style: italic;
+    color: #5a4a2a;
+    padding: 5px 10px 8px;
+    border-top: 1px solid #c8b98a;
+    text-align: left;
+    background: #f0e8d4;
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar-box {
+    background: #f0e8d4;
+    border: 2px solid #1a1208;
+    padding: 12px 14px;
+    margin: 0 0 14px 0;
+    font-size: 0.78rem;
+    line-height: 1.6;
+  }
+  .sidebar-box h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid #1a1208;
+    padding-bottom: 5px;
+    margin-bottom: 8px;
+  }
+  .sidebar-box ul { padding-left: 16px; }
+  .sidebar-box ul li { margin-bottom: 4px; }
+
+  /* ── VOCAB HIGHLIGHT ── */
+  .vw {
+    border-bottom: 2px dotted #8b1a1a;
+    cursor: pointer;
+    position: relative;
+    font-style: italic;
+    color: #5a0a0a;
+  }
+  .vw-tip {
+    display: none;
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1a1208;
+    color: #fdf8ee;
+    font-size: 0.72rem;
+    font-style: normal;
+    font-weight: 400;
+    padding: 6px 10px;
+    border-radius: 4px;
+    width: 200px;
+    text-align: center;
+    z-index: 20;
+    line-height: 1.4;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+  }
+  .vw-tip::after {
+    content: '';
+    position: absolute;
+    top: 100%; left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: #1a1208;
+  }
+  .vw:hover .vw-tip, .vw:focus .vw-tip { display: block; }
+
+  /* ── FOOTER ── */
+  .footer-strip {
+    border-top: 4px double #1a1208;
+    padding: 8px 24px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.65rem;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: #5a4a2a;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  /* print button */
+  .print-btn {
+    display: block;
+    margin: 16px auto 0;
+    background: #1a1208;
+    color: #fdf8ee;
+    border: none;
+    padding: 10px 28px;
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .print-btn:hover { background: #3a2a0a; }
+
+  /* vocab hint bar */
+  .vocab-hint {
+    text-align: center;
+    font-size: 0.7rem;
+    font-style: italic;
+    color: #8b6a2a;
+    padding: 6px;
+    border-bottom: 1px solid #c8b98a;
+  }
+
+  @media (max-width: 600px) {
+    .columns { grid-template-columns: 1fr; }
+    .col { border-right: none; border-bottom: 1px solid #c8b98a; }
+    .col:last-child { border-bottom: none; }
+    body { padding: 10px; }
+    .content { padding: 14px 14px 20px; }
+    .masthead { padding: 14px 14px 10px; }
+  }
+
+  @media print {
+    body { background: white; padding: 0; }
+    .page { box-shadow: none; border: none; }
+    .print-btn { display: none; }
+    .vocab-hint { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- MASTHEAD -->
+  <div class="masthead">
+    <div class="masthead-top">
+      <span>Est. 2024 &nbsp;·&nbsp; London, England</span>
+      <span>Price: Free to read!</span>
+      <span>Young Readers' Edition</span>
+    </div>
+    <div class="paper-name">The Underground Times</div>
+    <div class="tagline">"All the news from below the streets of London"</div>
+    <div class="edition-bar">
+      <span>Vol. 1 &nbsp;·&nbsp; No. 42</span>
+      <span>Wednesday, 30th July 2026</span>
+      <span>London Edition</span>
+    </div>
+  </div>
+
+  <div class="vocab-hint">💡 Hover over <span style="border-bottom:2px dotted #8b1a1a;font-style:italic;color:#5a0a0a;">underlined words</span> to see their meanings</div>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <!-- HEADLINE -->
+    <div class="headline">
+      <div class="kicker">Local News &nbsp;·&nbsp; Transport</div>
+      <h1>BOY, 10, CONQUERS<br>THE CAPITAL'S FAMOUS TUBE</h1>
+      <div class="subheadline">Young Adam completes his first solo journey on the London Underground,<br>changing trains twice — and never once looking back</div>
+      <div class="byline">By <strong>Our Junior Correspondent</strong> &nbsp;·&nbsp; Published Wednesday, 30th July 2026</div>
+    </div>
+
+    <!-- THREE COLUMNS -->
+    <div class="columns">
+
+      <!-- COLUMN 1 -->
+      <div class="col">
+        <p>A ten-year-old boy from north London has become the talk of his household after successfully completing his first solo journey on the London Underground — one of the busiest and most complex rail networks in the world.</p>
+
+        <p>Adam, whose surname we have withheld to protect his privacy, set off from the <span class="vw">bustling<span class="vw-tip">Bustling — full of busy, noisy activity</span></span> concourse of King's Cross station armed with nothing more than an Oyster card, his mother's instructions, and a quiet determination to prove himself.</p>
+
+        <p>"He pressed his card on the reader and just walked straight through," his proud mother told this reporter. "I watched from the barrier and my heart was in my mouth — but he looked so calm."</p>
+
+        <p>Adam's route took him westbound on the Piccadilly line, before a change at Green Park and a final two stops on the Jubilee line to Westminster. On paper, it sounds straightforward. In practice, the Underground's <span class="vw">labyrinthine<span class="vw-tip">Labyrinthine — extremely complicated, like a maze (labyrinth)</span></span> corridors and dozens of exits can baffle even experienced adult travellers.</p>
+      </div>
+
+      <!-- COLUMN 2 -->
+      <div class="col">
+
+        <div class="img-block">
+          <!-- Inline SVG illustration of a tube train -->
+          <svg viewBox="0 0 280 160" xmlns="http://www.w3.org/2000/svg">
+            <rect width="280" height="160" fill="#e8dfc8"></rect>
+            <!-- tunnel background -->
+            <ellipse cx="140" cy="130" rx="130" ry="50" fill="#c8b490" opacity="0.4"></ellipse>
+            <!-- track -->
+            <rect x="10" y="128" width="260" height="5" rx="2" fill="#6a5a3a"></rect>
+            <rect x="10" y="140" width="260" height="5" rx="2" fill="#6a5a3a"></rect>
+            <!-- sleepers -->
+            <rect x="20" y="126" width="8" height="22" rx="1" fill="#5a4a2a"></rect>
+            <rect x="50" y="126" width="8" height="22" rx="1" fill="#5a4a2a"></rect>
+            <rect x="80" y="126" width="8" height="22" rx="1" fill="#5a4a2a"></rect>
+            <rect x="110" y="126" width="8" height="22" rx="1" fill="#5a4a2a"></rect>
+            <rect x="140" y="126" width="8" height="22" rx="1" fill="#5a4a2a"></rect>
+            <rect x="170" y="126" width="8" height="22" rx="1" fill="#5a4a2a"></rect>
+            <rect x="200" y="126" width="8" height="22" rx="1" fill="#5a4a2a"></rect>
+            <rect x="230" y="126" width="8" height="22" rx="1" fill="#5a4a2a"></rect>
+            <!-- tube carriage body -->
+            <rect x="30" y="72" width="220" height="58" rx="12" fill="#dc241f"></rect>
+            <!-- carriage top dome -->
+            <rect x="35" y="65" width="210" height="20" rx="10" fill="#c01c18"></rect>
+            <!-- windows -->
+            <rect x="50" y="80" width="36" height="26" rx="5" fill="#aad4f5" opacity="0.9"></rect>
+            <rect x="100" y="80" width="36" height="26" rx="5" fill="#aad4f5" opacity="0.9"></rect>
+            <rect x="152" y="80" width="36" height="26" rx="5" fill="#aad4f5" opacity="0.9"></rect>
+            <rect x="202" y="80" width="36" height="26" rx="5" fill="#aad4f5" opacity="0.9"></rect>
+            <!-- Adam in window -->
+            <circle cx="120" cy="88" r="7" fill="#f5cba7"></circle>
+            <rect x="113" y="95" width="14" height="10" rx="3" fill="#1a3a8a"></rect>
+            <circle cx="120" cy="86" r="4" fill="#3a2010"></circle>
+            <!-- smile -->
+            <path d="M116 91 Q120 95 124 91" stroke="#3a2010" stroke-width="1.5" fill="none" stroke-linecap="round"></path>
+            <!-- wheels -->
+            <circle cx="75" cy="130" r="16" fill="#3a3020" stroke="#6a5a3a" stroke-width="2"></circle>
+            <circle cx="75" cy="130" r="7" fill="#6a5a3a"></circle>
+            <circle cx="205" cy="130" r="16" fill="#3a3020" stroke="#6a5a3a" stroke-width="2"></circle>
+            <circle cx="205" cy="130" r="7" fill="#6a5a3a"></circle>
+            <!-- roundel on carriage -->
+            <circle cx="245" cy="72" r="10" fill="#dc241f"></circle>
+            <rect x="234" y="69" width="22" height="6" fill="#003688"></rect>
+            <text x="245" y="74" text-anchor="middle" font-size="5" fill="white" font-family="Arial" font-weight="bold">LU</text>
+            <!-- speed lines -->
+            <line x1="12" y1="90" x2="28" y2="90" stroke="#dc241f" stroke-width="2" opacity="0.5"></line>
+            <line x1="8" y1="98" x2="27" y2="98" stroke="#dc241f" stroke-width="1.5" opacity="0.4"></line>
+            <line x1="14" y1="106" x2="28" y2="106" stroke="#dc241f" stroke-width="1" opacity="0.3"></line>
+            <!-- platform edge hint -->
+            <rect x="0" y="148" width="280" height="12" fill="#b0a080"></rect>
+          </svg>
+          <div class="img-caption">Illustration: Adam spotted through a carriage window, grinning as the train pulls into Westminster station.</div>
+        </div>
+
+        <p>It was at Green Park that Adam faced his greatest test. Stepping off the Piccadilly line train, he found himself confronted by a long, dimly-lit corridor branching in several directions. For a brief moment, he felt a wave of <span class="vw">apprehension<span class="vw-tip">Apprehension — a feeling of worry or slight fear about what might happen</span></span>.</p>
+
+        <div class="pull-quote">
+          <p>"When in doubt, look up," his mother always told him. He looked up. A bold blue sign read: <em>Jubilee Line →</em></p>
+        </div>
+
+        <p>That simple act of pausing and reading the signs made all the difference. Within moments, Adam had <span class="vw">navigated<span class="vw-tip">Navigated — planned and found the right way to travel through a place</span></span> his way to the correct platform and was waiting calmly for his next train.</p>
+
+      </div>
+
+      <!-- COLUMN 3 -->
+      <div class="col">
+
+        <div class="sidebar-box">
+          <h4>📍 Adam's Route at a Glance</h4>
+          <ul>
+            <li><strong>Start:</strong> King's Cross St. Pancras</li>
+            <li><strong>Line:</strong> Piccadilly (westbound)</li>
+            <li><strong>Change at:</strong> Green Park</li>
+            <li><strong>Line:</strong> Jubilee (southbound)</li>
+            <li><strong>Stops:</strong> Waterloo, then Westminster</li>
+            <li><strong>Destination:</strong> Westminster ⭐</li>
+            <li><strong>Total journey:</strong> approx. 25 minutes</li>
+          </ul>
+        </div>
+
+        <p>The Jubilee line train that carried Adam to his final destination arrived at the platform with a great, <span class="vw">cavernous<span class="vw-tip">Cavernous — very large and hollow inside, like a huge cave (cavern)</span></span> whoosh of warm air — the kind that only the deep tunnels of London's Underground can produce. Adam stepped on board, found a seat, and kept a careful eye on the route map above the doors.</p>
+
+        <p>Two stops later, he was there. Westminster. He walked calmly onto the platform, took the escalator up to street level, and emerged blinking into the grey London sky — the pale stone towers of the Palace of Westminster rising ahead of him like something from a history book.</p>
+
+        <p>His message to his mother was brief but triumphant: <em>"I made it! Tube = brilliant."</em></p>
+
+        <p>By the time he slipped his earphones in and set off towards the River Thames, Adam had already earned the unspoken title that every true Londoner secretly covets: that of the seasoned <span class="vw">commuter<span class="vw-tip">Commuter — someone who travels regularly, usually to school or work</span></span>.</p>
+
+        <div class="sidebar-box" style="margin-top:14px;">
+          <h4>💬 Did You Know?</h4>
+          <p>The London Underground — known as <em>the Tube</em> — is the oldest underground railway in the world. It opened in <strong>1863</strong> and today carries over <strong>1 billion passengers</strong> a year on 11 different lines.</p>
+        </div>
+
+        <p style="font-size:0.78rem;font-style:italic;color:#5a4a2a;margin-top:10px;">We asked Adam what advice he would give to other young travellers thinking of riding the Tube. His answer was short and very much his mother's: <em>"Look up. The signs are always there."</em></p>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer-strip">
+    <span>The Underground Times &nbsp;·&nbsp; Young Readers' Edition</span>
+    <span>Page 1</span>
+    <span>© 2026 &nbsp;·&nbsp; London, England</span>
+  </div>
+
+</div>
+
+<button class="print-btn" onclick="window.print()">🖨️ Print this Article</button>
+
+
+
+</body></html>
