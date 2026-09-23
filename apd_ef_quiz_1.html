@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What Kind of Brain Organiser Are You?</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FDF6EE;
+    --surface: #FFFFFF;
+    --ink: #1A1A2E;
+    --ink-mid: #4A4A6A;
+    --ink-light: #9A9AB0;
+    --border: #E8E0D8;
+    --accent: #7C4DBC;
+    --accent-light: #EDE6F8;
+    --green: #2E8B57;
+    --green-light: #E6F5EE;
+    --orange: #D4660A;
+    --orange-light: #FEF0E4;
+    --rose: #C0394E;
+    --rose-light: #FDEAEC;
+    --teal: #2A7F7F;
+    --teal-light: #E4F3F3;
+    --radius: 16px;
+    --radius-sm: 10px;
+    --font: 'Nunito', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  /* ── Hero header ── */
+  .hero {
+    background: var(--accent);
+    padding: 36px 24px 32px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "🐴🌾🌿🐴🌾🌿";
+    position: absolute;
+    top: 10px; left: 0; right: 0;
+    font-size: 28px;
+    opacity: 0.18;
+    letter-spacing: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .hero-tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.22);
+    color: rgba(255,255,255,0.9);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+  }
+  .hero h1 {
+    font-size: 28px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 10px;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .hero p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.78);
+    max-width: 400px;
+    margin: 0 auto 20px;
+    line-height: 1.55;
+    font-weight: 600;
+  }
+
+  /* ── Progress bar ── */
+  .progress-wrap {
+    background: rgba(255,255,255,0.25);
+    height: 8px;
+    border-radius: 4px;
+    max-width: 340px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: #fff;
+    border-radius: 4px;
+    transition: width 0.4s ease;
+  }
+  .progress-label {
+    font-size: 12px;
+    color: rgba(255,255,255,0.7);
+    margin-top: 6px;
+    font-weight: 700;
+  }
+
+  /* ── Main ── */
+  .main {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 24px 18px 60px;
+  }
+
+  /* ── Question card ── */
+  .q-card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 26px 24px 20px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    margin-bottom: 16px;
+  }
+  .q-number {
+    font-size: 11.5px;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .q-text {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--ink);
+    line-height: 1.3;
+    margin-bottom: 4px;
+  }
+  .q-scenario {
+    font-size: 13.5px;
+    color: var(--ink-light);
+    font-weight: 600;
+    margin-bottom: 18px;
+    line-height: 1.5;
+  }
+
+  /* ── Answer options ── */
+  .options { display: flex; flex-direction: column; gap: 10px; }
+  .option {
+    border: 2.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    transition: border-color 0.15s, background 0.15s, transform 0.1s;
+    background: var(--surface);
+    font-family: var(--font);
+    text-align: left;
+    width: 100%;
+  }
+  .option:hover {
+    border-color: var(--accent);
+    background: var(--accent-light);
+    transform: translateY(-1px);
+  }
+  .option.selected {
+    border-color: var(--accent);
+    background: var(--accent-light);
+  }
+  .option-emoji {
+    font-size: 22px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .option-text {
+    font-size: 14.5px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.45;
+  }
+  .option-sub {
+    font-size: 12.5px;
+    color: var(--ink-light);
+    font-weight: 600;
+    margin-top: 2px;
+  }
+
+  /* ── Next button ── */
+  .btn-next {
+    width: 100%;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 15px;
+    font-family: var(--font);
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: opacity 0.15s, transform 0.1s;
+    display: none;
+  }
+  .btn-next.visible { display: block; }
+  .btn-next:hover { opacity: 0.9; transform: translateY(-1px); }
+  .btn-next:active { transform: scale(0.98); }
+
+  /* ── Result screen ── */
+  #result-screen { display: none; }
+  #result-screen.active { display: block; }
+  #quiz-screen.hidden { display: none; }
+
+  .result-banner {
+    border-radius: var(--radius);
+    padding: 30px 24px 24px;
+    text-align: center;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  }
+  .result-banner .result-emoji {
+    font-size: 52px;
+    display: block;
+    margin-bottom: 10px;
+  }
+  .result-type {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    opacity: 0.7;
+  }
+  .result-title {
+    font-size: 26px;
+    font-weight: 900;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .result-desc {
+    font-size: 15px;
+    line-height: 1.6;
+    font-weight: 600;
+    opacity: 0.85;
+    max-width: 440px;
+    margin: 0 auto;
+  }
+
+  .result-section {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 22px 22px;
+    margin-bottom: 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  .result-section h3 {
+    font-size: 14px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .trait-item {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14.5px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.45;
+  }
+  .trait-item:last-child { border-bottom: none; }
+  .trait-icon { font-size: 18px; flex-shrink: 0; }
+  .trait-body { font-weight: 600; color: var(--ink-mid); }
+  .trait-body strong { color: var(--ink); font-weight: 800; }
+
+  .tip-item {
+    padding: 10px 14px;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    line-height: 1.45;
+  }
+  .tip-item:last-child { margin-bottom: 0; }
+
+  .btn-restart {
+    width: 100%;
+    background: none;
+    border: 2.5px solid var(--accent);
+    color: var(--accent);
+    border-radius: var(--radius-sm);
+    padding: 13px;
+    font-family: var(--font);
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+  .btn-restart:hover { background: var(--accent); color: #fff; }
+
+  /* ── Intro screen ── */
+  #intro-screen { }
+  #intro-screen.hidden { display: none; }
+  .intro-card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  .intro-big-emoji { font-size: 52px; margin-bottom: 12px; display: block; }
+  .intro-card h2 { font-size: 20px; font-weight: 900; margin-bottom: 10px; }
+  .intro-card p { font-size: 14.5px; color: var(--ink-mid); font-weight: 600; line-height: 1.6; }
+  .btn-start {
+    width: 100%;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 16px;
+    font-family: var(--font);
+    font-size: 17px;
+    font-weight: 900;
+    cursor: pointer;
+    letter-spacing: 0.02em;
+    transition: opacity 0.15s, transform 0.1s;
+  }
+  .btn-start:hover { opacity: 0.9; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-tag">🧠 Brain Style Quiz</div>
+  <h1>What Kind of Brain Organiser Are You?</h1>
+  <p>Find out how your brain likes to plan, start things, and get stuff done.</p>
+  <div id="hero-progress" style="display:none;">
+    <div class="progress-wrap">
+      <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+    </div>
+    <div class="progress-label" id="progress-label">Question 1 of 8</div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- INTRO -->
+  <div id="intro-screen">
+    <div class="intro-card">
+      <span class="intro-big-emoji">🌾</span>
+      <h2>No right answers. Promise.</h2>
+      <p>This quiz is just about figuring out how <em>your</em> brain works best — not about being good or bad at anything. Pick the answer that sounds most like you, even if it's not perfect.</p>
+    </div>
+    <button class="btn-start" onclick="startQuiz()">Let's go! →</button>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="quiz-screen" class="hidden">
+    <div class="q-card">
+      <div class="q-number" id="q-number">Question 1 of 8</div>
+      <div class="q-text" id="q-text"></div>
+      <div class="q-scenario" id="q-scenario"></div>
+      <div class="options" id="options-list"></div>
+    </div>
+    <button class="btn-next" id="btn-next" onclick="nextQuestion()">Next →</button>
+  </div>
+
+  <!-- RESULT -->
+  <div id="result-screen">
+    <div class="result-banner" id="result-banner">
+      <span class="result-emoji" id="result-emoji"></span>
+      <div class="result-type" id="result-type"></div>
+      <div class="result-title" id="result-title"></div>
+      <div class="result-desc" id="result-desc"></div>
+    </div>
+    <div class="result-section">
+      <h3>Your brain strengths 💪</h3>
+      <div id="result-strengths"></div>
+    </div>
+    <div class="result-section">
+      <h3>Things that sometimes feel tricky 🌀</h3>
+      <div id="result-challenges"></div>
+    </div>
+    <div class="result-section">
+      <h3>Strategies that tend to work for you 🛠️</h3>
+      <div id="result-tips"></div>
+    </div>
+    <button class="btn-restart" onclick="restartQuiz()">↩ Try again</button>
+  </div>
+
+</div>
+
+<script>
+const questions = [
+  {
+    text: "You need to muck out the stable before lunch. How do you get started?",
+    scenario: "It's a job you do regularly, but today your brain just feels… stuck.",
+    options: [
+      { emoji: "📋", text: "Make a quick list of the steps first — headcollar on, tie up, wheelbarrow out…", sub: "Having a plan helps me actually begin", value: "A" },
+      { emoji: "🚜", text: "Just get in there and start doing it", sub: "Once I'm moving, I'm moving", value: "B" },
+      { emoji: "⏰", text: "Set an alarm so I don't forget to start, then do it bit by bit", sub: "I need a reminder or I'll drift off", value: "C" },
+      { emoji: "🎵", text: "Put something on to listen to — then it's easier to get going", sub: "Music or a podcast gets me moving", value: "D" }
+    ]
+  },
+  {
+    text: "Someone gives you three things to do at the same time. What happens in your head?",
+    scenario: "Your parent says: 'Can you check the water troughs, bring the hay in, and call the vet to rearrange that appointment?'",
+    options: [
+      { emoji: "😬", text: "I immediately forget one of them. It just… disappears.", sub: "Working memory is not my friend", value: "C" },
+      { emoji: "✍️", text: "I write them down straight away so I don't lose them", sub: "If it's not written, it's gone", value: "A" },
+      { emoji: "🔄", text: "I repeat them back to check I've got them right", sub: "I have to hear myself say it", value: "B" },
+      { emoji: "🧩", text: "I do the first one, then come back and ask what the others were", sub: "One thing at a time — otherwise I'm lost", value: "D" }
+    ]
+  },
+  {
+    text: "Your favourite horse is acting off today. You need to figure out what's wrong. What do you do first?",
+    scenario: "Something's not right — you can tell. But you're not sure what to check.",
+    options: [
+      { emoji: "📱", text: "Look it up — check symptoms online or message someone who knows", sub: "I need information before I act", value: "A" },
+      { emoji: "🐴", text: "Start checking the obvious stuff — feet, temperature, water intake", sub: "I go through a routine in my head", value: "B" },
+      { emoji: "😰", text: "Panic a bit first, then ask for help", sub: "When things feel uncertain, I freeze up", value: "C" },
+      { emoji: "👀", text: "Just watch for a while and notice what's different", sub: "I'm good at spotting things if I take my time", value: "D" }
+    ]
+  },
+  {
+    text: "You've got a big topic to learn about for home ed. How do you prefer to take notes?",
+    scenario: "Today's topic: crop rotation in arable farming. You actually find it interesting — but getting it into your head is another story.",
+    options: [
+      { emoji: "🖊️", text: "Write bullet points by hand — keep it short", sub: "Lists work better for me than long sentences", value: "A" },
+      { emoji: "💻", text: "Type while I'm reading or listening — easier to keep up", sub: "Typing is faster so I lose less", value: "B" },
+      { emoji: "🖼️", text: "Draw it out — a diagram or map of how things connect", sub: "I think better visually", value: "D" },
+      { emoji: "🗣️", text: "Say it out loud to someone or record myself explaining it", sub: "I understand it better when I talk through it", value: "C" }
+    ]
+  },
+  {
+    text: "It's field-checking time. You're supposed to do it every morning, but you keep forgetting. What would actually help?",
+    scenario: "It's not that you don't want to — it just slips out of your mind.",
+    options: [
+      { emoji: "📅", text: "Put it on a routine chart on the wall — see it every day", sub: "Visible reminders work best for me", value: "A" },
+      { emoji: "📲", text: "Set a phone alarm at the same time every morning", sub: "I need a thing to go off in my ear", value: "C" },
+      { emoji: "🤝", text: "Get someone to remind me until it becomes a habit", sub: "A nudge from another person helps", value: "B" },
+      { emoji: "🔗", text: "Attach it to something I already do — like right after breakfast", sub: "Linking tasks together helps them stick", value: "D" }
+    ]
+  },
+  {
+    text: "Someone's explaining how a piece of farm machinery works. You're trying to follow along. What's hardest?",
+    scenario: "They're going through it fairly quickly. You want to understand, but your brain isn't quite keeping up.",
+    options: [
+      { emoji: "⚡", text: "The speed — I need them to slow down", sub: "When it's fast, I lose the thread", value: "C" },
+      { emoji: "🔊", text: "The noise around us — it's hard to focus on their voice", sub: "Background sound makes listening really hard", value: "C" },
+      { emoji: "📦", text: "There's too much at once — I can hold about two things before it falls out", sub: "My brain runs out of space quickly", value: "A" },
+      { emoji: "🔁", text: "I get it while they're talking but then forget straight after", sub: "It goes in and then sort of fades", value: "B" }
+    ]
+  },
+  {
+    text: "You've got a free afternoon. You want to do something useful. What actually happens?",
+    scenario: "You have loads of ideas. The afternoon is yours. But somehow nothing gets started.",
+    options: [
+      { emoji: "🌀", text: "I get a bit overwhelmed by the options and end up doing nothing", sub: "Too many choices is kind of paralysing", value: "C" },
+      { emoji: "📝", text: "I write down a short list and just pick the first thing on it", sub: "Structure saves me from spiralling", value: "A" },
+      { emoji: "🎲", text: "I do whatever catches my attention first", sub: "I'm good at getting going — just not always at the right thing", value: "B" },
+      { emoji: "⏳", text: "I need a bit of quiet to figure out what I actually want to do", sub: "I need to settle before I can decide", value: "D" }
+    ]
+  },
+  {
+    text: "After a long session learning or working, how do you know your brain is full?",
+    scenario: "Everyone has a limit. What does yours feel like?",
+    options: [
+      { emoji: "💭", text: "I start reading the same sentence over and over and it doesn't go in", sub: "Words stop making sense", value: "B" },
+      { emoji: "😤", text: "I get snappy or frustrated and don't really know why", sub: "It comes out as irritation before I notice it", value: "C" },
+      { emoji: "🌊", text: "Everything feels a bit fuzzy and distant", sub: "Like the world gets slightly blurry", value: "D" },
+      { emoji: "🛑", text: "I just suddenly can't start the next thing, even if I want to", sub: "My brain just stops initiating", value: "A" }
+    ]
+  },
+  {
+    text: "Someone changes the plan last minute. You were all set to go — now it's different. How do you feel?",
+    scenario: "You were about to head out to check the winter barley. Now you've been told to help with something else entirely.",
+    options: [
+      { emoji: "😤", text: "Honestly, a bit thrown — I need a minute to reset", sub: "Unexpected changes are harder for me than they look", value: "C" },
+      { emoji: "🤷", text: "Fine, as long as someone tells me what the new plan actually is", sub: "I just need to know what I'm doing", value: "A" },
+      { emoji: "🚀", text: "Okay — I switch pretty easily if it's something practical", sub: "Change doesn't bother me much", value: "B" },
+      { emoji: "🌀", text: "I can switch, but I'll lose my thread on the original thing entirely", sub: "Once I'm off it, it's gone", value: "D" }
+    ]
+  },
+  {
+    text: "You've got a home ed assignment due. You know what it's on. But you haven't started. Why not?",
+    scenario: "It's not that you don't care. Something's just in the way.",
+    options: [
+      { emoji: "🌀", text: "I don't know where to begin — the whole thing feels like one big blob", sub: "I can't find the entry point", value: "A" },
+      { emoji: "😬", text: "I keep meaning to and then other things happen", sub: "Time gets away from me", value: "B" },
+      { emoji: "🧊", text: "Thinking about it makes me feel a bit anxious so I avoid it", sub: "Avoidance is easier in the moment", value: "C" },
+      { emoji: "💭", text: "I'm thinking about it a lot — in my head — but haven't put anything on paper yet", sub: "The planning happens internally, the doing doesn't follow", value: "D" }
+    ]
+  },
+  {
+    text: "You're watching someone demonstrate how to do something new with the horses. What helps you most?",
+    scenario: "A new way of doing a ground exercise — they're showing you, but you want to actually learn it.",
+    options: [
+      { emoji: "🔁", text: "Watching them do it more than once before I try", sub: "Repetition helps it click", value: "C" },
+      { emoji: "✍️", text: "Someone writing down the key steps so I can check back", sub: "I need a reference I can look at", value: "A" },
+      { emoji: "🐴", text: "Just having a go — I learn faster by doing it myself", sub: "My hands understand before my brain does", value: "B" },
+      { emoji: "🗣️", text: "Talking through what I'm doing as I try it out loud", sub: "Saying it helps me process it", value: "D" }
+    ]
+  }
+];
+
+const results = {
+  A: {
+    emoji: "📋",
+    type: "Your brain style",
+    title: "The List-Maker",
+    desc: "Your brain is brilliant at spotting what needs to happen — it just works best when that plan is written down somewhere you can see it. Lists are your superpower, not a crutch.",
+    color: "#2E8B57",
+    bg: "#E6F5EE",
+    strengths: [
+      { icon: "🌱", text: "<strong>Organised thinker</strong> — you naturally break things into steps, like planning which fields need checking in which order." },
+      { icon: "📋", text: "<strong>Great at routines</strong> — once a system is in place, you stick to it reliably." },
+      { icon: "🔍", text: "<strong>Detail-aware</strong> — you notice when something's missing from the checklist." }
+    ],
+    challenges: [
+      { icon: "🚪", text: "<strong>Starting without a plan</strong> can feel impossible, even when the task is simple." },
+      { icon: "📦", text: "<strong>Too many verbal instructions</strong> at once — your brain needs to see it, not just hear it." },
+      { icon: "🌀", text: "<strong>Switching between tasks</strong> unexpectedly can throw you off your rhythm." }
+    ],
+    tips: [
+      { icon: "📝", text: "Write a 3-item to-do list at the start of each morning — no more, no less.", bg: "#E6F5EE", color: "#2E8B57" },
+      { icon: "📌", text: "Put your routines on a visible chart (by the stable door, on your desk) so they become automatic.", bg: "#E6F5EE", color: "#2E8B57" },
+      { icon: "✂️", text: "Break any big task into chunks first. Even 'tidy room' becomes: floor, desk, shelves — three separate things.", bg: "#E6F5EE", color: "#2E8B57" }
+    ]
+  },
+  B: {
+    emoji: "🚜",
+    type: "Your brain style",
+    title: "The Just-Get-Going",
+    desc: "Your brain is good at jumping into action — you learn by doing, not by planning. The challenge is keeping track of what came before, and what's still left.",
+    color: "#D4660A",
+    bg: "#FEF0E4",
+    strengths: [
+      { icon: "⚡", text: "<strong>Fast starter</strong> — when something grabs you, you're already doing it before most people have thought about it." },
+      { icon: "🐴", text: "<strong>Practical and hands-on</strong> — you figure things out by trying them, which often works brilliantly." },
+      { icon: "🔄", text: "<strong>Adaptable</strong> — if something changes mid-task, you adjust without too much fuss." }
+    ],
+    challenges: [
+      { icon: "🔁", text: "<strong>Remembering things after they've gone in</strong> — information often fades faster than you'd like." },
+      { icon: "🎯", text: "<strong>Finishing things</strong> — getting started is easy; making yourself finish is harder." },
+      { icon: "📦", text: "<strong>Holding verbal instructions</strong> while you're also trying to do something." }
+    ],
+    tips: [
+      { icon: "🗣️", text: "Repeat instructions back out loud straight away — it locks them in better than just listening.", bg: "#FEF0E4", color: "#D4660A" },
+      { icon: "✅", text: "Use a checklist to know when something is actually done — your brain doesn't always send that signal clearly.", bg: "#FEF0E4", color: "#D4660A" },
+      { icon: "⏱️", text: "Set a 'done time' before you start — e.g. 'I'll work on this until 3pm, then stop.' It helps with finishing.", bg: "#FEF0E4", color: "#D4660A" }
+    ]
+  },
+  C: {
+    emoji: "🎵",
+    type: "Your brain style",
+    title: "The Slow-Burner",
+    desc: "Your brain needs the right conditions to do its best work — and that's completely fine. You think deeply and notice things others miss, but you need a bit more space and support to get going.",
+    color: "#C0394E",
+    bg: "#FDEAEC",
+    strengths: [
+      { icon: "🐴", text: "<strong>Observant</strong> — you pick up on small changes in animals and surroundings that others walk straight past." },
+      { icon: "💭", text: "<strong>Deep thinker</strong> — when you get into something, you really get into it." },
+      { icon: "🤝", text: "<strong>Good at asking for help</strong> when you need it — that's genuinely a skill." }
+    ],
+    challenges: [
+      { icon: "🔊", text: "<strong>Noise and fast speech</strong> — your brain works harder to decode what it hears, especially when there's other sound." },
+      { icon: "🧊", text: "<strong>Freezing under pressure</strong> — when things come at you quickly, your brain can go blank." },
+      { icon: "📦", text: "<strong>Holding multiple bits of information</strong> at the same time drains your working memory fast." }
+    ],
+    tips: [
+      { icon: "✍️", text: "Ask for things to be written down rather than just said — it removes the 'hold it in memory while processing' step.", bg: "#FDEAEC", color: "#C0394E" },
+      { icon: "🔕", text: "Find your quiet spot for tricky tasks — background noise uses up brain-space you need for thinking.", bg: "#FDEAEC", color: "#C0394E" },
+      { icon: "🐢", text: "Give yourself permission to go slow. One thing, fully done, is better than three things half-started.", bg: "#FDEAEC", color: "#C0394E" }
+    ]
+  },
+  D: {
+    emoji: "🌿",
+    type: "Your brain style",
+    title: "The Pattern-Spotter",
+    desc: "Your brain connects things in interesting ways — you think visually, notice how ideas link up, and often understand things better through pictures or doing than through lists or instructions.",
+    color: "#2A7F7F",
+    bg: "#E4F3F3",
+    strengths: [
+      { icon: "🧩", text: "<strong>Big-picture thinking</strong> — you naturally see how different things connect, like how soil health links to crop yield links to which fields to rest." },
+      { icon: "🌿", text: "<strong>Visual and practical</strong> — you understand things better when you can see or do them." },
+      { icon: "⏳", text: "<strong>Patient observer</strong> — you notice things developing over time that others overlook." }
+    ],
+    challenges: [
+      { icon: "📄", text: "<strong>Dense written instructions</strong> — paragraphs of text are hard to extract meaning from quickly." },
+      { icon: "🚦", text: "<strong>Deciding what to do first</strong> — when everything feels equally possible, starting is hard." },
+      { icon: "🌀", text: "<strong>Switching between tasks</strong> — you get absorbed, and interruptions break your flow." }
+    ],
+    tips: [
+      { icon: "🖊️", text: "Draw it out — even a rough diagram of how a topic works helps more than reading it twice.", bg: "#E4F3F3", color: "#2A7F7F" },
+      { icon: "🔗", text: "Link new tasks to things you already do — 'after I feed the horses, I'll do X' means you won't forget.", bg: "#E4F3F3", color: "#2A7F7F" },
+      { icon: "📍", text: "Choose one thing to focus on first. Write it on a sticky note so when your brain drifts, you can find your way back.", bg: "#E4F3F3", color: "#2A7F7F" }
+    ]
+  }
+};
+
+let currentQ = 0;
+let scores = { A: 0, B: 0, C: 0, D: 0 };
+let answered = false;
+
+function startQuiz() {
+  document.getElementById('intro-screen').classList.add('hidden');
+  document.getElementById('quiz-screen').classList.remove('hidden');
+  document.getElementById('hero-progress').style.display = 'block';
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = questions[currentQ];
+  document.getElementById('q-number').textContent = `Question ${currentQ + 1} of ${questions.length}`;
+  document.getElementById('q-text').textContent = q.text;
+  document.getElementById('q-scenario').textContent = q.scenario;
+  document.getElementById('progress-label').textContent = `Question ${currentQ + 1} of ${questions.length}`;
+  document.getElementById('progress-fill').style.width = `${(currentQ / questions.length) * 100}%`;
+
+  const list = document.getElementById('options-list');
+  list.innerHTML = '';
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'option';
+    btn.innerHTML = `<span class="option-emoji">${opt.emoji}</span>
+      <div><div class="option-text">${opt.text}</div><div class="option-sub">${opt.sub}</div></div>`;
+    btn.onclick = () => selectOption(opt.value, btn);
+    list.appendChild(btn);
+  });
+
+  document.getElementById('btn-next').classList.remove('visible');
+  answered = false;
+}
+
+function selectOption(value, el) {
+  if (answered) return;
+  document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  scores[value]++;
+  answered = true;
+  document.getElementById('btn-next').classList.add('visible');
+}
+
+function nextQuestion() {
+  currentQ++;
+  if (currentQ >= questions.length) {
+    showResult();
+  } else {
+    renderQuestion();
+  }
+}
+
+function showResult() {
+  document.getElementById('quiz-screen').classList.add('hidden');
+  document.getElementById('hero-progress').style.display = 'none';
+
+  const top = Object.entries(scores).sort((a,b) => b[1] - a[1])[0][0];
+  const r = results[top];
+
+  const banner = document.getElementById('result-banner');
+  banner.style.background = r.bg;
+  banner.style.color = r.color;
+  document.getElementById('result-emoji').textContent = r.emoji;
+  document.getElementById('result-type').textContent = r.type;
+  document.getElementById('result-title').textContent = r.title;
+  document.getElementById('result-desc').textContent = r.desc;
+
+  document.getElementById('result-strengths').innerHTML =
+    r.strengths.map(s => `<div class="trait-item"><span class="trait-icon">${s.icon}</span><div class="trait-body">${s.text}</div></div>`).join('');
+
+  document.getElementById('result-challenges').innerHTML =
+    r.challenges.map(c => `<div class="trait-item"><span class="trait-icon">${c.icon}</span><div class="trait-body">${c.text}</div></div>`).join('');
+
+  document.getElementById('result-tips').innerHTML =
+    r.tips.map(t => `<div class="tip-item" style="background:${t.bg};color:${t.color}"><span>${t.icon}</span><span>${t.text}</span></div>`).join('');
+
+  document.getElementById('result-screen').classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function restartQuiz() {
+  currentQ = 0;
+  scores = { A: 0, B: 0, C: 0, D: 0 };
+  answered = false;
+  document.getElementById('result-screen').classList.remove('active');
+  document.getElementById('quiz-screen').classList.remove('hidden');
+  document.getElementById('hero-progress').style.display = 'block';
+  renderQuestion();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
