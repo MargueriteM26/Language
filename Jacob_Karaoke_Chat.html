@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jacob's Karaoke Chat</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;font-family:'Nunito','Segoe UI',Arial,sans-serif;color:#fff;font-weight:700;
+    background:radial-gradient(ellipse at 50% -10%,#7b3fe4 0%,#3a1670 45%,#1a0b33 100%);overflow-x:hidden}
+  .lights{position:fixed;inset:0;pointer-events:none;background:
+    radial-gradient(circle at 15% 0%,rgba(255,90,200,.35),transparent 35%),
+    radial-gradient(circle at 85% 0%,rgba(80,200,255,.35),transparent 35%)}
+  header{text-align:center;padding:16px 10px 4px;position:relative}
+  header h1{margin:0;font-size:2.4rem;font-weight:900;letter-spacing:1px;text-shadow:0 0 18px #ff5ac8,0 0 4px #fff}
+  .rally{display:inline-block;margin-top:6px;background:rgba(255,255,255,.12);border:2px solid #ffd84d;border-radius:30px;padding:4px 18px;font-size:1.2rem}
+  .rally b{color:#ffd84d;font-size:1.5rem}
+  main{max-width:1000px;margin:0 auto;padding:10px 18px 30px;position:relative}
+
+  /* table */
+  .table{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:0;margin:14px 0 18px;height:90px;
+    background:linear-gradient(#1f8f5f,#16734b);border-radius:16px;border:4px solid #fff;box-shadow:0 0 25px rgba(0,0,0,.4)}
+  .table::after{content:'';position:absolute;left:50%;top:-14px;bottom:-14px;width:6px;background:#fff;transform:translateX(-50%);border-radius:3px;box-shadow:0 0 8px #fff}
+  .side{display:flex;align-items:center;justify-content:center;font-size:1.3rem;gap:8px;opacity:.55;transition:.3s}
+  .side.on{opacity:1;text-shadow:0 0 10px #fff}
+  .ball{position:absolute;top:50%;width:34px;height:34px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,#ffb84d);
+    box-shadow:0 0 16px #ffb84d;transform:translate(-50%,-50%);transition:left .9s cubic-bezier(.4,0,.2,1);z-index:2}
+  .ball.hop{animation:hop .9s}
+  @keyframes hop{0%{margin-top:0}50%{margin-top:-60px}100%{margin-top:0}}
+
+  /* stage */
+  .card{background:rgba(255,255,255,.1);border:3px solid rgba(255,255,255,.35);border-radius:26px;padding:20px 24px;backdrop-filter:blur(4px)}
+  .who{font-size:1.05rem;color:#ffd84d;margin-bottom:6px;text-transform:uppercase;letter-spacing:1px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .type{font-size:.95rem;border-radius:20px;padding:3px 12px;letter-spacing:1px}
+  .type.c{background:#ffd3de;color:#a3214a}.type.q{background:#d9e6ff;color:#23479a}
+  .serve{font-size:1.4rem;font-weight:800;margin-top:10px;opacity:.95}
+  .namebox{margin-top:8px;font-size:1rem;opacity:.85}.namebox input{font:inherit;font-weight:800;border:none;border-radius:20px;padding:4px 12px;width:150px;text-align:center}
+  .question{font-size:2rem;font-weight:900;line-height:1.25}
+  .btns{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin:18px 0}
+  .btn{font:inherit;font-size:1.25rem;font-weight:900;border:none;border-radius:40px;padding:14px 26px;cursor:pointer;color:#2a0f50;
+    background:#ffd84d;box-shadow:0 5px 0 #c99a00,0 0 18px rgba(255,216,77,.5)}
+  .btn.pink{background:#ff7ad1;box-shadow:0 5px 0 #c4449a,0 0 18px rgba(255,122,209,.5)}
+  .btn.blue{background:#6fd8ff;box-shadow:0 5px 0 #2f9ac4,0 0 18px rgba(111,216,255,.5)}
+  .btn.ghost{background:transparent;color:#fff;border:3px solid rgba(255,255,255,.6);box-shadow:none;font-size:1.05rem;padding:10px 20px}
+  .btn:active{transform:translateY(4px);box-shadow:none}
+  .ideas{display:none;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:6px}
+  .idea{font:inherit;font-size:1.25rem;font-weight:800;color:#2a0f50;background:#fff;border:none;border-radius:20px;padding:16px;cursor:pointer;
+    display:flex;align-items:center;gap:12px;text-align:left;box-shadow:0 4px 0 rgba(0,0,0,.25)}
+  .idea .em{font-size:2.3rem}
+  .idea:hover{transform:scale(1.03)}
+
+  /* karaoke */
+  .stage{display:grid;grid-template-columns:150px 1fr;gap:20px;align-items:center;margin-top:18px}
+  @media(max-width:700px){.stage{grid-template-columns:1fr}.mic{margin:0 auto}}
+  .mic{width:140px;height:220px;position:relative;cursor:pointer}
+  .mic svg{width:100%;height:100%;filter:drop-shadow(0 0 10px rgba(255,122,209,.6))}
+  .mic.live svg{animation:pulse .5s infinite alternate;filter:drop-shadow(0 0 26px #ff7ad1)}
+  @keyframes pulse{to{transform:scale(1.06) rotate(-4deg)}}
+  .lyric-box{min-height:150px;display:flex;flex-direction:column;justify-content:center}
+  .lyric{font-size:2.2rem;font-weight:900;line-height:1.3;min-height:1.3em}
+  .lyric span{color:rgba(255,255,255,.45);transition:color .2s}
+  .lyric span.lit{color:#ffd84d;text-shadow:0 0 14px #ffd84d}
+  .bars{display:flex;gap:6px;height:46px;align-items:flex-end;margin-top:10px}
+  .bars i{width:12px;background:linear-gradient(#ff7ad1,#6fd8ff);border-radius:6px;height:6px;transition:height .12s}
+  .hint{font-size:1.05rem;opacity:.8;margin-top:6px}
+  .notes{position:fixed;pointer-events:none;font-size:2rem;animation:float 1.6s forwards}
+  @keyframes float{to{transform:translateY(-160px) rotate(20deg);opacity:0}}
+  .finish{text-align:center;padding:30px}
+  .finish h2{font-size:3rem;margin:0;text-shadow:0 0 20px #ffd84d}
+  .finish p{font-size:1.4rem}
+  .progress{display:flex;gap:6px;justify-content:center;margin-top:8px;flex-wrap:wrap}
+  .progress i{width:14px;height:14px;border-radius:50%;background:rgba(255,255,255,.25)}
+  .progress i.d{background:#ffd84d}.progress i.c{background:#ff7ad1;box-shadow:0 0 8px #ff7ad1}
+</style>
+</head>
+<body>
+<div class="lights"></div>
+<header>
+  <h1>🎤 Jacob's Karaoke Chat 🎤</h1>
+  <div class="rally">Chat rally: <b id="rally">0</b></div>
+  <div class="namebox">Friend's name: <input id="fnameIn" placeholder="My friend"></div>
+  <div class="progress" id="progress"></div>
+</header>
+<main>
+  <div class="table" id="table">
+    <div class="side" id="sideM">🙂 <span class="fname">My friend</span></div>
+    <div class="side" id="sideJ">Jacob 🎤</div>
+    <div class="ball" id="ball" style="left:25%"></div>
+  </div>
+
+  <div id="game">
+    <div class="card">
+      <div class="who" id="who"></div>
+      <div class="question" id="question"></div>
+      <div class="btns" id="choiceBtns">
+        <button class="btn pink" onclick="ownAnswer()">🎤 I've got an answer!</button>
+        <button class="btn blue" onclick="showIdeas()">💡 Help me</button>
+      </div>
+      <div class="ideas" id="ideas"></div>
+    </div>
+
+    <div class="stage">
+      <div class="mic" id="mic" onclick="sing()" title="Click to sing">
+        <svg viewBox="0 0 100 160">
+          <defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#ddd"/><stop offset=".5" stop-color="#fff"/><stop offset="1" stop-color="#aaa"/></linearGradient>
+          <linearGradient id="h" x1="0" x2="1"><stop offset="0" stop-color="#c4449a"/><stop offset=".5" stop-color="#ff7ad1"/><stop offset="1" stop-color="#a0307c"/></linearGradient></defs>
+          <circle cx="50" cy="38" r="32" fill="url(#g)" stroke="#888" stroke-width="2"/>
+          <path d="M24 30h52M20 40h60M24 50h52M50 8v60M36 10v56M64 10v56" stroke="#999" stroke-width="1.5" opacity=".6"/>
+          <rect x="30" y="66" width="40" height="12" rx="4" fill="#ffd84d"/>
+          <path d="M34 78h32l-7 76a4 4 0 0 1-4 4h-10a4 4 0 0 1-4-4z" fill="url(#h)"/>
+        </svg>
+      </div>
+      <div class="lyric-box">
+        <div class="lyric" id="lyric"></div>
+        <div class="bars" id="bars"></div>
+        <div class="hint" id="hint"></div>
+      </div>
+    </div>
+
+    <div class="btns">
+      <button class="btn ghost" onclick="back()">⬅ Back</button>
+      <button class="btn" id="nextBtn" onclick="next()" style="display:none">Next ➜</button>
+      <button class="btn ghost" onclick="next()">Skip</button>
+    </div>
+  </div>
+  <div id="finish" class="finish" style="display:none"></div>
+</main>
+
+<script>
+/* Edit the turns here.
+   type 'f'  = My friend asks Jacob a QUESTION. Jacob answers.
+   type 'fc' = My friend makes a COMMENT. Jacob hits it back with a comment or a question.
+   type 'j'  = Jacob's serve: Jacob makes a COMMENT, then asks a QUESTION. */
+const TURNS=[
+ {type:'f',q:"What's your favourite song?",ideas:[["😄","Happy by Pharrell."],["🕺","Can't Stop the Feeling!"],["🎵","I like lots of songs."]]},
+ {type:'j',q:"Your serve! Make a comment, then ask a question.",ideas:[["😄","I like Happy. Do you like it?"],["⭐","Justin Timberlake is cool. Who's your favourite singer?"],["💃","I love dancing. Do you like dancing?"]]},
+ {type:'fc',q:"I like songs with lots of dancing.",ideas:[["🙌","Me too! What's your favourite dance song?"],["🤔","Why do you like dancing?"],["🕺","I like dancing too."]]},
+ {type:'f',q:"Who is your favourite singer?",ideas:[["⭐","Justin Timberlake."],["🎩","Pharrell."],["🤷","I don't have one."]]},
+ {type:'j',q:"Your serve! Make a comment, then ask a question.",ideas:[["🚗","I listen to music in the car. Where do you listen?"],["🔊","I like loud songs. Do you?"],["😊","Happy makes me smile. What song makes you smile?"]]},
+ {type:'fc',q:"I don't really like that song.",ideas:[["🤔","Why not?"],["🎵","Oh! What song do you like?"],["🙂","That's okay. I like it."]]},
+ {type:'f',q:"Where do you listen to music?",ideas:[["🚗","In the car."],["🛏️","In my room."],["📱","On my tablet."]]},
+ {type:'j',q:"Your serve! Make a comment, then ask a question.",ideas:[["🌈","Trolls has good songs. Have you seen Trolls?"],["🥁","I like the drums. Can you play an instrument?"],["🎶","Music makes me happy. How does it make you feel?"]]},
+ {type:'fc',q:"We're learning a new song in music.",ideas:[["❓","What song is it?"],["😮","Cool! Is it hard?"],["🎵","I like music too."]]},
+ {type:'f',q:"What song makes you want to dance?",ideas:[["🕺","Can't Stop the Feeling!"],["😄","Happy!"],["💃","Lots of songs!"]]},
+ {type:'j',q:"Your serve! Make a comment, then ask a question.",ideas:[["🎤","I want to sing on a stage. Would you?"],["🍌","I like the Despicable Me songs. Do you?"],["🎉","I like party songs. What would you play at a party?"]]},
+ {type:'fc',q:"I would rather sing than dance.",ideas:[["🙌","Me too!"],["🤔","Why?"],["💃","I'd rather dance! What about you?"]]},
+ {type:'f',q:"What song would you play at a party?",ideas:[["😄","Happy. Everyone would dance!"],["🕺","Can't Stop the Feeling!"],["🎉","A really loud one!"]]}
+];
+
+let i=0,rally=0,line='',sang=false,done=[];
+function fname(){ const v=(document.getElementById('fnameIn').value||'').trim(); return v||'My friend'; }
+const $=id=>document.getElementById(id);
+$('bars').innerHTML='<i></i>'.repeat(16);
+
+function render(){
+  if(i>=TURNS.length){return finish()}
+  const t=TURNS[i];line='';sang=false;
+  $('ideas').style.display='none';$('choiceBtns').style.display='flex';$('nextBtn').style.display='none';
+  $('lyric').innerHTML='';$('hint').textContent='';
+  const jTurn=t.type==='j', fc=t.type==='fc';
+  const F=fname();
+  $('who').innerHTML = jTurn ? `🎤 Jacob's serve <span class="type c">Comment</span> + <span class="type q">Question</span>`
+    : fc ? `🙂 ${F} says <span class="type c">Comment</span>` : `🙂 ${F} asks <span class="type q">Question</span>`;
+  $('question').textContent=t.q;
+  $('choiceBtns').children[0].textContent=jTurn?"🎤 I've got a comment and a question!":fc?"🎤 I can hit it back!":"🎤 I've got an answer!";
+  ball('J');
+  $('sideM').classList.toggle('on',!jTurn);$('sideJ').classList.toggle('on',true);
+  $('progress').innerHTML=TURNS.map((_,k)=>`<i class="${done[k]?'d':k===i?'c':''}"></i>`).join('');
+}
+function ball(to){const b=$('ball');b.classList.remove('hop');void b.offsetWidth;b.classList.add('hop');b.style.left=to==='J'?'75%':'25%'}
+function showIdeas(){
+  const t=TURNS[i],box=$('ideas');box.innerHTML='';box.style.display='grid';
+  t.ideas.forEach(([e,s])=>{const b=document.createElement('button');b.className='idea';b.innerHTML=`<span class="em">${e}</span><span>${s}</span>`;b.onclick=()=>setLine(s);box.appendChild(b)});
+}
+function setLine(s){
+  line=s;$('lyric').innerHTML=s.split(' ').map(w=>`<span>${w}</span>`).join(' ');
+  $('hint').textContent='👆 Click the microphone and sing it!';
+}
+function ownAnswer(){
+  line='';$('ideas').style.display='none';
+  $('lyric').innerHTML='<span class="lit">🎶 Your own words! 🎶</span>';
+  $('hint').textContent='👆 Click the microphone and say it!';
+}
+function sing(){
+  if(i>=TURNS.length||sang)return;
+  if(!$('lyric').innerHTML){$('hint').textContent="Choose 🎤 or 💡 Help me first.";return}
+  sang=true;const mic=$('mic');mic.classList.add('live');
+  const words=[...$('lyric').querySelectorAll('span')];let k=0;
+  const bars=[...$('bars').children];
+  const bt=setInterval(()=>bars.forEach(b=>b.style.height=(8+Math.random()*38)+'px'),120);
+  const wt=setInterval(()=>{if(k<words.length){words[k].classList.add('lit');k++}},450);
+  const dur=Math.max(2200,words.length*450+700);
+  setTimeout(()=>{clearInterval(bt);clearInterval(wt);words.forEach(w=>w.classList.add('lit'));bars.forEach(b=>b.style.height='6px');mic.classList.remove('live');scored()},dur);
+}
+function scored(){
+  rally++;done[i]=true;$('rally').textContent=rally;chime();notes();
+  const ty=TURNS[i].type, F=fname()==='My friend'?'your friend':fname();
+  ball('M');$('sideM').classList.add('on');
+  $('hint').textContent = ty==='j' ? `🏓 Over to ${F}! Listen to the answer.`
+    : ty==='fc' ? `🏓 Great hit back! Over to ${F}.`
+    : `🏓 Great answer! Can you hit it back? Ask ${F}: "What about you?"`;
+  $('choiceBtns').style.display='none';$('ideas').style.display='none';$('nextBtn').style.display='inline-block';
+}
+function next(){i++;render()}
+function back(){if(i>0){i--;render()}}
+function finish(){
+  $('game').style.display='none';$('finish').style.display='block';
+  $('finish').innerHTML=`<h2>🌟 Encore! 🌟</h2><p>What a chat, Jacob!</p><p>Your chat rally was <b style="color:#ffd84d;font-size:2rem">${rally}</b></p><button class="btn" onclick="restart()">Play again 🎤</button>`;
+  for(let k=0;k<4;k++)setTimeout(notes,k*300);chime();
+}
+function restart(){i=0;rally=0;done=[];$('rally').textContent=0;$('finish').style.display='none';$('game').style.display='block';render()}
+function notes(){
+  const r=$('mic').getBoundingClientRect();
+  ['🎵','🎶','⭐','🎵','✨'].forEach((n,k)=>{const s=document.createElement('div');s.className='notes';s.textContent=n;
+    s.style.left=(r.left+r.width/2+(k-2)*30)+'px';s.style.top=(r.top+20)+'px';s.style.animationDelay=(k*.12)+'s';
+    document.body.appendChild(s);setTimeout(()=>s.remove(),2200)});
+}
+let ac;
+function chime(){
+  try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();
+    [523,659,784,1047].forEach((f,k)=>{const o=ac.createOscillator(),g=ac.createGain();o.type='triangle';o.frequency.value=f;
+      g.gain.setValueAtTime(0,ac.currentTime+k*.1);g.gain.linearRampToValueAtTime(.18,ac.currentTime+k*.1+.02);
+      g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+k*.1+.5);o.connect(g);g.connect(ac.destination);o.start(ac.currentTime+k*.1);o.stop(ac.currentTime+k*.1+.55)})}catch(e){}
+}
+document.getElementById('fnameIn').addEventListener('input',()=>{ document.querySelectorAll('.fname').forEach(e=>e.textContent=fname()); render(); });
+render();
+</script>
+</body>
+</html>
